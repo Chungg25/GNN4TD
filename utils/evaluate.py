@@ -17,13 +17,13 @@ def evaluate(predictions, targets, normal):
         scores['MAE'][f'horizon-{horizon}'] = normal.mae_transform(mean_absolute_error(y_pred, y_true))
         scores['RMSE'][f'horizon-{horizon}'] = normal.rmse_transform(np.sqrt(mean_squared_error(y_pred, y_true)))
         scores['PCC'][f'horizon-{horizon}'] = pcc(y_pred, y_true)
-        scores['MAPE'][f'horizon-{horizon}'] = normal.mape_transform(mean_absolute_percentage_error(y_pred, y_true))
+
     y_true = np.reshape(targets, (n_samples, -1))
     y_pred = np.reshape(predictions, (n_samples, -1))
     scores['rmse'] = normal.rmse_transform(np.sqrt(mean_squared_error(y_true, y_pred)))
     scores['mae'] = normal.mae_transform(mean_absolute_error(y_pred, y_true))
     scores['pcc'] = pcc(y_pred, y_true)
-    scores['mape'] = normal.mape_transform(mean_absolute_percentage_error(y_pred, y_true))
+
     return scores
 
 def pcc(x, y):

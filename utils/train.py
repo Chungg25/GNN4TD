@@ -86,6 +86,7 @@ def train_model(model: nn.Module,
                 running_metrics[phase].pop('rmse')
                 running_metrics[phase].pop('pcc')
                 running_metrics[phase].pop('mae')
+
                 if phase == 'validate':
                     model.eval()
                     if running_loss['validate'] <= best_val_loss or math.isnan(running_loss['validate']):
