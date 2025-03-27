@@ -34,14 +34,14 @@ class MetricNNTrainer(Trainer):
         self.train_batch_seen: int = 0
 
     def train(self, inputs: Tensor, targets: Tensor, phase: str):
-        outputs, graph = self.model(inputs)
-        loss = self.loss(outputs, targets, graph)
+        if self.model_name == 'GMSDR':
+            outputs, graph = self.model(inputs)
+            loss = self.loss(outputs, targets, graph)
         if self.model_name == 'CCRNN':
             if phase == 'train':
                 self.train_batch_seen += 1
             i_targets = targets if phase == 'train' else None
             outputs, graph = self.model(inputs, i_targets, self.train_batch_seen)
             loss = self.loss(outputs, targets, graph)
- 
         return outputs, loss
 
