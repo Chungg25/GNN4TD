@@ -1,5 +1,6 @@
 import h5py
 import numpy as np
+import pandas as pd
 from scipy.spatial.distance import cdist
 from utils import normalization
 from utils.graph import random_walk_matrix,normalized_laplacian
@@ -37,5 +38,10 @@ def preprocessing_for_metric(data_category: list,
         support = random_walk_matrix(support)
     elif normalized_category == 'laplacian':
         support = normalized_laplacian(support)
+    
+    adjacency_path = f"a.csv"
+    df = pd.DataFrame(support)
+    df.to_csv(adjacency_path, index=False)
+    print(f"Ma trận kề đã được lưu vào {adjacency_path}")
 
     return support
