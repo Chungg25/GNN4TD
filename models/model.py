@@ -16,8 +16,6 @@ def create_model(model_name, loss, conf, device,  support=None):
         return model, MetricNNTrainer(model, loss, model_name)
 
 
-
-
 class Trainer:
     def __init__(self, model: nn.Module, loss):
         self.model = model
