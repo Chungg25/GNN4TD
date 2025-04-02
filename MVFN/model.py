@@ -15,16 +15,8 @@ class GCN(nn.Module): # GCN模型，向空域的第一个图卷积
 
     def forward(self, x): # (B, T, N, D)
         x = x.transpose(1,3) # (B, D, N, T)
-        
-        # In ra kích thước của x trước khi thực hiện phép toán
-        print("Kích thước của x trước linear_1:", x.shape)
-        
+
         x = self.linear_1(x)
-        
-        # In ra kích thước của x và self.graph trước khi thực hiện phép toán einsum
-        print("Kích thước của x sau linear_1:", x.shape)
-        print("Kích thước của self.graph:", self.graph.shape)
-        
         x = self.act(torch.einsum('bdnt,nn->bdnt', [x, self.graph])) # (B, D, N, T)
 
         x = self.linear_2(x)
