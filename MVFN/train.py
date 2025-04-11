@@ -25,7 +25,7 @@ parser.add_argument('--parameter', type=str, default='parameter/bike', help='loc
 
 parser.add_argument('--batch_size', type=int, default=64, help='batch size')
 parser.add_argument('--learning_rate', type=float, default=0.001, help='init learning rate')
-parser.add_argument('--epochs', type=int, default=200, help='num of training epochs')
+parser.add_argument('--epochs', type=int, default=1, help='num of training epochs')
 parser.add_argument('--seed', type=int, default=0, help='random seed')
 parser.add_argument('--train_rate', type=float, default=24*7*4, help='train_rate')
 parser.add_argument('--val_rate', type=float, default=24*7*2, help='val_rate')
@@ -170,12 +170,18 @@ def test(test_loader):
     output = torch.cat(out, dim=0).cpu().numpy()
     target = torch.cat(tgt, dim=0).cpu().numpy()
     
-    # Lưu giá trị tgt và out vào file txt
+    # Chuẩn hóa về giá trị gốc
+    mean, std = np.mean(train_data), np.std(train_data)
+    scaler = StandardScaler()
+    output_original = scaler.inverse_transform(mean, std, output)
+    target_original = scaler.inverse_transform(mean, std, target)
+    
+    # Lưu giá trị gốc
     with open('test_output.txt', 'w') as f:
-        f.write("Target values:\n")
-        np.savetxt(f, target.reshape(-1), fmt='%.6f')
-        f.write("\n\nOutput values:\n")
-        np.savetxt(f, output.reshape(-1), fmt='%.6f')
+        f.write("Target values (original):\n")
+        np.savetxt(f, target_original.reshape(-1), fmt='%.6f')
+        f.write("\n\nOutput values (original):\n")
+        np.savetxt(f, output_original.reshape(-1), fmt='%.6f')
         f.write("\n\nShape of target: " + str(target.shape))
         f.write("\nShape of output: " + str(output.shape))
     
