@@ -84,7 +84,7 @@ def main():
         print('Epoch:{}, train_loss:{:.5f}, valid_loss:{:.5f},本轮耗时：{:.2f}s, best_epoch:{}, best_loss:{:.5f}'
               .format(epoch, train_loss, valid_loss, end - start, best_epoch, best_loss))
 
-    output, target = test(test_loader)
+    output, target = test(test_loader, mean, std)
     output = scaler.inverse_transform(mean, std, output)
     target = scaler.inverse_transform(mean, std, target)
 
@@ -152,9 +152,8 @@ def valid(valid_loader, model, criterion):
 
     return valid_loss.avg
 
-def test(test_loader):
+def test(test_loader, mean, std):
     torch.cuda.empty_cache()
-    # Load model đã được train tốt nhất
     model = torch.load(args.parameter)
     model.eval()
     out = []
@@ -171,7 +170,6 @@ def test(test_loader):
     target = torch.cat(tgt, dim=0).cpu().numpy()
     
     # Chuẩn hóa về giá trị gốc
-    mean, std = np.mean(train_data), np.std(train_data)
     scaler = StandardScaler()
     output_original = scaler.inverse_transform(mean, std, output)
     target_original = scaler.inverse_transform(mean, std, target)
