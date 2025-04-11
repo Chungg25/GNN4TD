@@ -169,6 +169,16 @@ def test(test_loader):
 
     output = torch.cat(out, dim=0).cpu().numpy()
     target = torch.cat(tgt, dim=0).cpu().numpy()
+    
+    # Lưu giá trị tgt và out vào file txt
+    with open('test_output.txt', 'w') as f:
+        f.write("Target values:\n")
+        np.savetxt(f, target.reshape(-1), fmt='%.6f')
+        f.write("\n\nOutput values:\n")
+        np.savetxt(f, output.reshape(-1), fmt='%.6f')
+        f.write("\n\nShape of target: " + str(target.shape))
+        f.write("\nShape of output: " + str(output.shape))
+    
     return output, target
 
 
