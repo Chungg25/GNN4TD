@@ -11,7 +11,7 @@ import torch.nn as nn
 import torch.utils
 import torch.nn.functional as F
 from torch.autograd import Variable
-from utils import StandardScaler
+from utils import StandardScaler, MinMaxScaler
 import metrics
 import random
 
@@ -48,11 +48,19 @@ def main():
     train_data, val_data, test_data, Nodes = utils.read_data(args)
     adj_data = utils.graph(args).to(device)
 
-    mean, std = np.mean(train_data), np.std(train_data)
-    scaler = StandardScaler()
-    train_data = scaler.transform(mean, std, train_data)
-    val_data = scaler.transform(mean, std, val_data)
-    test_data = scaler.transform(mean, std, test_data)
+    # mean, std = np.mean(train_data), np.std(train_data)
+    # scaler = StandardScaler()
+    # train_data = scaler.transform(mean, std, train_data)
+    # val_data = scaler.transform(mean, std, val_data)
+    # test_data = scaler.transform(mean, std, test_data)
+
+    min_val, max_val = np.min(train_data), np.max(train_data)
+    scaler = MinMaxScaler()
+
+    # Chuẩn hóa dữ liệu
+    train_data = scaler.transform(min_val, max_val, train_data)
+    val_data = scaler.transform(min_val, max_val, val_data)
+    test_data = scaler.transform(min_val, max_val, test_data)
 
     train_loader, valid_loader, test_loader = utils.data_process(args, train_data, val_data, test_data)
 
@@ -84,9 +92,9 @@ def main():
         print('Epoch:{}, train_loss:{:.5f}, valid_loss:{:.5f},本轮耗时：{:.2f}s, best_epoch:{}, best_loss:{:.5f}'
               .format(epoch, train_loss, valid_loss, end - start, best_epoch, best_loss))
 
-    output, target = test(test_loader, mean, std)
-    output = scaler.inverse_transform(mean, std, output)
-    target = scaler.inverse_transform(mean, std, target)
+    output, target = test(test_loader, min_val, max_val)
+    output = scaler.inverse_transform(min_val, max_val, output)
+    target = scaler.inverse_transform(min_val, max_val, target)
 
     Horizion = np.size(output, 1)  # 12
     RMSE = []
@@ -152,7 +160,7 @@ def valid(valid_loader, model, criterion):
 
     return valid_loss.avg
 
-def test(test_loader, mean, std):
+def test(test_loader, min_val, max_val):
     torch.cuda.empty_cache()
     model = torch.load(args.parameter)
     model.eval()
@@ -171,8 +179,8 @@ def test(test_loader, mean, std):
     
     # Chuẩn hóa về giá trị gốc
     scaler = StandardScaler()
-    output_original = scaler.inverse_transform(mean, std, output)
-    target_original = scaler.inverse_transform(mean, std, target)
+    output_original = scaler.inverse_transform(min_val, max_val, output)
+    target_original = scaler.inverse_transform(min_val, max_val, target)
     
     # Lưu giá trị gốc
     with open('test_output.txt', 'w') as f:
