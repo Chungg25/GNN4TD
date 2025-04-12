@@ -4,22 +4,6 @@ import torch
 from torch.utils.data import Dataset,DataLoader,TensorDataset
 
 
-class MinMaxScaler(object):
-    def __init__(self):
-        pass
-
-    def transform(self, min_val, max_val, X):
-        # Đảm bảo không chia cho 0
-        if max_val - min_val == 0:
-            return np.zeros_like(X)
-        X = (X - min_val) / (max_val - min_val)
-        return X
-
-    def inverse_transform(self, min_val, max_val, X):
-        X = X * (max_val - min_val) + min_val
-        return X
-
-
 class StandardScaler(object):
     def __init__(self):
         pass
@@ -30,6 +14,16 @@ class StandardScaler(object):
 
     def inverse_transform(self, mean, std, X):
         X = X * std + mean
+        return X
+
+class MinMaxScaler(object):
+    def __init__(self):
+        pass
+
+    def transform(self, min_val, max_val, X):
+        if max_val - min_val == 0:
+            return np.zeros_like(X)
+        X = (X - min_val) / (max_val - min_val)
         return X
 
 

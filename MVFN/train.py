@@ -48,6 +48,15 @@ def main():
     train_data, val_data, test_data, Nodes = utils.read_data(args)
     adj_data = utils.graph(args).to(device)
 
+    # Lưu giá trị gốc
+    with open('test_output.txt', 'w') as f:
+        f.write("Train values (original):\n")
+        np.savetxt(f, train_data.reshape(-1), fmt='%.6f')
+        f.write("\n\nVal values (original):\n")
+        np.savetxt(f, val_data.reshape(-1), fmt='%.6f')
+        f.write("\n\nTest values (original):\n")
+        np.savetxt(f, test_data.reshape(-1), fmt='%.6f')
+
     # mean, std = np.mean(train_data), np.std(train_data)
     # scaler = StandardScaler()
     # train_data = scaler.transform(mean, std, train_data)
@@ -61,6 +70,16 @@ def main():
     train_data = scaler.transform(min_val, max_val, train_data)
     val_data = scaler.transform(min_val, max_val, val_data)
     test_data = scaler.transform(min_val, max_val, test_data)
+
+    with open('test_output1.txt', 'w') as f:
+        f.write("Train values (original):\n")
+        np.savetxt(f, train_data.reshape(-1), fmt='%.6f')
+        f.write("\n\nVal values (original):\n")
+        np.savetxt(f, val_data.reshape(-1), fmt='%.6f')
+        f.write("\n\nTest values (original):\n")
+        np.savetxt(f, test_data.reshape(-1), fmt='%.6f')
+
+    
 
     train_loader, valid_loader, test_loader = utils.data_process(args, train_data, val_data, test_data)
 
@@ -177,19 +196,6 @@ def test(test_loader, min_val, max_val):
     output = torch.cat(out, dim=0).cpu().numpy()
     target = torch.cat(tgt, dim=0).cpu().numpy()
     
-    # Chuẩn hóa về giá trị gốc
-    scaler = StandardScaler()
-    output_original = scaler.inverse_transform(min_val, max_val, output)
-    target_original = scaler.inverse_transform(min_val, max_val, target)
-    
-    # Lưu giá trị gốc
-    with open('test_output.txt', 'w') as f:
-        f.write("Target values (original):\n")
-        np.savetxt(f, target_original.reshape(-1), fmt='%.6f')
-        f.write("\n\nOutput values (original):\n")
-        np.savetxt(f, output_original.reshape(-1), fmt='%.6f')
-        f.write("\n\nShape of target: " + str(target.shape))
-        f.write("\nShape of output: " + str(output.shape))
     
     return output, target
 
