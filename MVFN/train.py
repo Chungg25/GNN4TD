@@ -10,8 +10,7 @@ import argparse
 import torch.nn as nn
 import torch.utils
 import torch.nn.functional as F
-from torch.autograd import Variable
-from utils import StandardScaler, MinMaxScaler
+# from utils import StandardScaler, MinMaxScaler
 import metrics
 import random
 
@@ -80,22 +79,22 @@ def main():
               .format(epoch, train_loss, valid_loss, end - start, best_epoch, best_loss))
 
     output, target = test(test_loader)
-    print("Raw output: {output[0, 24:34, :]}")
-    print("Raw target: {target[0, 24:34, :]}")
+    print(f"Tran output: {output[0, 0, 24:34, :]}")
+    print(f"Tran target: {target[0, 0, 24:34, :]}")
 
-    tran_output = scaler.inverse_transform(mean, std, output)
-    tran_target = scaler.inverse_transform(mean, std, target)
+    inverse_output = scaler.inverse_transform(mean, std, output)
+    inverse_target = scaler.inverse_transform(mean, std, target)
 
-    print("Tran output: {tran_output[0, 24:34, :]}")
-    print("Tran target: {tran_target[0, 24:34, :]}")
+    print(f"inverse output: {inverse_output[0, 0, 24:34, :]}")
+    print(f"inverse target: {inverse_target[0, 0, 24:34, :]}")
 
-    Horizion = np.size(tran_output, 1)  # 12
+    Horizion = np.size(inverse_output, 1)  # 12
     RMSE = []
     MAE = []
     PCC = []
     for i in range(Horizion):
-        tgt = tran_target[:, i, :, :]
-        out = tran_output[:, i, :, :]
+        tgt = inverse_target[:, i, :, :]
+        out = inverse_output[:, i, :, :]
 
         rmse, mae, pcc = metrics.evalution(tgt, out)
         print('第{}步的预测结果: RMSE:{:.2f}, MAE:{:.2f}, PCC:{:.2f}'.format(i + 1, rmse, mae, pcc))
@@ -124,8 +123,8 @@ def train(train_loader, model, criterion, optimizer):
         n = input.size(0)
 
         optimizer.zero_grad()
-        input = Variable(input).to(device)
-        target = Variable(target).to(device)
+        input = input.to(device)
+        target = target.to(device)
 
         output = model(input)
         loss = criterion(output, target)
@@ -144,8 +143,8 @@ def valid(valid_loader, model, criterion):
             # 当前的batch size，每个epoch的最后一个iteration的batch size不一定是设置的数值
             n = input.size(0)
 
-            input = Variable(input).to(device)
-            target = Variable(target).to(device)
+            input = input.to(device)
+            target = target.to(device)
             output = model(input)
             loss = criterion(output, target)
 
@@ -155,14 +154,14 @@ def valid(valid_loader, model, criterion):
 
 def test(test_loader):
     torch.cuda.empty_cache()
-    model = torch.load(args.parameter, weights_only=True)
+    model = torch.load(args.parameter, weights_only=False)
     model.eval()
     out = []
     tgt = []
     with torch.no_grad():
         for step, (input, target) in enumerate(test_loader):
-            input = Variable(input).cuda()
-            target = Variable(target).cuda()
+            input = input.cuda()
+            target = target.cuda()
             output = model(input)
             out.append(output)
             tgt.append(target)

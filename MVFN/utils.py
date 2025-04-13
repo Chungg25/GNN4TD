@@ -44,6 +44,9 @@ def read_data(args):
 
     train_rate, val_rate = args.train_rate, args.val_rate
     train, val, test = transformed_data[0:-train_rate, :, :], transformed_data[-train_rate:-val_rate, :, :], transformed_data[-val_rate:, :, :]
+
+    print(f"Tran output | read_data: {test[0, 24:34, :]}")
+    print(f"Raw output | read_data: {scaler.inverse_transform(mean, std, test[0, 24:34, :])}")
     Nodes = len(transformed_data[0])
 
     return train, val, test, Nodes, mean, std
