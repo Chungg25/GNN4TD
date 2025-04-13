@@ -45,43 +45,11 @@ random.seed(args.seed)  # Python random module.
 
 def main():
     global adj_data
-    train_data, val_data, test_data, Nodes = utils.read_data(args)
+    train_data, val_data, test_data, Nodes, mean, std = utils.read_data(args)
     adj_data = utils.graph(args).to(device)
 
-    # Lưu giá trị gốc
-    with open('test_output.txt', 'w') as f:
-        f.write("Train values (original):\n")
-        np.savetxt(f, train_data.reshape(-1), fmt='%.6f')
-        f.write("\n\nVal values (original):\n")
-        np.savetxt(f, val_data.reshape(-1), fmt='%.6f')
-        f.write("\n\nTest values (original):\n")
-        np.savetxt(f, test_data.reshape(-1), fmt='%.6f')
-
-    # mean, std = np.mean(train_data), np.std(train_data)
-    # scaler = StandardScaler()
-    # train_data = scaler.transform(mean, std, train_data)
-    # val_data = scaler.transform(mean, std, val_data)
-    # test_data = scaler.transform(mean, std, test_data)
-
-    min_val, max_val = np.min(train_data), np.max(train_data)
-    scaler = MinMaxScaler()
-
-    # Chuẩn hóa dữ liệu
-    train_data = scaler.transform(min_val, max_val, train_data)
-    val_data = scaler.transform(min_val, max_val, val_data)
-    test_data = scaler.transform(min_val, max_val, test_data)
-
-    with open('test_output1.txt', 'w') as f:
-        f.write("Train values (original):\n")
-        np.savetxt(f, train_data.reshape(-1), fmt='%.6f')
-        f.write("\n\nVal values (original):\n")
-        np.savetxt(f, val_data.reshape(-1), fmt='%.6f')
-        f.write("\n\nTest values (original):\n")
-        np.savetxt(f, test_data.reshape(-1), fmt='%.6f')
-
-    
-
     train_loader, valid_loader, test_loader = utils.data_process(args, train_data, val_data, test_data)
+    scaler = StandardScaler()
 
     from model import Network
     model = Network(adj_data, args.input_dim, args.hidden_dim, args.output_dim).to(device)
@@ -111,17 +79,23 @@ def main():
         print('Epoch:{}, train_loss:{:.5f}, valid_loss:{:.5f},本轮耗时：{:.2f}s, best_epoch:{}, best_loss:{:.5f}'
               .format(epoch, train_loss, valid_loss, end - start, best_epoch, best_loss))
 
-    output, target = test(test_loader, min_val, max_val)
-    output = scaler.inverse_transform(min_val, max_val, output)
-    target = scaler.inverse_transform(min_val, max_val, target)
+    output, target = test(test_loader)
+    print("Raw output: {output[0, 24:34, :]}")
+    print("Raw target: {target[0, 24:34, :]}")
 
-    Horizion = np.size(output, 1)  # 12
+    tran_output = scaler.inverse_transform(mean, std, output)
+    tran_target = scaler.inverse_transform(mean, std, target)
+
+    print("Tran output: {tran_output[0, 24:34, :]}")
+    print("Tran target: {tran_target[0, 24:34, :]}")
+
+    Horizion = np.size(tran_output, 1)  # 12
     RMSE = []
     MAE = []
     PCC = []
     for i in range(Horizion):
-        tgt = target[:, i, :, :]
-        out = output[:, i, :, :]
+        tgt = tran_target[:, i, :, :]
+        out = tran_output[:, i, :, :]
 
         rmse, mae, pcc = metrics.evalution(tgt, out)
         print('第{}步的预测结果: RMSE:{:.2f}, MAE:{:.2f}, PCC:{:.2f}'.format(i + 1, rmse, mae, pcc))
@@ -179,9 +153,9 @@ def valid(valid_loader, model, criterion):
 
     return valid_loss.avg
 
-def test(test_loader, min_val, max_val):
+def test(test_loader):
     torch.cuda.empty_cache()
-    model = torch.load(args.parameter)
+    model = torch.load(args.parameter, weights_only=True)
     model.eval()
     out = []
     tgt = []

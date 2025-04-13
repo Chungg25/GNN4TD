@@ -35,11 +35,18 @@ def read_data(args):
     data = np.dstack((pick,drop))
     Nodes = len(data[0])
 
-    train_rate, val_rate = args.train_rate, args.val_rate
-    train, val, test = data[0:-train_rate, :, :], data[-train_rate:-val_rate, :, :], data[-val_rate:, :, :]
-    Nodes = len(data[0])
+    scaler = StandardScaler()
 
-    return train, val, test, Nodes
+    mean = np.mean(data)
+    std = np.std((data))
+
+    transformed_data = scaler.transform(mean, std, data)
+
+    train_rate, val_rate = args.train_rate, args.val_rate
+    train, val, test = transformed_data[0:-train_rate, :, :], transformed_data[-train_rate:-val_rate, :, :], transformed_data[-val_rate:, :, :]
+    Nodes = len(transformed_data[0])
+
+    return train, val, test, Nodes, mean, std
 
 def graph(args):
     adj_data = pd.read_csv(args.adj_data, header=None, index_col=None).values
