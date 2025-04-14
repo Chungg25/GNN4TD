@@ -57,19 +57,19 @@ def main():
         f.write("\n\nTest values (original):\n")
         np.savetxt(f, test_data.reshape(-1), fmt='%.6f')
 
-    # mean, std = np.mean(train_data), np.std(train_data)
-    # scaler = StandardScaler()
-    # train_data = scaler.transform(mean, std, train_data)
-    # val_data = scaler.transform(mean, std, val_data)
-    # test_data = scaler.transform(mean, std, test_data)
+    mean, std = np.mean(train_data), np.std(train_data)
+    scaler = StandardScaler()
+    train_data = scaler.transform(mean, std, train_data)
+    val_data = scaler.transform(mean, std, val_data)
+    test_data = scaler.transform(mean, std, test_data)
 
-    min_val, max_val = np.min(train_data), np.max(train_data)
-    scaler = MinMaxScaler()
+    # min_val, max_val = np.min(train_data), np.max(train_data)
+    # scaler = MinMaxScaler()
 
-    # Chuẩn hóa dữ liệu
-    train_data = scaler.transform(min_val, max_val, train_data)
-    val_data = scaler.transform(min_val, max_val, val_data)
-    test_data = scaler.transform(min_val, max_val, test_data)
+    # # Chuẩn hóa dữ liệu
+    # train_data = scaler.transform(min_val, max_val, train_data)
+    # val_data = scaler.transform(min_val, max_val, val_data)
+    # test_data = scaler.transform(min_val, max_val, test_data)
 
     with open('test_output1.txt', 'w') as f:
         f.write("Train values (original):\n")
@@ -111,9 +111,9 @@ def main():
         print('Epoch:{}, train_loss:{:.5f}, valid_loss:{:.5f},本轮耗时：{:.2f}s, best_epoch:{}, best_loss:{:.5f}'
               .format(epoch, train_loss, valid_loss, end - start, best_epoch, best_loss))
 
-    output, target = test(test_loader, min_val, max_val)
-    output = scaler.inverse_transform(min_val, max_val, output)
-    target = scaler.inverse_transform(min_val, max_val, target)
+    output, target = test(test_loader, mean, std)
+    output = scaler.inverse_transform(mean, std, output)
+    target = scaler.inverse_transform(mean, std, target)
 
     Horizion = np.size(output, 1)  # 12
     RMSE = []

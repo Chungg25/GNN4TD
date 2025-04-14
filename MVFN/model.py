@@ -211,6 +211,5 @@ class Network(nn.Module):
         x = res+x
         x = self.st(x)
         x = res + x
-
         x = self.mlp(x) # (B, T, N, D)
         return x

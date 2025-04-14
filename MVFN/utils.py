@@ -9,7 +9,7 @@ class StandardScaler(object):
         pass
 
     def transform(self, mean, std, X):
-        X = 1. * (X - mean) / std
+        X = 1. * (X - mean) / stdđo
         return X
 
     def inverse_transform(self, mean, std, X):
@@ -25,6 +25,10 @@ class MinMaxScaler(object):
             return np.zeros_like(X)
         X = (X - min_val) / (max_val - min_val)
         return X
+
+    def inverse_transform(self, min_val, max_val, X):
+        X = X * (max_val - min_val) + min_val
+        return X    
 
 
 
