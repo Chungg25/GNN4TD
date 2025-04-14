@@ -85,10 +85,10 @@ def main():
               .format(epoch, train_loss, valid_loss, end - start, best_epoch, best_loss))
 
     output, target = test(test_loader)
-    print(f"Tran output | test: {output[0, 24:34, :]}")
-    print(f"Raw output | test: {scaler.inverse_transform(mean, std, output[0, 24:34, :])}")
-    print(f"Tran target | test: {target[0, 24:34, :]}")
-    print(f"Raw target | test: {scaler.inverse_transform(mean, std, target[0, 24:34, :])}")
+    print(f"Tran output | test: {output[0, :1, :]}")
+    print(f"Raw output | test: {scaler.inverse_transform(mean, std, output[0, :1, :])}")
+    print(f"Tran target | test: {target[0, :1, :]}")
+    print(f"Raw target | test: {scaler.inverse_transform(mean, std, target[0, :1, :])}")
     output = scaler.inverse_transform(mean, std, output)
     target = scaler.inverse_transform(mean, std, target)
 
@@ -158,7 +158,7 @@ def valid(valid_loader, model, criterion):
 
 def test(test_loader):
     torch.cuda.empty_cache()
-    model = torch.load(args.parameter)
+    model = torch.load(args.parameter, weights_only=False)
     model.eval()
     out = []
     tgt = []
