@@ -9,7 +9,7 @@ class StandardScaler(object):
         pass
 
     def transform(self, mean, std, X):
-        X = 1. * (X - mean) / stdđo
+        X = 1. * (X - mean) / std
         return X
 
     def inverse_transform(self, mean, std, X):

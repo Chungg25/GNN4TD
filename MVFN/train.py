@@ -10,7 +10,8 @@ import argparse
 import torch.nn as nn
 import torch.utils
 import torch.nn.functional as F
-# from utils import StandardScaler, MinMaxScaler
+from torch.autograd import Variable
+from utils import StandardScaler, MinMaxScaler
 import metrics
 import random
 
@@ -43,45 +44,17 @@ np.random.seed(args.seed)  # Numpy module.
 random.seed(args.seed)  # Python random module.
 
 def main():
-    global adj_data
+
     train_data, val_data, test_data, Nodes, mean, std = utils.read_data(args)
     adj_data = utils.graph(args).to(device)
 
-    # Lưu giá trị gốc
-    with open('test_output.txt', 'w') as f:
-        f.write("Train values (original):\n")
-        np.savetxt(f, train_data.reshape(-1), fmt='%.6f')
-        f.write("\n\nVal values (original):\n")
-        np.savetxt(f, val_data.reshape(-1), fmt='%.6f')
-        f.write("\n\nTest values (original):\n")
-        np.savetxt(f, test_data.reshape(-1), fmt='%.6f')
-
     # mean, std = np.mean(train_data), np.std(train_data)
-    # scaler = StandardScaler()
+    scaler = StandardScaler()
     # train_data = scaler.transform(mean, std, train_data)
     # val_data = scaler.transform(mean, std, val_data)
     # test_data = scaler.transform(mean, std, test_data)
 
-    min_val, max_val = np.min(train_data), np.max(train_data)
-    scaler = MinMaxScaler()
-
-    # Chuẩn hóa dữ liệu
-    train_data = scaler.transform(min_val, max_val, train_data)
-    val_data = scaler.transform(min_val, max_val, val_data)
-    test_data = scaler.transform(min_val, max_val, test_data)
-
-    with open('test_output1.txt', 'w') as f:
-        f.write("Train values (original):\n")
-        np.savetxt(f, train_data.reshape(-1), fmt='%.6f')
-        f.write("\n\nVal values (original):\n")
-        np.savetxt(f, val_data.reshape(-1), fmt='%.6f')
-        f.write("\n\nTest values (original):\n")
-        np.savetxt(f, test_data.reshape(-1), fmt='%.6f')
-
-    
-
     train_loader, valid_loader, test_loader = utils.data_process(args, train_data, val_data, test_data)
-    scaler = StandardScaler()
 
     from model import Network
     model = Network(adj_data, args.input_dim, args.hidden_dim, args.output_dim).to(device)
@@ -111,17 +84,21 @@ def main():
         print('Epoch:{}, train_loss:{:.5f}, valid_loss:{:.5f},本轮耗时：{:.2f}s, best_epoch:{}, best_loss:{:.5f}'
               .format(epoch, train_loss, valid_loss, end - start, best_epoch, best_loss))
 
-    output, target = test(test_loader, min_val, max_val)
-    output = scaler.inverse_transform(min_val, max_val, output)
-    target = scaler.inverse_transform(min_val, max_val, target)
+    output, target = test(test_loader)
+    print(f"Tran output | test: {output[0, 24:34, :]}")
+    print(f"Raw output | test: {scaler.inverse_transform(mean, std, output[0, 24:34, :])}")
+    print(f"Tran target | test: {target[0, 24:34, :]}")
+    print(f"Raw target | test: {scaler.inverse_transform(mean, std, target[0, 24:34, :])}")
+    output = scaler.inverse_transform(mean, std, output)
+    target = scaler.inverse_transform(mean, std, target)
 
-    Horizion = np.size(inverse_output, 1)  # 12
+    Horizion = np.size(output, 1)  # 12
     RMSE = []
     MAE = []
     PCC = []
     for i in range(Horizion):
-        tgt = inverse_target[:, i, :, :]
-        out = inverse_output[:, i, :, :]
+        tgt = target[:, i, :, :]
+        out = output[:, i, :, :]
 
         rmse, mae, pcc = metrics.evalution(tgt, out)
         print('第{}步的预测结果: RMSE:{:.2f}, MAE:{:.2f}, PCC:{:.2f}'.format(i + 1, rmse, mae, pcc))
@@ -150,8 +127,8 @@ def train(train_loader, model, criterion, optimizer):
         n = input.size(0)
 
         optimizer.zero_grad()
-        input = input.to(device)
-        target = target.to(device)
+        input = Variable(input).to(device)
+        target = Variable(target).to(device)
 
         output = model(input)
         loss = criterion(output, target)
@@ -170,8 +147,8 @@ def valid(valid_loader, model, criterion):
             # 当前的batch size，每个epoch的最后一个iteration的batch size不一定是设置的数值
             n = input.size(0)
 
-            input = input.to(device)
-            target = target.to(device)
+            input = Variable(input).to(device)
+            target = Variable(target).to(device)
             output = model(input)
             loss = criterion(output, target)
 
@@ -181,22 +158,20 @@ def valid(valid_loader, model, criterion):
 
 def test(test_loader):
     torch.cuda.empty_cache()
-    model = torch.load(args.parameter, weights_only=False)
+    model = torch.load(args.parameter)
     model.eval()
     out = []
     tgt = []
     with torch.no_grad():
         for step, (input, target) in enumerate(test_loader):
-            input = input.cuda()
-            target = target.cuda()
+            input = Variable(input).cuda()
+            target = Variable(target).cuda()
             output = model(input)
             out.append(output)
             tgt.append(target)
 
     output = torch.cat(out, dim=0).cpu().numpy()
     target = torch.cat(tgt, dim=0).cpu().numpy()
-    
-    
     return output, target
 
 
