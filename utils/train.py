@@ -138,17 +138,13 @@ def process_test(folder: str,
             predictions.append(outputs.cpu().numpy())
 
     running_targets, predictions = np.concatenate(running_targets, axis=0), np.concatenate(predictions, axis=0)
-    print(f"Tran output | test: {predictions[0, :1, :]}")
-    print(f"Raw output | test: {normal[0].inverse_transform(predictions[0, :1, :])}")
-    print(f"Tran target | test: {running_targets[0, :1, :]}")
-    print(f"Raw target | test: {normal[0].inverse_transform(running_targets[0, :1, :])}")
-    
+
     scores = evaluate(running_targets, predictions, normal)
     print('test results in epoch '+str(epoch)+':')
     print("\t rmse: "+json.dumps(scores['rmse'])+",")
     print("\t mae: "+json.dumps(scores['mae'])+",")
     print("\t pcc: "+json.dumps(scores['pcc'])+",")
-    print("\t mape: "+json.dumps(scores['mape'])+",")
+    # print("\t mape: "+json.dumps(scores['mape'])+",")
 
 def test_model(folder: str,
                   trainer,

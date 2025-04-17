@@ -85,10 +85,28 @@ def main():
               .format(epoch, train_loss, valid_loss, end - start, best_epoch, best_loss))
 
     output, target = test(test_loader)
-    print(f"Tran output | test: {output[0, :1, :]}")
-    print(f"Raw output | test: {scaler.inverse_transform(mean, std, output[0, :1, :])}")
-    print(f"Tran target | test: {target[0, :1, :]}")
-    print(f"Raw target | test: {scaler.inverse_transform(mean, std, target[0, :1, :])}")
+    a = 1. * (0 - mean) / std
+    # print(f"Tran output | test: {output[0, :1, :]}")
+    # print(f"Raw output | test: {scaler.inverse_transform(mean, std, output[0, :1, :])}")
+    # print(f"Tran target | test: {target[0, :1, :]}")
+    # print(f"Raw target | test: {scaler.inverse_transform(mean, std, target[0, :1, :])}")
+    mask = np.isclose(target, a)
+
+    # Inverse toàn bộ target
+    target_inverse = scaler.inverse_transform(mean, std, target)
+
+    # Gán giá trị = 0 tại những vị trí bằng a
+    target_inverse[mask] = 0
+
+    np.savetxt("output_test.txt", output.reshape(-1, output.shape[-1]), fmt="%.18e")
+    np.savetxt("target_test_processed.txt", target_inverse.reshape(-1, target_inverse.shape[-1]), fmt="%.18e")
+
+    min_output = np.min(output)
+    with open("output_check_log.txt", "w") as f:
+        f.write(f"Ngưỡng a: {a:.18e}\n")
+        f.write(f"Giá trị nhỏ nhất trong output: {min_output:.18e}\n")
+        f.write("=> Có giá trị nhỏ hơn a!\n" if min_output < a else "=> Không có giá trị nhỏ hơn a.\n")
+
     output = scaler.inverse_transform(mean, std, output)
     target = scaler.inverse_transform(mean, std, target)
 
