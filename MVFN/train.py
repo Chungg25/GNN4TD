@@ -99,6 +99,8 @@ def main():
     target_inverse[mask] = 0
 
     np.savetxt("output_test.txt", output.reshape(-1, output.shape[-1]), fmt="%.18e")
+    output_inverse = scaler.inverse_transform(mean, std, output)
+    np.savetxt("output_test_inverse.txt", output_inverse.reshape(-1, output.shape[-1]), fmt="%.18e")
     np.savetxt("target_test_processed.txt", target_inverse.reshape(-1, target_inverse.shape[-1]), fmt="%.18e")
 
     min_output = np.min(output)
