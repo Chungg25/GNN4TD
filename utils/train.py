@@ -11,7 +11,7 @@ from utils.util import save_model, get_number_of_parameters
 from collections import defaultdict
 from utils.evaluate import evaluate
 from utils.util import MyEncoder
-
+from utils.normalization import Standard
 
 def train_model(model: nn.Module,
                    dataloaders,
@@ -171,6 +171,11 @@ def test_model(folder: str,
 
     running_targets, predictions = np.concatenate(running_targets, axis=0), np.concatenate(predictions, axis=0)
 
+
+    # Inverse predictions
+    predictions_inverse = normal.inverse_transform(predictions)
+    np.savetxt("output_test_inverse.txt", predictions_inverse.reshape(-1, predictions_inverse.shape[-1]), fmt="%.18e")
+    np.savetxt("target_test_processed.txt", running_targets.reshape(-1, running_targets.shape[-1]), fmt="%.18e")
 
     scores = evaluate(running_targets, predictions,normal)
     print('test results:')
