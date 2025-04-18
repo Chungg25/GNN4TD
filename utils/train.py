@@ -173,7 +173,7 @@ def test_model(folder: str,
 
 
     # Inverse predictions
-    predictions_inverse = normal.inverse_transform(predictions)
+    predictions_inverse = normal[0].inverse_transform(predictions)
     np.savetxt("output_test_inverse.txt", predictions_inverse.reshape(-1, predictions_inverse.shape[-1]), fmt="%.18e")
     np.savetxt("target_test_processed.txt", running_targets.reshape(-1, running_targets.shape[-1]), fmt="%.18e")
 
