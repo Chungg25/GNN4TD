@@ -39,15 +39,15 @@ def read_data(args):
     data = np.dstack((pick,drop))
     Nodes = len(data[0])
 
-    scaler = StandardScaler()
+    scaler = MinMaxScaler()
 
-    mean = np.mean(data)
-    std = np.std((data))
+    mean = np.min(data)
+    std = np.max((data))
 
     transformed_data = scaler.transform(mean, std, data)
 
     train_rate, val_rate = args.train_rate, args.val_rate
-    a = 1. * (0 - mean) / std
+    a = (0 - mean) / (std - mean)
     train, val, test = transformed_data[0:-train_rate, :, :], transformed_data[-train_rate:-val_rate, :, :], transformed_data[-val_rate:, :, :]
 
     np.savetxt('train.txt', train.reshape(-1, train.shape[-1]), fmt='%.18e')
