@@ -110,7 +110,8 @@ def main():
         f.write("=> Có giá trị nhỏ hơn a!\n" if min_output < a else "=> Không có giá trị nhỏ hơn a.\n")
 
     output = scaler.inverse_transform(mean, std, output)
-    target = scaler.inverse_transform(mean, std, target)
+    # target = scaler.inverse_transform(mean, std, target)
+    target = target_inverse
 
     Horizion = np.size(output, 1)  # 12
     RMSE = []
