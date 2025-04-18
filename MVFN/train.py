@@ -85,7 +85,7 @@ def main():
               .format(epoch, train_loss, valid_loss, end - start, best_epoch, best_loss))
 
     output, target = test(test_loader)
-     a = (0 - mean) / (std - mean)
+    a = (0 - mean) / (std - mean)
     # print(f"Tran output | test: {output[0, :1, :]}")
     # print(f"Raw output | test: {scaler.inverse_transform(mean, std, output[0, :1, :])}")
     # print(f"Tran target | test: {target[0, :1, :]}")
