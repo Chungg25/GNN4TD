@@ -42,31 +42,12 @@ def read_data(args):
     scaler = MinMaxScaler()
 
     mean = np.min(data)
-    std = np.max((data))
+    std = np.max(data)
 
     transformed_data = scaler.transform(mean, std, data)
 
     train_rate, val_rate = args.train_rate, args.val_rate
-    a = (0 - mean) / (std - mean)
     train, val, test = transformed_data[0:-train_rate, :, :], transformed_data[-train_rate:-val_rate, :, :], transformed_data[-val_rate:, :, :]
-
-    np.savetxt('train.txt', train.reshape(-1, train.shape[-1]), fmt='%.18e')
-    np.savetxt('val.txt', val.reshape(-1, val.shape[-1]), fmt='%.18e')
-    np.savetxt('test.txt', test.reshape(-1, test.shape[-1]), fmt='%.18e')
-
-    # Kiểm tra min
-    train_min = np.min(train)
-    val_min = np.min(val)
-    test_min = np.min(test)
-
-    # Ghi kết quả kiểm tra vào file
-    with open("check_min_values.txt", "w", encoding='utf-8') as f:
-        f.write(f"Ngưỡng a: {a:.18e}\n")
-        f.write(f"Min train: {train_min:.18e} -> {'Có nhỏ hơn a!' if train_min < a else 'Không nhỏ hơn a'}\n")
-        f.write(f"Min val:   {val_min:.18e} -> {'Có nhỏ hơn a!' if val_min < a else 'Không nhỏ hơn a'}\n")
-        f.write(f"Min test:  {test_min:.18e} -> {'Có nhỏ hơn a!' if test_min < a else 'Không nhỏ hơn a'}\n")
-
-        Nodes = len(transformed_data[0])
 
     return train, val, test, Nodes, mean, std
 

@@ -14,15 +14,18 @@ class GCN(nn.Module): # GCN模型，向空域的第一个图卷积
         self.act = nn.ReLU()  # 定义激活函数
 
     def forward(self, x): # (B, T, N, D)
+        print(f"GCN input shape: {x.shape}")
         x = x.transpose(1,3) # (B, D, N, T)
 
         x = self.linear_1(x)
         x = self.act(torch.einsum('bdnt,nn->bdnt', [x, self.graph])) # (B, D, N, T)
+        print(f"GCN after first graph conv: {x.shape}, values[0,0,0,:5]: {x[0,0,0,:5].detach().cpu().numpy()}")
 
         x = self.linear_2(x)
         x = self.act(torch.einsum('bdnt,nn->bdnt', [x, self.graph])) # (B, D, N, T)
 
         x = x.transpose(1, 3)  # (B, T, N, D)
+        print(f"GCN output shape: {x.shape}, values[0,0,0,:5]: {x[0,0,0,:5].detach().cpu().numpy()}")
         return x
 
 
@@ -34,9 +37,11 @@ class MLP(nn.Module):
             nn.Linear(hidden_dim, output_dim))
 
     def forward(self, x): # (B, T, N, D)
+        print(f"MLP input shape: {x.shape}")
         x = x.transpose(1, 3) # (B, D, N, T)
         x = self.linear(x)
         x = x.transpose(1, 3) # (B, T, N, D)
+        print(f"MLP output shape: {x.shape}, values[0,0,0,:5]: {x[0,0,0,:5].detach().cpu().numpy()}")
         return x
 
 class GCM(nn.Module):
@@ -63,10 +68,12 @@ class GCM(nn.Module):
         return nn.Parameter(index, requires_grad=False)
 
     def forward(self,x): # (B, T, N, D)
+        print(f"GCM input shape: {x.shape}")
         B, T, N, D = x.shape
 
         # GCN
         gcn_output = self.gcn(x) + x # (B, T, N, D)
+        print(f"GCM gcn_output shape: {gcn_output.shape}, values[0,0,0,:5]: {gcn_output[0,0,0,:5].detach().cpu().numpy()}")
 
         # CLA
         x = x.transpose(1, 2).reshape(B, N, T * D)  # (B, N, T, D) -> (B, N, T*D)
@@ -96,8 +103,10 @@ class GCM(nn.Module):
         # (B, N, D) -> (B, N, T, D) -> (B, N, D, T)
 
         attn_output = self.out(attn_output+res).reshape(B, N, T, D).transpose(1, 2)
+        print(f"GCM attn_output shape: {attn_output.shape}, values[0,0,0,:5]: {attn_output[0,0,0,:5].detach().cpu().numpy()}")
 
         output = attn_output + gcn_output
+        print(f"GCM output shape: {output.shape}, values[0,0,0,:5]: {output[0,0,0,:5].detach().cpu().numpy()}")
 
         return output
 
@@ -109,7 +118,6 @@ class Chomp(nn.Module):
 
     def forward(self, x):
         x = x[:, :, :-self.chomp_size]
-
         return x
 
 class MSTCN(nn.Module):
@@ -169,16 +177,27 @@ class MSTCN(nn.Module):
 
 
     def forward(self, x):  # (B, T, N, D)
+        print(f"MSTCN input shape: {x.shape}")
         B, T, N, D = x.shape
         x = x.reshape(B, T, -1) # (B, T, N*D)
         x = x.transpose(1, 2)  # (B, N*D, T)
         res = x
-        x = self.mtcn1(x) + self.stcn1(x)
-        x = self.mtcn2(x) + self.stcn2(x)
-        x = self.mtcn3(x) + self.stcn3(x)
-        x = self.mtcn4(x) + self.stcn4(x)
-        x = res + x
+        
+        x1 = self.mtcn1(x) + self.stcn1(x)
+        print(f"MSTCN after layer 1: {x1.shape}, values[0,0,:5]: {x1[0,0,:5].detach().cpu().numpy()}")
+        
+        x2 = self.mtcn2(x1) + self.stcn2(x1)
+        print(f"MSTCN after layer 2: {x2.shape}, values[0,0,:5]: {x2[0,0,:5].detach().cpu().numpy()}")
+        
+        x3 = self.mtcn3(x2) + self.stcn3(x2)
+        print(f"MSTCN after layer 3: {x3.shape}, values[0,0,:5]: {x3[0,0,:5].detach().cpu().numpy()}")
+        
+        x4 = self.mtcn4(x3) + self.stcn4(x3)
+        print(f"MSTCN after layer 4: {x4.shape}, values[0,0,:5]: {x4[0,0,:5].detach().cpu().numpy()}")
+        
+        x = res + x4
         x = x.transpose(1, 2).reshape(B, T, N, D)
+        print(f"MSTCN output shape: {x.shape}, values[0,0,0,:5]: {x[0,0,0,:5].detach().cpu().numpy()}")
         return x # (B, T, N, D)
 
 class ST_layer(nn.Module):
@@ -192,11 +211,15 @@ class ST_layer(nn.Module):
         self.mstcn = MSTCN(channels, channels)
 
     def forward(self, x): # (B, T, N, D)
+        print(f"ST_layer input shape: {x.shape}")
         res = x
         x = self.gcm(x)
+        print(f"ST_layer after GCM: {x.shape}, values[0,0,0,:5]: {x[0,0,0,:5].detach().cpu().numpy()}")
         x = x + res
         x = self.mstcn(x)
+        print(f"ST_layer after MSTCN: {x.shape}, values[0,0,0,:5]: {x[0,0,0,:5].detach().cpu().numpy()}")
         x = x + res
+        print(f"ST_layer output shape: {x.shape}, values[0,0,0,:5]: {x[0,0,0,:5].detach().cpu().numpy()}")
         return x # (B, T, N, D)
 
 class Network(nn.Module):
@@ -206,10 +229,14 @@ class Network(nn.Module):
         self.mlp = MLP(input_dim, hidden_dim, output_dim)
 
     def forward(self, x): # (B, T, N, D)
+        print(f"Network input shape: {x.shape}")
         res = x
         x = self.st(x)
+        print(f"Network after first ST_layer: {x.shape}, values[0,0,0,:5]: {x[0,0,0,:5].detach().cpu().numpy()}")
         x = res+x
         x = self.st(x)
+        print(f"Network after second ST_layer: {x.shape}, values[0,0,0,:5]: {x[0,0,0,:5].detach().cpu().numpy()}")
         x = res + x
         x = self.mlp(x) # (B, T, N, D)
+        print(f"Network output shape: {x.shape}, values[0,0,0,:5]: {x[0,0,0,:5].detach().cpu().numpy()}")
         return x
