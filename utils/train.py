@@ -177,7 +177,7 @@ def test_model(folder: str,
     np.savetxt("output_test_inverse.txt", predictions_inverse.reshape(-1, predictions_inverse.shape[-1]), fmt="%.18e")
     np.savetxt("target_test_processed.txt", running_targets.reshape(-1, running_targets.shape[-1]), fmt="%.18e")
 
-    scores = evaluate(running_targets, predictions,normal)
+    scores = evaluate(running_targets, predictions, normal)
     print('test results:')
     print(json.dumps(scores,cls=MyEncoder, indent=4))
 

@@ -39,10 +39,10 @@ def read_data(args):
     data = np.dstack((pick,drop))
     Nodes = len(data[0])
 
-    scaler = MinMaxScaler()
+    scaler = StandardScaler()
 
-    mean = np.min(data)
-    std = np.max(data)
+    mean = np.mean(data)
+    std = np.std(data)
 
     transformed_data = scaler.transform(mean, std, data)
 
