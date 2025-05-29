@@ -1,11 +1,11 @@
-name: CCRNN
+name: GMSDR
 tag: train_taxi
 
 device: 0
 data:
   dataset: nogrid
   city: NYC
-  batch_size: 32
+  batch_size: 64
   X_list: [12,11,10,9,8,7,6,5,4,3,2,1]
   Y_list: [0,1,2,3,4,5,6,7,8,9,10,11]
   _len: [672,672]
@@ -15,16 +15,15 @@ preprocess:
   hidden_size: 20
   normalized_category: randomwalk
 
-
 train:
-  epochs: 1
+  epochs: 200
   max_grad_norm: 5
-  early_stop_steps: 10
+  early_stop_steps: 30
 
 optimizer:
   name: Adam
   Adam:
-    lr: 0.0005
+    lr: 0.0015
     weight_decay: 0.0005
     eps: 0.001
     amsgrad: true
@@ -33,14 +32,16 @@ optimizer:
     weight_decay: 0.001
 
 loss:
-  name: rmse
-  alfa: null
+  name: rmse_lasso
+  alfa: 0.001
 
 model:
   name: GMSDR
   GMSDR:
-    n_pred: 12
-    hidden_size: 25
+    lens: 12
+    pre_k: 3
+    pre_v: 2
+    hidden_size: 64
     num_nodes: 266
     n_dim: 50
     n_supports: 1

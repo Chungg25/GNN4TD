@@ -1,4 +1,4 @@
-name: CCRNN
+name: GMSDR
 tag: train_bike
 
 device: 0
@@ -19,7 +19,7 @@ preprocess:
 train:
   epochs: 200
   max_grad_norm: 5
-  early_stop_steps: 10
+  early_stop_steps: 30
 
 optimizer:
   name: Adam
@@ -39,8 +39,10 @@ loss:
 model:
   name: GMSDR
   GMSDR:
-    n_pred: 12
-    hidden_size: 25
+    lens: 12
+    pre_k: 4
+    pre_v: 1
+    hidden_size: 128
     num_nodes: 250
     n_dim: 50
     n_supports: 1
