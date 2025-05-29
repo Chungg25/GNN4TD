@@ -1,11 +1,11 @@
-name: GMSDR
+name: CCRNN
 tag: train_bike
 
 device: 0
 data:
   dataset: nogrid
   city: BOSTON
-  batch_size: 64
+  batch_size: 32
   X_list: [12,11,10,9,8,7,6,5,4,3,2,1]
   Y_list: [0,1,2,3,4,5,6,7,8,9,10,11]
   _len: [672,672]
@@ -15,10 +15,11 @@ preprocess:
   hidden_size: 20
   normalized_category: randomwalk
 
+
 train:
   epochs: 200
   max_grad_norm: 5
-  early_stop_steps: 30
+  early_stop_steps: 10
 
 optimizer:
   name: Adam
@@ -30,6 +31,7 @@ optimizer:
   RMSprop:
     lr: 0.01
     weight_decay: 0.001
+
 loss:
   name: rmse
   alfa: null
@@ -37,11 +39,9 @@ loss:
 model:
   name: GMSDR
   GMSDR:
-    lens: 12
-    pre_k: 4
-    pre_v: 1
-    hidden_size: 128
-    num_nodes: 206
+    n_pred: 12
+    hidden_size: 25
+    num_nodes: 381
     n_dim: 50
     n_supports: 1
     k_hop: 3

@@ -1,10 +1,10 @@
 name: CCRNN
-tag: train_taxi
+tag: train_bike
 
 device: 0
 data:
   dataset: nogrid
-  city: NYC
+  city: DC
   batch_size: 32
   X_list: [12,11,10,9,8,7,6,5,4,3,2,1]
   Y_list: [0,1,2,3,4,5,6,7,8,9,10,11]
@@ -17,7 +17,7 @@ preprocess:
 
 
 train:
-  epochs: 1
+  epochs: 200
   max_grad_norm: 5
   early_stop_steps: 10
 
@@ -41,7 +41,7 @@ model:
   GMSDR:
     n_pred: 12
     hidden_size: 25
-    num_nodes: 266
+    num_nodes: 588
     n_dim: 50
     n_supports: 1
     k_hop: 3
