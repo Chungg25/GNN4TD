@@ -18,7 +18,7 @@ preprocess:
 train:
   epochs: 200
   max_grad_norm: 5
-  early_stop_steps: 30
+  early_stop_steps: 10
 
 optimizer:
   name: Adam
