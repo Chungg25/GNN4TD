@@ -1,10 +1,10 @@
-name: GMSDR
+name: CCRNN
 tag: train_bike
 
 device: 0
 data:
   dataset: nogrid
-  city: DC1
+  city: BAY
   batch_size: 32
   X_list: [12,11,10,9,8,7,6,5,4,3,2,1]
   Y_list: [0,1,2,3,4,5,6,7,8,9,10,11]
@@ -37,13 +37,11 @@ loss:
   alfa: null
 
 model:
-  name: GMSDR
-  GMSDR:
-    lens: 12
-    pre_k: 4
-    pre_v: 1
-    hidden_size: 128
-    num_nodes: 784
+  name: CCRNN
+  CCRNN:
+    n_pred: 12
+    hidden_size: 25
+    num_nodes: 424
     n_dim: 50
     n_supports: 1
     k_hop: 3
