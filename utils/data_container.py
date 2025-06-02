@@ -51,6 +51,7 @@ def get_data_loader(data_category: list,
             data_pick = hf[f'{category}_pick'][:]
         with h5py.File(f"data/{dataset}/{city}/{category}_data.h5", 'r') as hf:
             data_drop = hf[f'{category}_drop'][:]
+        
         data.append(normal[i].fit_transform(np.stack([data_pick, data_drop], axis=2)))
     data = np.concatenate(data, axis=1)
 
