@@ -25,7 +25,7 @@ parser.add_argument('--parameter', type=str, default='parameter/bike', help='loc
 
 parser.add_argument('--batch_size', type=int, default=64, help='batch size')
 parser.add_argument('--learning_rate', type=float, default=0.001, help='init learning rate')
-parser.add_argument('--epochs', type=int, default=1, help='num of training epochs')
+parser.add_argument('--epochs', type=int, default=200, help='num of training epochs')
 parser.add_argument('--seed', type=int, default=0, help='random seed')
 parser.add_argument('--train_rate', type=float, default=24*7*4, help='train_rate')
 parser.add_argument('--val_rate', type=float, default=24*7*2, help='val_rate')
@@ -45,7 +45,7 @@ random.seed(args.seed)  # Python random module.
 
 def main():
 
-    train_data, val_data, test_data, Nodes, mean, std = utils.read_data(args)
+    train_data, val_data, test_data, Nodes = utils.read_data(args)
     adj_data = utils.graph(args).to(device)
 
     mean, std = np.mean(train_data), np.std(train_data)
