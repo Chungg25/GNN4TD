@@ -48,11 +48,11 @@ def main():
     train_data, val_data, test_data, Nodes, mean, std = utils.read_data(args)
     adj_data = utils.graph(args).to(device)
 
-    # mean, std = np.mean(train_data), np.std(train_data)
+    mean, std = np.mean(train_data), np.std(train_data)
     scaler = MinMaxScaler()
-    # train_data = scaler.transform(mean, std, train_data)
-    # val_data = scaler.transform(mean, std, val_data)
-    # test_data = scaler.transform(mean, std, test_data)
+    train_data = scaler.transform(mean, std, train_data)
+    val_data = scaler.transform(mean, std, val_data)
+    test_data = scaler.transform(mean, std, test_data)
 
     train_loader, valid_loader, test_loader = utils.data_process(args, train_data, val_data, test_data)
 
