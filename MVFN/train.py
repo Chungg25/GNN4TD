@@ -79,7 +79,7 @@ def main():
         if valid_loss < best_loss:
             best_epoch = epoch
             best_loss = valid_loss
-            torch.save(model, args.parameter)
+            # torch.save(model, args.parameter)
 
         print('Epoch:{}, train_loss:{:.5f}, valid_loss:{:.5f},本轮耗时：{:.2f}s, best_epoch:{}, best_loss:{:.5f}'
               .format(epoch, train_loss, valid_loss, end - start, best_epoch, best_loss))
