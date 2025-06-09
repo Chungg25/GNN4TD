@@ -59,7 +59,7 @@ def main():
     from model import Network
     model = Network(adj_data, args.input_dim, args.hidden_dim, args.output_dim).to(device)
     print("param size: {:.2f}MB".format(utils.count_parameters_in_MB(model)))
-    print(model)
+    # print(model)
 
     # L1损失函数
     criterion = nn.L1Loss()
