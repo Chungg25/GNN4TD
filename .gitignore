@@ -1,0 +1,8 @@
+saves/
+
+*.log
+__pycache__/
+*.pyc
+.vscode/
+
+DMGL/data
