@@ -42,7 +42,7 @@ model:
     pre_k: 3
     pre_v: 2
     hidden_size: 64
-    num_nodes: 89
+    num_nodes: 81
     n_dim: 50
     n_supports: 1
     k_hop: 3
