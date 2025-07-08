@@ -98,7 +98,7 @@ if SE:
 if TE:
     folder_dir = folder_dir + 'TE'
     
-folder_dir = folder_dir + mname + now
+folder_dir = folder_dir + mname
 
 print('folder_dir:', folder_dir, flush=True)
 params_path = os.path.join('experiments', dataset_name, folder_dir)
