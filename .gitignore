@@ -23,11 +23,7 @@ PD_OPEN/configurations/.ipynb_checkpoints/
 DMGL/data/
 Taxi_Trips__2024-_.csv (2).csv
 monthly_data/
-*.csv
-*.npz
-*.npy
-*.h5
-*.hdf5
+
 
 *.tmp
 *.temp
