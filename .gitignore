@@ -1,14 +1,42 @@
+
 saves/
+experiments/
+*.params
+*.pkl
+*.pth
+*.model
 
 *.log
+logs/
+PD_OPEN/logs/
+
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
+
 .vscode/
+.ipynb_checkpoints/
+PD_OPEN/configurations/.ipynb_checkpoints/
 
-DMGL/data
-
+DMGL/data/
 Taxi_Trips__2024-_.csv (2).csv
+monthly_data/
+*.csv
+*.npz
+*.npy
+*.h5
+*.hdf5
 
-monthly_data
-PD_OPEN\logs
-PD_OPEN\configurations\.ipynb_checkpoints
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+runs/
+run/
+
+# Backup files
+*.bak
+*.backup
