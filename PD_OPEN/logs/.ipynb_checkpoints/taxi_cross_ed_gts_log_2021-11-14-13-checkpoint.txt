@@ -1,0 +1,2127 @@
+total training epoch, fine tune epoch: 50 , 50
+batch_size: 4
+folder_dir: MAE_ASTGNN_h1d0w0_layer4_head8_dm64_channel1_dir2_drop0.00_1.00e-03TcontextScaledSAtSE0TEcross_ed_gts
+load file: data/taxi.npz
+ori length: 3001 , percent: 1.0 , scale: 3001
+train: torch.Size([3001, 266, 2, 12]) torch.Size([3001, 266, 2, 12]) torch.Size([3001, 266, 2, 12])
+val: torch.Size([672, 266, 2, 12]) torch.Size([672, 266, 2, 12]) torch.Size([672, 266, 2, 12])
+test: torch.Size([672, 266, 2, 12]) torch.Size([672, 266, 2, 12]) torch.Size([672, 266, 2, 12])
+TemporalPositionalEncoding max_len: 12
+h_index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+en_lookup_index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+EncoderDecoder(
+  (encoder): Encoder(
+    (layers): ModuleList(
+      (0): EncoderLayer(
+        (self_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (feed_forward_gcn): spatialAttentionScaledGCN2(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt): Spatial_Attention_layer(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (tcn): TCN(
+          (filter_convs): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+          (gate_convs): Conv1d(64, 64, kernel_size=(1, 3), stride=(1,), padding=(0, 1))
+        )
+        (tcn2): TCN(
+          (filter_convs): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+          (gate_convs): Conv1d(64, 64, kernel_size=(1, 3), stride=(1,), padding=(0, 1))
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (1): EncoderLayer(
+        (self_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (feed_forward_gcn): spatialAttentionScaledGCN2(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt): Spatial_Attention_layer(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (tcn): TCN(
+          (filter_convs): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+          (gate_convs): Conv1d(64, 64, kernel_size=(1, 3), stride=(1,), padding=(0, 1))
+        )
+        (tcn2): TCN(
+          (filter_convs): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+          (gate_convs): Conv1d(64, 64, kernel_size=(1, 3), stride=(1,), padding=(0, 1))
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (2): EncoderLayer(
+        (self_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (feed_forward_gcn): spatialAttentionScaledGCN2(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt): Spatial_Attention_layer(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (tcn): TCN(
+          (filter_convs): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+          (gate_convs): Conv1d(64, 64, kernel_size=(1, 3), stride=(1,), padding=(0, 1))
+        )
+        (tcn2): TCN(
+          (filter_convs): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+          (gate_convs): Conv1d(64, 64, kernel_size=(1, 3), stride=(1,), padding=(0, 1))
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (3): EncoderLayer(
+        (self_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (feed_forward_gcn): spatialAttentionScaledGCN2(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt): Spatial_Attention_layer(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (tcn): TCN(
+          (filter_convs): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+          (gate_convs): Conv1d(64, 64, kernel_size=(1, 3), stride=(1,), padding=(0, 1))
+        )
+        (tcn2): TCN(
+          (filter_convs): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+          (gate_convs): Conv1d(64, 64, kernel_size=(1, 3), stride=(1,), padding=(0, 1))
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+    (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+    (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+  )
+  (decoder): Decoder(
+    (layers): ModuleList(
+      (0): DecoderLayer(
+        (self_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (src_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (feed_forward_gcn): spatialAttentionScaledGCN2(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt): Spatial_Attention_layer(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (tcn): TCN(
+          (filter_convs): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+          (gate_convs): Conv1d(64, 64, kernel_size=(1, 3), stride=(1,), padding=(0, 1))
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (6): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (7): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (1): DecoderLayer(
+        (self_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (src_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (feed_forward_gcn): spatialAttentionScaledGCN2(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt): Spatial_Attention_layer(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (tcn): TCN(
+          (filter_convs): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+          (gate_convs): Conv1d(64, 64, kernel_size=(1, 3), stride=(1,), padding=(0, 1))
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (6): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (7): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (2): DecoderLayer(
+        (self_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (src_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (feed_forward_gcn): spatialAttentionScaledGCN2(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt): Spatial_Attention_layer(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (tcn): TCN(
+          (filter_convs): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+          (gate_convs): Conv1d(64, 64, kernel_size=(1, 3), stride=(1,), padding=(0, 1))
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (6): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (7): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (3): DecoderLayer(
+        (self_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (src_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (feed_forward_gcn): spatialAttentionScaledGCN2(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt): Spatial_Attention_layer(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (tcn): TCN(
+          (filter_convs): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+          (gate_convs): Conv1d(64, 64, kernel_size=(1, 3), stride=(1,), padding=(0, 1))
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (6): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (7): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+    (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+    (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+  )
+  (decoder2): Decoder(
+    (layers): ModuleList(
+      (0): DecoderLayer(
+        (self_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (src_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (feed_forward_gcn): spatialAttentionScaledGCN2(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt): Spatial_Attention_layer(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (tcn): TCN(
+          (filter_convs): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+          (gate_convs): Conv1d(64, 64, kernel_size=(1, 3), stride=(1,), padding=(0, 1))
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (6): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (7): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (1): DecoderLayer(
+        (self_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (src_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (feed_forward_gcn): spatialAttentionScaledGCN2(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt): Spatial_Attention_layer(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (tcn): TCN(
+          (filter_convs): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+          (gate_convs): Conv1d(64, 64, kernel_size=(1, 3), stride=(1,), padding=(0, 1))
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (6): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (7): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (2): DecoderLayer(
+        (self_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (src_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (feed_forward_gcn): spatialAttentionScaledGCN2(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt): Spatial_Attention_layer(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (tcn): TCN(
+          (filter_convs): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+          (gate_convs): Conv1d(64, 64, kernel_size=(1, 3), stride=(1,), padding=(0, 1))
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (6): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (7): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (3): DecoderLayer(
+        (self_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (src_attn): MultiHeadAttention(
+          (linears): ModuleList(
+            (0): Linear(in_features=64, out_features=64, bias=True)
+            (1): Linear(in_features=64, out_features=64, bias=True)
+            (2): Linear(in_features=64, out_features=64, bias=True)
+            (3): Linear(in_features=64, out_features=64, bias=True)
+          )
+          (dropout): Dropout(p=0.0, inplace=False)
+        )
+        (feed_forward_gcn): spatialAttentionScaledGCN2(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt): Spatial_Attention_layer(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (tcn): TCN(
+          (filter_convs): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+          (gate_convs): Conv1d(64, 64, kernel_size=(1, 3), stride=(1,), padding=(0, 1))
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (6): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (7): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+    (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+    (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+  )
+  (src_embed): Sequential(
+    (0): Linear(in_features=1, out_features=64, bias=True)
+    (1): TemporalPositionalEncoding(
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (2): SpatialPositionalEncoding(
+      (dropout): Dropout(p=0.0, inplace=False)
+      (embedding): Embedding(266, 64)
+    )
+  )
+  (src_embed2): Sequential(
+    (0): Linear(in_features=1, out_features=64, bias=True)
+    (1): TemporalPositionalEncoding(
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (2): SpatialPositionalEncoding(
+      (dropout): Dropout(p=0.0, inplace=False)
+      (embedding): Embedding(266, 64)
+    )
+  )
+  (trg_embed): Sequential(
+    (0): Linear(in_features=1, out_features=64, bias=True)
+    (1): TemporalPositionalEncoding(
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (2): SpatialPositionalEncoding(
+      (dropout): Dropout(p=0.0, inplace=False)
+      (embedding): Embedding(266, 64)
+    )
+  )
+  (trg_embed2): Sequential(
+    (0): Linear(in_features=1, out_features=64, bias=True)
+    (1): TemporalPositionalEncoding(
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (2): SpatialPositionalEncoding(
+      (dropout): Dropout(p=0.0, inplace=False)
+      (embedding): Embedding(266, 64)
+    )
+  )
+  (prediction_generator): Linear(in_features=64, out_features=1, bias=True)
+  (prediction_generator2): Linear(in_features=64, out_features=1, bias=True)
+)
+delete the old one and create params directory experiments/taxi/MAE_ASTGNN_h1d0w0_layer4_head8_dm64_channel1_dir2_drop0.00_1.00e-03TcontextScaledSAtSE0TEcross_ed_gts
+Net's state_dict:
+encoder.layers.0.self_attn.linears.0.weight 	 torch.Size([64, 64])
+encoder.layers.0.self_attn.linears.0.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.linears.1.weight 	 torch.Size([64, 64])
+encoder.layers.0.self_attn.linears.1.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.linears.2.weight 	 torch.Size([64, 64])
+encoder.layers.0.self_attn.linears.2.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.linears.3.weight 	 torch.Size([64, 64])
+encoder.layers.0.self_attn.linears.3.bias 	 torch.Size([64])
+encoder.layers.0.feed_forward_gcn.Theta.weight 	 torch.Size([64, 64])
+encoder.layers.0.feed_forward_gcn.Gate.weight 	 torch.Size([1, 64])
+encoder.layers.0.tcn.filter_convs.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.0.tcn.filter_convs.bias 	 torch.Size([64])
+encoder.layers.0.tcn.gate_convs.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.0.tcn.gate_convs.bias 	 torch.Size([64])
+encoder.layers.0.tcn2.filter_convs.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.0.tcn2.filter_convs.bias 	 torch.Size([64])
+encoder.layers.0.tcn2.gate_convs.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.0.tcn2.gate_convs.bias 	 torch.Size([64])
+encoder.layers.0.sublayer.0.norm.weight 	 torch.Size([64])
+encoder.layers.0.sublayer.0.norm.bias 	 torch.Size([64])
+encoder.layers.0.sublayer.1.norm.weight 	 torch.Size([64])
+encoder.layers.0.sublayer.1.norm.bias 	 torch.Size([64])
+encoder.layers.0.sublayer.2.norm.weight 	 torch.Size([64])
+encoder.layers.0.sublayer.2.norm.bias 	 torch.Size([64])
+encoder.layers.0.sublayer.3.norm.weight 	 torch.Size([64])
+encoder.layers.0.sublayer.3.norm.bias 	 torch.Size([64])
+encoder.layers.0.sublayer.4.norm.weight 	 torch.Size([64])
+encoder.layers.0.sublayer.4.norm.bias 	 torch.Size([64])
+encoder.layers.0.sublayer.5.norm.weight 	 torch.Size([64])
+encoder.layers.0.sublayer.5.norm.bias 	 torch.Size([64])
+encoder.layers.0.sublayer2.norm.weight 	 torch.Size([64])
+encoder.layers.0.sublayer2.norm.bias 	 torch.Size([64])
+encoder.layers.0.sublayer2.norm2.weight 	 torch.Size([64])
+encoder.layers.0.sublayer2.norm2.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.linears.0.weight 	 torch.Size([64, 64])
+encoder.layers.1.self_attn.linears.0.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.linears.1.weight 	 torch.Size([64, 64])
+encoder.layers.1.self_attn.linears.1.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.linears.2.weight 	 torch.Size([64, 64])
+encoder.layers.1.self_attn.linears.2.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.linears.3.weight 	 torch.Size([64, 64])
+encoder.layers.1.self_attn.linears.3.bias 	 torch.Size([64])
+encoder.layers.1.feed_forward_gcn.Theta.weight 	 torch.Size([64, 64])
+encoder.layers.1.feed_forward_gcn.Gate.weight 	 torch.Size([1, 64])
+encoder.layers.1.tcn.filter_convs.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.1.tcn.filter_convs.bias 	 torch.Size([64])
+encoder.layers.1.tcn.gate_convs.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.1.tcn.gate_convs.bias 	 torch.Size([64])
+encoder.layers.1.tcn2.filter_convs.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.1.tcn2.filter_convs.bias 	 torch.Size([64])
+encoder.layers.1.tcn2.gate_convs.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.1.tcn2.gate_convs.bias 	 torch.Size([64])
+encoder.layers.1.sublayer.0.norm.weight 	 torch.Size([64])
+encoder.layers.1.sublayer.0.norm.bias 	 torch.Size([64])
+encoder.layers.1.sublayer.1.norm.weight 	 torch.Size([64])
+encoder.layers.1.sublayer.1.norm.bias 	 torch.Size([64])
+encoder.layers.1.sublayer.2.norm.weight 	 torch.Size([64])
+encoder.layers.1.sublayer.2.norm.bias 	 torch.Size([64])
+encoder.layers.1.sublayer.3.norm.weight 	 torch.Size([64])
+encoder.layers.1.sublayer.3.norm.bias 	 torch.Size([64])
+encoder.layers.1.sublayer.4.norm.weight 	 torch.Size([64])
+encoder.layers.1.sublayer.4.norm.bias 	 torch.Size([64])
+encoder.layers.1.sublayer.5.norm.weight 	 torch.Size([64])
+encoder.layers.1.sublayer.5.norm.bias 	 torch.Size([64])
+encoder.layers.1.sublayer2.norm.weight 	 torch.Size([64])
+encoder.layers.1.sublayer2.norm.bias 	 torch.Size([64])
+encoder.layers.1.sublayer2.norm2.weight 	 torch.Size([64])
+encoder.layers.1.sublayer2.norm2.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.linears.0.weight 	 torch.Size([64, 64])
+encoder.layers.2.self_attn.linears.0.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.linears.1.weight 	 torch.Size([64, 64])
+encoder.layers.2.self_attn.linears.1.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.linears.2.weight 	 torch.Size([64, 64])
+encoder.layers.2.self_attn.linears.2.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.linears.3.weight 	 torch.Size([64, 64])
+encoder.layers.2.self_attn.linears.3.bias 	 torch.Size([64])
+encoder.layers.2.feed_forward_gcn.Theta.weight 	 torch.Size([64, 64])
+encoder.layers.2.feed_forward_gcn.Gate.weight 	 torch.Size([1, 64])
+encoder.layers.2.tcn.filter_convs.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.2.tcn.filter_convs.bias 	 torch.Size([64])
+encoder.layers.2.tcn.gate_convs.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.2.tcn.gate_convs.bias 	 torch.Size([64])
+encoder.layers.2.tcn2.filter_convs.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.2.tcn2.filter_convs.bias 	 torch.Size([64])
+encoder.layers.2.tcn2.gate_convs.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.2.tcn2.gate_convs.bias 	 torch.Size([64])
+encoder.layers.2.sublayer.0.norm.weight 	 torch.Size([64])
+encoder.layers.2.sublayer.0.norm.bias 	 torch.Size([64])
+encoder.layers.2.sublayer.1.norm.weight 	 torch.Size([64])
+encoder.layers.2.sublayer.1.norm.bias 	 torch.Size([64])
+encoder.layers.2.sublayer.2.norm.weight 	 torch.Size([64])
+encoder.layers.2.sublayer.2.norm.bias 	 torch.Size([64])
+encoder.layers.2.sublayer.3.norm.weight 	 torch.Size([64])
+encoder.layers.2.sublayer.3.norm.bias 	 torch.Size([64])
+encoder.layers.2.sublayer.4.norm.weight 	 torch.Size([64])
+encoder.layers.2.sublayer.4.norm.bias 	 torch.Size([64])
+encoder.layers.2.sublayer.5.norm.weight 	 torch.Size([64])
+encoder.layers.2.sublayer.5.norm.bias 	 torch.Size([64])
+encoder.layers.2.sublayer2.norm.weight 	 torch.Size([64])
+encoder.layers.2.sublayer2.norm.bias 	 torch.Size([64])
+encoder.layers.2.sublayer2.norm2.weight 	 torch.Size([64])
+encoder.layers.2.sublayer2.norm2.bias 	 torch.Size([64])
+encoder.layers.3.self_attn.linears.0.weight 	 torch.Size([64, 64])
+encoder.layers.3.self_attn.linears.0.bias 	 torch.Size([64])
+encoder.layers.3.self_attn.linears.1.weight 	 torch.Size([64, 64])
+encoder.layers.3.self_attn.linears.1.bias 	 torch.Size([64])
+encoder.layers.3.self_attn.linears.2.weight 	 torch.Size([64, 64])
+encoder.layers.3.self_attn.linears.2.bias 	 torch.Size([64])
+encoder.layers.3.self_attn.linears.3.weight 	 torch.Size([64, 64])
+encoder.layers.3.self_attn.linears.3.bias 	 torch.Size([64])
+encoder.layers.3.feed_forward_gcn.Theta.weight 	 torch.Size([64, 64])
+encoder.layers.3.feed_forward_gcn.Gate.weight 	 torch.Size([1, 64])
+encoder.layers.3.tcn.filter_convs.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.3.tcn.filter_convs.bias 	 torch.Size([64])
+encoder.layers.3.tcn.gate_convs.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.3.tcn.gate_convs.bias 	 torch.Size([64])
+encoder.layers.3.tcn2.filter_convs.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.3.tcn2.filter_convs.bias 	 torch.Size([64])
+encoder.layers.3.tcn2.gate_convs.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.3.tcn2.gate_convs.bias 	 torch.Size([64])
+encoder.layers.3.sublayer.0.norm.weight 	 torch.Size([64])
+encoder.layers.3.sublayer.0.norm.bias 	 torch.Size([64])
+encoder.layers.3.sublayer.1.norm.weight 	 torch.Size([64])
+encoder.layers.3.sublayer.1.norm.bias 	 torch.Size([64])
+encoder.layers.3.sublayer.2.norm.weight 	 torch.Size([64])
+encoder.layers.3.sublayer.2.norm.bias 	 torch.Size([64])
+encoder.layers.3.sublayer.3.norm.weight 	 torch.Size([64])
+encoder.layers.3.sublayer.3.norm.bias 	 torch.Size([64])
+encoder.layers.3.sublayer.4.norm.weight 	 torch.Size([64])
+encoder.layers.3.sublayer.4.norm.bias 	 torch.Size([64])
+encoder.layers.3.sublayer.5.norm.weight 	 torch.Size([64])
+encoder.layers.3.sublayer.5.norm.bias 	 torch.Size([64])
+encoder.layers.3.sublayer2.norm.weight 	 torch.Size([64])
+encoder.layers.3.sublayer2.norm.bias 	 torch.Size([64])
+encoder.layers.3.sublayer2.norm2.weight 	 torch.Size([64])
+encoder.layers.3.sublayer2.norm2.bias 	 torch.Size([64])
+encoder.norm.weight 	 torch.Size([64])
+encoder.norm.bias 	 torch.Size([64])
+encoder.norm2.weight 	 torch.Size([64])
+encoder.norm2.bias 	 torch.Size([64])
+decoder.layers.0.self_attn.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.0.self_attn.linears.0.bias 	 torch.Size([64])
+decoder.layers.0.self_attn.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.0.self_attn.linears.1.bias 	 torch.Size([64])
+decoder.layers.0.self_attn.linears.2.weight 	 torch.Size([64, 64])
+decoder.layers.0.self_attn.linears.2.bias 	 torch.Size([64])
+decoder.layers.0.self_attn.linears.3.weight 	 torch.Size([64, 64])
+decoder.layers.0.self_attn.linears.3.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.0.src_attn.linears.0.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.0.src_attn.linears.1.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.linears.2.weight 	 torch.Size([64, 64])
+decoder.layers.0.src_attn.linears.2.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.linears.3.weight 	 torch.Size([64, 64])
+decoder.layers.0.src_attn.linears.3.bias 	 torch.Size([64])
+decoder.layers.0.feed_forward_gcn.Theta.weight 	 torch.Size([64, 64])
+decoder.layers.0.feed_forward_gcn.Gate.weight 	 torch.Size([1, 64])
+decoder.layers.0.tcn.filter_convs.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.0.tcn.filter_convs.bias 	 torch.Size([64])
+decoder.layers.0.tcn.gate_convs.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.0.tcn.gate_convs.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.0.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.0.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.1.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.1.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.2.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.2.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.3.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.3.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.4.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.4.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.5.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.5.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.6.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.6.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.7.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.7.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer2.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer2.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer2.norm2.weight 	 torch.Size([64])
+decoder.layers.0.sublayer2.norm2.bias 	 torch.Size([64])
+decoder.layers.1.self_attn.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.1.self_attn.linears.0.bias 	 torch.Size([64])
+decoder.layers.1.self_attn.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.1.self_attn.linears.1.bias 	 torch.Size([64])
+decoder.layers.1.self_attn.linears.2.weight 	 torch.Size([64, 64])
+decoder.layers.1.self_attn.linears.2.bias 	 torch.Size([64])
+decoder.layers.1.self_attn.linears.3.weight 	 torch.Size([64, 64])
+decoder.layers.1.self_attn.linears.3.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.1.src_attn.linears.0.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.1.src_attn.linears.1.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.linears.2.weight 	 torch.Size([64, 64])
+decoder.layers.1.src_attn.linears.2.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.linears.3.weight 	 torch.Size([64, 64])
+decoder.layers.1.src_attn.linears.3.bias 	 torch.Size([64])
+decoder.layers.1.feed_forward_gcn.Theta.weight 	 torch.Size([64, 64])
+decoder.layers.1.feed_forward_gcn.Gate.weight 	 torch.Size([1, 64])
+decoder.layers.1.tcn.filter_convs.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.1.tcn.filter_convs.bias 	 torch.Size([64])
+decoder.layers.1.tcn.gate_convs.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.1.tcn.gate_convs.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.0.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.0.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.1.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.1.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.2.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.2.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.3.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.3.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.4.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.4.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.5.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.5.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.6.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.6.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.7.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.7.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer2.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer2.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer2.norm2.weight 	 torch.Size([64])
+decoder.layers.1.sublayer2.norm2.bias 	 torch.Size([64])
+decoder.layers.2.self_attn.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.2.self_attn.linears.0.bias 	 torch.Size([64])
+decoder.layers.2.self_attn.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.2.self_attn.linears.1.bias 	 torch.Size([64])
+decoder.layers.2.self_attn.linears.2.weight 	 torch.Size([64, 64])
+decoder.layers.2.self_attn.linears.2.bias 	 torch.Size([64])
+decoder.layers.2.self_attn.linears.3.weight 	 torch.Size([64, 64])
+decoder.layers.2.self_attn.linears.3.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.2.src_attn.linears.0.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.2.src_attn.linears.1.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.linears.2.weight 	 torch.Size([64, 64])
+decoder.layers.2.src_attn.linears.2.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.linears.3.weight 	 torch.Size([64, 64])
+decoder.layers.2.src_attn.linears.3.bias 	 torch.Size([64])
+decoder.layers.2.feed_forward_gcn.Theta.weight 	 torch.Size([64, 64])
+decoder.layers.2.feed_forward_gcn.Gate.weight 	 torch.Size([1, 64])
+decoder.layers.2.tcn.filter_convs.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.2.tcn.filter_convs.bias 	 torch.Size([64])
+decoder.layers.2.tcn.gate_convs.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.2.tcn.gate_convs.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.0.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.0.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.1.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.1.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.2.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.2.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.3.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.3.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.4.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.4.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.5.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.5.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.6.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.6.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.7.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.7.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer2.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer2.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer2.norm2.weight 	 torch.Size([64])
+decoder.layers.2.sublayer2.norm2.bias 	 torch.Size([64])
+decoder.layers.3.self_attn.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.3.self_attn.linears.0.bias 	 torch.Size([64])
+decoder.layers.3.self_attn.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.3.self_attn.linears.1.bias 	 torch.Size([64])
+decoder.layers.3.self_attn.linears.2.weight 	 torch.Size([64, 64])
+decoder.layers.3.self_attn.linears.2.bias 	 torch.Size([64])
+decoder.layers.3.self_attn.linears.3.weight 	 torch.Size([64, 64])
+decoder.layers.3.self_attn.linears.3.bias 	 torch.Size([64])
+decoder.layers.3.src_attn.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.3.src_attn.linears.0.bias 	 torch.Size([64])
+decoder.layers.3.src_attn.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.3.src_attn.linears.1.bias 	 torch.Size([64])
+decoder.layers.3.src_attn.linears.2.weight 	 torch.Size([64, 64])
+decoder.layers.3.src_attn.linears.2.bias 	 torch.Size([64])
+decoder.layers.3.src_attn.linears.3.weight 	 torch.Size([64, 64])
+decoder.layers.3.src_attn.linears.3.bias 	 torch.Size([64])
+decoder.layers.3.feed_forward_gcn.Theta.weight 	 torch.Size([64, 64])
+decoder.layers.3.feed_forward_gcn.Gate.weight 	 torch.Size([1, 64])
+decoder.layers.3.tcn.filter_convs.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.3.tcn.filter_convs.bias 	 torch.Size([64])
+decoder.layers.3.tcn.gate_convs.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.3.tcn.gate_convs.bias 	 torch.Size([64])
+decoder.layers.3.sublayer.0.norm.weight 	 torch.Size([64])
+decoder.layers.3.sublayer.0.norm.bias 	 torch.Size([64])
+decoder.layers.3.sublayer.1.norm.weight 	 torch.Size([64])
+decoder.layers.3.sublayer.1.norm.bias 	 torch.Size([64])
+decoder.layers.3.sublayer.2.norm.weight 	 torch.Size([64])
+decoder.layers.3.sublayer.2.norm.bias 	 torch.Size([64])
+decoder.layers.3.sublayer.3.norm.weight 	 torch.Size([64])
+decoder.layers.3.sublayer.3.norm.bias 	 torch.Size([64])
+decoder.layers.3.sublayer.4.norm.weight 	 torch.Size([64])
+decoder.layers.3.sublayer.4.norm.bias 	 torch.Size([64])
+decoder.layers.3.sublayer.5.norm.weight 	 torch.Size([64])
+decoder.layers.3.sublayer.5.norm.bias 	 torch.Size([64])
+decoder.layers.3.sublayer.6.norm.weight 	 torch.Size([64])
+decoder.layers.3.sublayer.6.norm.bias 	 torch.Size([64])
+decoder.layers.3.sublayer.7.norm.weight 	 torch.Size([64])
+decoder.layers.3.sublayer.7.norm.bias 	 torch.Size([64])
+decoder.layers.3.sublayer2.norm.weight 	 torch.Size([64])
+decoder.layers.3.sublayer2.norm.bias 	 torch.Size([64])
+decoder.layers.3.sublayer2.norm2.weight 	 torch.Size([64])
+decoder.layers.3.sublayer2.norm2.bias 	 torch.Size([64])
+decoder.norm.weight 	 torch.Size([64])
+decoder.norm.bias 	 torch.Size([64])
+decoder.norm2.weight 	 torch.Size([64])
+decoder.norm2.bias 	 torch.Size([64])
+decoder2.layers.0.self_attn.linears.0.weight 	 torch.Size([64, 64])
+decoder2.layers.0.self_attn.linears.0.bias 	 torch.Size([64])
+decoder2.layers.0.self_attn.linears.1.weight 	 torch.Size([64, 64])
+decoder2.layers.0.self_attn.linears.1.bias 	 torch.Size([64])
+decoder2.layers.0.self_attn.linears.2.weight 	 torch.Size([64, 64])
+decoder2.layers.0.self_attn.linears.2.bias 	 torch.Size([64])
+decoder2.layers.0.self_attn.linears.3.weight 	 torch.Size([64, 64])
+decoder2.layers.0.self_attn.linears.3.bias 	 torch.Size([64])
+decoder2.layers.0.src_attn.linears.0.weight 	 torch.Size([64, 64])
+decoder2.layers.0.src_attn.linears.0.bias 	 torch.Size([64])
+decoder2.layers.0.src_attn.linears.1.weight 	 torch.Size([64, 64])
+decoder2.layers.0.src_attn.linears.1.bias 	 torch.Size([64])
+decoder2.layers.0.src_attn.linears.2.weight 	 torch.Size([64, 64])
+decoder2.layers.0.src_attn.linears.2.bias 	 torch.Size([64])
+decoder2.layers.0.src_attn.linears.3.weight 	 torch.Size([64, 64])
+decoder2.layers.0.src_attn.linears.3.bias 	 torch.Size([64])
+decoder2.layers.0.feed_forward_gcn.Theta.weight 	 torch.Size([64, 64])
+decoder2.layers.0.feed_forward_gcn.Gate.weight 	 torch.Size([1, 64])
+decoder2.layers.0.tcn.filter_convs.weight 	 torch.Size([64, 64, 1, 3])
+decoder2.layers.0.tcn.filter_convs.bias 	 torch.Size([64])
+decoder2.layers.0.tcn.gate_convs.weight 	 torch.Size([64, 64, 1, 3])
+decoder2.layers.0.tcn.gate_convs.bias 	 torch.Size([64])
+decoder2.layers.0.sublayer.0.norm.weight 	 torch.Size([64])
+decoder2.layers.0.sublayer.0.norm.bias 	 torch.Size([64])
+decoder2.layers.0.sublayer.1.norm.weight 	 torch.Size([64])
+decoder2.layers.0.sublayer.1.norm.bias 	 torch.Size([64])
+decoder2.layers.0.sublayer.2.norm.weight 	 torch.Size([64])
+decoder2.layers.0.sublayer.2.norm.bias 	 torch.Size([64])
+decoder2.layers.0.sublayer.3.norm.weight 	 torch.Size([64])
+decoder2.layers.0.sublayer.3.norm.bias 	 torch.Size([64])
+decoder2.layers.0.sublayer.4.norm.weight 	 torch.Size([64])
+decoder2.layers.0.sublayer.4.norm.bias 	 torch.Size([64])
+decoder2.layers.0.sublayer.5.norm.weight 	 torch.Size([64])
+decoder2.layers.0.sublayer.5.norm.bias 	 torch.Size([64])
+decoder2.layers.0.sublayer.6.norm.weight 	 torch.Size([64])
+decoder2.layers.0.sublayer.6.norm.bias 	 torch.Size([64])
+decoder2.layers.0.sublayer.7.norm.weight 	 torch.Size([64])
+decoder2.layers.0.sublayer.7.norm.bias 	 torch.Size([64])
+decoder2.layers.0.sublayer2.norm.weight 	 torch.Size([64])
+decoder2.layers.0.sublayer2.norm.bias 	 torch.Size([64])
+decoder2.layers.0.sublayer2.norm2.weight 	 torch.Size([64])
+decoder2.layers.0.sublayer2.norm2.bias 	 torch.Size([64])
+decoder2.layers.1.self_attn.linears.0.weight 	 torch.Size([64, 64])
+decoder2.layers.1.self_attn.linears.0.bias 	 torch.Size([64])
+decoder2.layers.1.self_attn.linears.1.weight 	 torch.Size([64, 64])
+decoder2.layers.1.self_attn.linears.1.bias 	 torch.Size([64])
+decoder2.layers.1.self_attn.linears.2.weight 	 torch.Size([64, 64])
+decoder2.layers.1.self_attn.linears.2.bias 	 torch.Size([64])
+decoder2.layers.1.self_attn.linears.3.weight 	 torch.Size([64, 64])
+decoder2.layers.1.self_attn.linears.3.bias 	 torch.Size([64])
+decoder2.layers.1.src_attn.linears.0.weight 	 torch.Size([64, 64])
+decoder2.layers.1.src_attn.linears.0.bias 	 torch.Size([64])
+decoder2.layers.1.src_attn.linears.1.weight 	 torch.Size([64, 64])
+decoder2.layers.1.src_attn.linears.1.bias 	 torch.Size([64])
+decoder2.layers.1.src_attn.linears.2.weight 	 torch.Size([64, 64])
+decoder2.layers.1.src_attn.linears.2.bias 	 torch.Size([64])
+decoder2.layers.1.src_attn.linears.3.weight 	 torch.Size([64, 64])
+decoder2.layers.1.src_attn.linears.3.bias 	 torch.Size([64])
+decoder2.layers.1.feed_forward_gcn.Theta.weight 	 torch.Size([64, 64])
+decoder2.layers.1.feed_forward_gcn.Gate.weight 	 torch.Size([1, 64])
+decoder2.layers.1.tcn.filter_convs.weight 	 torch.Size([64, 64, 1, 3])
+decoder2.layers.1.tcn.filter_convs.bias 	 torch.Size([64])
+decoder2.layers.1.tcn.gate_convs.weight 	 torch.Size([64, 64, 1, 3])
+decoder2.layers.1.tcn.gate_convs.bias 	 torch.Size([64])
+decoder2.layers.1.sublayer.0.norm.weight 	 torch.Size([64])
+decoder2.layers.1.sublayer.0.norm.bias 	 torch.Size([64])
+decoder2.layers.1.sublayer.1.norm.weight 	 torch.Size([64])
+decoder2.layers.1.sublayer.1.norm.bias 	 torch.Size([64])
+decoder2.layers.1.sublayer.2.norm.weight 	 torch.Size([64])
+decoder2.layers.1.sublayer.2.norm.bias 	 torch.Size([64])
+decoder2.layers.1.sublayer.3.norm.weight 	 torch.Size([64])
+decoder2.layers.1.sublayer.3.norm.bias 	 torch.Size([64])
+decoder2.layers.1.sublayer.4.norm.weight 	 torch.Size([64])
+decoder2.layers.1.sublayer.4.norm.bias 	 torch.Size([64])
+decoder2.layers.1.sublayer.5.norm.weight 	 torch.Size([64])
+decoder2.layers.1.sublayer.5.norm.bias 	 torch.Size([64])
+decoder2.layers.1.sublayer.6.norm.weight 	 torch.Size([64])
+decoder2.layers.1.sublayer.6.norm.bias 	 torch.Size([64])
+decoder2.layers.1.sublayer.7.norm.weight 	 torch.Size([64])
+decoder2.layers.1.sublayer.7.norm.bias 	 torch.Size([64])
+decoder2.layers.1.sublayer2.norm.weight 	 torch.Size([64])
+decoder2.layers.1.sublayer2.norm.bias 	 torch.Size([64])
+decoder2.layers.1.sublayer2.norm2.weight 	 torch.Size([64])
+decoder2.layers.1.sublayer2.norm2.bias 	 torch.Size([64])
+decoder2.layers.2.self_attn.linears.0.weight 	 torch.Size([64, 64])
+decoder2.layers.2.self_attn.linears.0.bias 	 torch.Size([64])
+decoder2.layers.2.self_attn.linears.1.weight 	 torch.Size([64, 64])
+decoder2.layers.2.self_attn.linears.1.bias 	 torch.Size([64])
+decoder2.layers.2.self_attn.linears.2.weight 	 torch.Size([64, 64])
+decoder2.layers.2.self_attn.linears.2.bias 	 torch.Size([64])
+decoder2.layers.2.self_attn.linears.3.weight 	 torch.Size([64, 64])
+decoder2.layers.2.self_attn.linears.3.bias 	 torch.Size([64])
+decoder2.layers.2.src_attn.linears.0.weight 	 torch.Size([64, 64])
+decoder2.layers.2.src_attn.linears.0.bias 	 torch.Size([64])
+decoder2.layers.2.src_attn.linears.1.weight 	 torch.Size([64, 64])
+decoder2.layers.2.src_attn.linears.1.bias 	 torch.Size([64])
+decoder2.layers.2.src_attn.linears.2.weight 	 torch.Size([64, 64])
+decoder2.layers.2.src_attn.linears.2.bias 	 torch.Size([64])
+decoder2.layers.2.src_attn.linears.3.weight 	 torch.Size([64, 64])
+decoder2.layers.2.src_attn.linears.3.bias 	 torch.Size([64])
+decoder2.layers.2.feed_forward_gcn.Theta.weight 	 torch.Size([64, 64])
+decoder2.layers.2.feed_forward_gcn.Gate.weight 	 torch.Size([1, 64])
+decoder2.layers.2.tcn.filter_convs.weight 	 torch.Size([64, 64, 1, 3])
+decoder2.layers.2.tcn.filter_convs.bias 	 torch.Size([64])
+decoder2.layers.2.tcn.gate_convs.weight 	 torch.Size([64, 64, 1, 3])
+decoder2.layers.2.tcn.gate_convs.bias 	 torch.Size([64])
+decoder2.layers.2.sublayer.0.norm.weight 	 torch.Size([64])
+decoder2.layers.2.sublayer.0.norm.bias 	 torch.Size([64])
+decoder2.layers.2.sublayer.1.norm.weight 	 torch.Size([64])
+decoder2.layers.2.sublayer.1.norm.bias 	 torch.Size([64])
+decoder2.layers.2.sublayer.2.norm.weight 	 torch.Size([64])
+decoder2.layers.2.sublayer.2.norm.bias 	 torch.Size([64])
+decoder2.layers.2.sublayer.3.norm.weight 	 torch.Size([64])
+decoder2.layers.2.sublayer.3.norm.bias 	 torch.Size([64])
+decoder2.layers.2.sublayer.4.norm.weight 	 torch.Size([64])
+decoder2.layers.2.sublayer.4.norm.bias 	 torch.Size([64])
+decoder2.layers.2.sublayer.5.norm.weight 	 torch.Size([64])
+decoder2.layers.2.sublayer.5.norm.bias 	 torch.Size([64])
+decoder2.layers.2.sublayer.6.norm.weight 	 torch.Size([64])
+decoder2.layers.2.sublayer.6.norm.bias 	 torch.Size([64])
+decoder2.layers.2.sublayer.7.norm.weight 	 torch.Size([64])
+decoder2.layers.2.sublayer.7.norm.bias 	 torch.Size([64])
+decoder2.layers.2.sublayer2.norm.weight 	 torch.Size([64])
+decoder2.layers.2.sublayer2.norm.bias 	 torch.Size([64])
+decoder2.layers.2.sublayer2.norm2.weight 	 torch.Size([64])
+decoder2.layers.2.sublayer2.norm2.bias 	 torch.Size([64])
+decoder2.layers.3.self_attn.linears.0.weight 	 torch.Size([64, 64])
+decoder2.layers.3.self_attn.linears.0.bias 	 torch.Size([64])
+decoder2.layers.3.self_attn.linears.1.weight 	 torch.Size([64, 64])
+decoder2.layers.3.self_attn.linears.1.bias 	 torch.Size([64])
+decoder2.layers.3.self_attn.linears.2.weight 	 torch.Size([64, 64])
+decoder2.layers.3.self_attn.linears.2.bias 	 torch.Size([64])
+decoder2.layers.3.self_attn.linears.3.weight 	 torch.Size([64, 64])
+decoder2.layers.3.self_attn.linears.3.bias 	 torch.Size([64])
+decoder2.layers.3.src_attn.linears.0.weight 	 torch.Size([64, 64])
+decoder2.layers.3.src_attn.linears.0.bias 	 torch.Size([64])
+decoder2.layers.3.src_attn.linears.1.weight 	 torch.Size([64, 64])
+decoder2.layers.3.src_attn.linears.1.bias 	 torch.Size([64])
+decoder2.layers.3.src_attn.linears.2.weight 	 torch.Size([64, 64])
+decoder2.layers.3.src_attn.linears.2.bias 	 torch.Size([64])
+decoder2.layers.3.src_attn.linears.3.weight 	 torch.Size([64, 64])
+decoder2.layers.3.src_attn.linears.3.bias 	 torch.Size([64])
+decoder2.layers.3.feed_forward_gcn.Theta.weight 	 torch.Size([64, 64])
+decoder2.layers.3.feed_forward_gcn.Gate.weight 	 torch.Size([1, 64])
+decoder2.layers.3.tcn.filter_convs.weight 	 torch.Size([64, 64, 1, 3])
+decoder2.layers.3.tcn.filter_convs.bias 	 torch.Size([64])
+decoder2.layers.3.tcn.gate_convs.weight 	 torch.Size([64, 64, 1, 3])
+decoder2.layers.3.tcn.gate_convs.bias 	 torch.Size([64])
+decoder2.layers.3.sublayer.0.norm.weight 	 torch.Size([64])
+decoder2.layers.3.sublayer.0.norm.bias 	 torch.Size([64])
+decoder2.layers.3.sublayer.1.norm.weight 	 torch.Size([64])
+decoder2.layers.3.sublayer.1.norm.bias 	 torch.Size([64])
+decoder2.layers.3.sublayer.2.norm.weight 	 torch.Size([64])
+decoder2.layers.3.sublayer.2.norm.bias 	 torch.Size([64])
+decoder2.layers.3.sublayer.3.norm.weight 	 torch.Size([64])
+decoder2.layers.3.sublayer.3.norm.bias 	 torch.Size([64])
+decoder2.layers.3.sublayer.4.norm.weight 	 torch.Size([64])
+decoder2.layers.3.sublayer.4.norm.bias 	 torch.Size([64])
+decoder2.layers.3.sublayer.5.norm.weight 	 torch.Size([64])
+decoder2.layers.3.sublayer.5.norm.bias 	 torch.Size([64])
+decoder2.layers.3.sublayer.6.norm.weight 	 torch.Size([64])
+decoder2.layers.3.sublayer.6.norm.bias 	 torch.Size([64])
+decoder2.layers.3.sublayer.7.norm.weight 	 torch.Size([64])
+decoder2.layers.3.sublayer.7.norm.bias 	 torch.Size([64])
+decoder2.layers.3.sublayer2.norm.weight 	 torch.Size([64])
+decoder2.layers.3.sublayer2.norm.bias 	 torch.Size([64])
+decoder2.layers.3.sublayer2.norm2.weight 	 torch.Size([64])
+decoder2.layers.3.sublayer2.norm2.bias 	 torch.Size([64])
+decoder2.norm.weight 	 torch.Size([64])
+decoder2.norm.bias 	 torch.Size([64])
+decoder2.norm2.weight 	 torch.Size([64])
+decoder2.norm2.bias 	 torch.Size([64])
+src_embed.0.weight 	 torch.Size([64, 1])
+src_embed.0.bias 	 torch.Size([64])
+src_embed.1.pe 	 torch.Size([1, 1, 12, 64])
+src_embed.2.embedding.weight 	 torch.Size([266, 64])
+src_embed2.0.weight 	 torch.Size([64, 1])
+src_embed2.0.bias 	 torch.Size([64])
+src_embed2.1.pe 	 torch.Size([1, 1, 12, 64])
+src_embed2.2.embedding.weight 	 torch.Size([266, 64])
+trg_embed.0.weight 	 torch.Size([64, 1])
+trg_embed.0.bias 	 torch.Size([64])
+trg_embed.1.pe 	 torch.Size([1, 1, 12, 64])
+trg_embed.2.embedding.weight 	 torch.Size([266, 64])
+trg_embed2.0.weight 	 torch.Size([64, 1])
+trg_embed2.0.bias 	 torch.Size([64])
+trg_embed2.1.pe 	 torch.Size([1, 1, 12, 64])
+trg_embed2.2.embedding.weight 	 torch.Size([266, 64])
+prediction_generator.weight 	 torch.Size([1, 64])
+prediction_generator.bias 	 torch.Size([1])
+prediction_generator2.weight 	 torch.Size([1, 64])
+prediction_generator2.bias 	 torch.Size([1])
+Net's total params: 864898
+Optimizer's state_dict:
+state 	 {}
+param_groups 	 [{'lr': 0.001, 'betas': (0.9, 0.999), 'eps': 1e-08, 'weight_decay': 0, 'amsgrad': False, 'params': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423, 424, 425, 426, 427, 428, 429, 430, 431, 432, 433, 434, 435, 436, 437, 438, 439, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 471, 472, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499]}]
+predicting testing set batch 1 / 168, time: 0.79s
+predicting testing set batch 101 / 168, time: 39.05s
+test time on whole data:65.04s
+142.31537536462278 158.5333668940374 2167.6721839198126 -0.03168637952576118 
+183.629976672673 199.36851416739017 2801.2753456974347 -0.014991102741302834 
+169.86946745014077 189.593571924531 2595.13107435778 -0.012181913459358805 
+149.7838193175956 173.57291442382072 2296.154380609994 -0.011970038099236217 
+130.06417219440476 154.3519291795924 1998.6698742035055 -0.012530063997969309 
+122.3592628909612 143.88373790361845 1875.7410586126975 -0.012311803549155427 
+130.2800884583732 148.64545290983173 1988.4539688734449 -0.011239076980684751 
+147.52862247494562 164.18453939345554 2248.149964600367 -0.010165438530331711 
+157.7021964890424 174.66176371703966 2403.7395276706993 -0.009639863605622327 
+150.7469425067148 169.2843921659989 2300.192349127545 -0.010020082852776313 
+133.1951703148619 155.4981533963141 2039.0416648500363 -0.01092602675077264 
+104.0084697099021 117.61722231417488 1572.808771326052 -0.011968291844042998 
+143.45696365368653 163.7351564641987 2190.5849458904904 -0.011968291844042998 
+epoch: 0, train time every whole data:250.11s
+epoch: 0, total time:329.89s
+predicting testing set batch 1 / 168, time: 0.43s
+predicting testing set batch 101 / 168, time: 40.24s
+test time on whole data:66.86s
+18.56299179246465 27.8464246024649 214.04045056672655 0.6785515929726021 
+19.313169184137443 28.546431492525144 221.96211757038543 0.6780240369060805 
+19.113154857635674 28.348181720696996 224.36966950893006 0.673194609794159 
+19.20050097384585 28.396358982430698 226.9704967970247 0.6716266640342119 
+19.652831794500248 28.818457795626653 233.0655229808384 0.6651910885516304 
+19.88079866931937 29.063040590847134 235.60922110167786 0.6619246114744082 
+19.83948021889169 29.01070134431709 235.97574498559638 0.661504379236383 
+19.816775062037923 28.924038519351807 237.9443197876474 0.6594800147279973 
+19.86363066608432 28.981988519570102 238.17686264842436 0.6580045178263279 
+19.80555168238198 29.006509661906556 234.7339941440735 0.6592946174472448 
+20.14735000689737 29.245921871941615 241.83603412114502 0.6525300743041145 
+19.58608886248386 29.09319822136279 227.4630862925582 0.645758737418839 
+19.565193647556697 28.776076217190347 231.01227685014317 0.645758737418839 
+epoch: 1, train time every whole data:251.00s
+epoch: 1, total time:661.99s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.04s
+test time on whole data:66.56s
+18.311938987338447 26.256565032960594 226.9885478988534 0.6982276165758475 
+18.32901550035269 26.41978641808114 227.9400988707402 0.6959698742176031 
+18.71058089442668 27.11927707193572 236.4417880937408 0.6739758631755498 
+18.990146608317968 27.61725105177504 238.12085784918594 0.660477321861141 
+19.264172093107387 28.17981588866335 237.34839917906507 0.6447811788842287 
+19.833446642248635 28.880319150344015 242.21047690148282 0.6271381794503488 
+20.226364094805426 29.404593524848767 245.51684253053932 0.6155239225469594 
+20.344782432900043 29.678071810326074 245.9657807809031 0.6094712378161489 
+20.4875987506205 29.856562905336858 246.2082841146163 0.6072877225174191 
+20.81372565777127 30.002803469578662 250.0398490035091 0.6062053915132212 
+20.253429901411184 29.579379056027424 239.00054688733087 0.6150364079198508 
+20.277972251379655 29.769253490643152 237.67219349822787 0.6019782025904638 
+19.65359781788999 28.594730974485284 239.45445450394658 0.6019782025904638 
+epoch: 2, train time every whole data:251.01s
+epoch: 2, total time:993.79s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.00s
+test time on whole data:66.53s
+11.67568210728658 19.982482935433115 149.4975104250859 0.8357539272036073 
+12.601117973241303 22.747950469876315 146.21795552309112 0.7807158678792581 
+13.431168862703952 23.746669260010513 157.74532716507852 0.7592965270926325 
+14.008226693866456 25.06762447470598 160.2343235215032 0.7258444870843448 
+14.630464706661774 26.676685516337898 160.50597527640048 0.6775618257433816 
+14.917113573659202 27.348308101975906 157.22100013425506 0.6598598232815794 
+15.279033598802 28.331095530748115 154.6096921993137 0.6254598895154986 
+15.461587455684107 28.37006066135007 157.45827163459919 0.6237751154332908 
+15.650775519989443 28.879954170256298 157.44712739033994 0.6061535802631934 
+15.427818597818572 28.46561035536575 153.4403477525361 0.6213518609196746 
+15.521929121433116 28.612357811473256 155.09993668278008 0.6157194230920735 
+15.17752675892096 28.16608925046466 155.49803998315232 0.6282011258653059 
+14.481870414172288 26.508621433491232 155.41462797674447 0.6282011258653059 
+epoch: 3, train time every whole data:251.17s
+epoch: 3, total time:1325.09s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.11s
+test time on whole data:66.85s
+15.220197914407489 21.622673179498886 205.02338049134968 0.8048175034926977 
+19.557476821119522 28.27867066773601 223.076932930694 0.6591656793257868 
+22.5392450173568 31.852760281093637 250.7737380233542 0.5841793874195013 
+24.403962758456522 35.509713941419115 260.1448015726802 0.47948444728518375 
+25.670719057819305 37.28391810881665 271.2924711866827 0.42724156742909686 
+26.753064371154696 39.19197997261156 280.2828010588417 0.3763188040613239 
+27.592476854006456 40.37588751336155 288.0981442754135 0.3583911999306917 
+28.378722831949066 41.32885420347179 296.8920845671276 0.3441812500135691 
+28.633054345270644 41.602566025597135 298.8116863782661 0.34070865798476924 
+28.364712108197786 41.48767893742679 292.2060723415749 0.3417141225093964 
+28.627240770703082 41.55355239520008 300.0156292864314 0.336577116545363 
+27.43741199852356 39.91355261333325 288.4114003814562 0.359910195749775 
+25.264857070747077 37.16958889140989 271.25240405526324 0.359910195749775 
+epoch: 4, train time every whole data:251.04s
+epoch: 4, total time:1656.92s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 39.95s
+test time on whole data:66.64s
+10.260516523761606 17.18573754145406 151.0317532596766 0.8844136186753966 
+12.99877042523962 23.749169261224154 136.51136106078275 0.7537927062334784 
+14.1704694452081 26.11846939031457 143.6716182589523 0.7059840141519267 
+15.306256671678298 28.440866565290303 146.05762949063873 0.6519707698733849 
+16.22875579431274 29.878445442164384 152.81931015865766 0.6152270258561305 
+16.951228052361696 31.02216374695573 158.47323892677508 0.5869437626410838 
+17.46026426222003 31.903730615627595 157.95451783068887 0.571815420262292 
+17.748566468348983 32.40816958793694 158.98697373837595 0.5607164717014144 
+17.84857488086694 32.580272910251026 159.3111625495967 0.5558175249493225 
+17.831202754286853 32.64204831758735 158.02392436451566 0.5584297876933975 
+17.684828240708992 32.31748225960007 160.6217252372984 0.5634419522258 
+17.20210990745883 31.48120597266435 157.43474506074858 0.5726617598407862 
+15.974295285537725 29.490290872456136 153.40815850574617 0.5726617598407862 
+epoch: 5, train time every whole data:251.32s
+epoch: 5, total time:1987.99s
+predicting testing set batch 1 / 168, time: 0.40s
+predicting testing set batch 101 / 168, time: 40.09s
+test time on whole data:66.71s
+15.019866719459158 19.986334638649947 255.3605605359176 0.8943362138236696 
+16.87417982334926 24.855092538562303 268.55920637840165 0.7798919752014372 
+18.177913136465488 28.04997054566283 282.4868802750812 0.7222731917207715 
+19.324775733206653 30.73300434115846 290.93020979335387 0.6552852392979206 
+20.058200970355863 32.301913075018895 295.39413925293115 0.6076511932876405 
+20.78321585786718 33.697161671713644 301.32991321771357 0.5744475005363283 
+21.43023143060056 34.94662073251201 306.29583137722807 0.5595562988793678 
+21.954606594453722 35.666367306187645 313.1882849652174 0.5548706847695747 
+22.165248575180616 35.9145661816839 315.8328313028023 0.5541567361938076 
+22.434583228892162 36.35820665360673 317.37039538467803 0.5575255658149384 
+22.409061563340963 36.16425143775311 318.0426286250763 0.5648378852497601 
+22.20671818540103 35.15778305427663 317.53626501777774 0.5734945293911765 
+20.23655015154772 32.373489665854116 298.5272497954044 0.5734945293911765 
+epoch: 6, train time every whole data:251.06s
+epoch: 6, total time:2319.64s
+predicting testing set batch 1 / 168, time: 0.40s
+predicting testing set batch 101 / 168, time: 39.97s
+test time on whole data:66.59s
+8.74764139851041 15.296332555327453 77.16629079711312 0.9111017193358536 
+12.766831888775654 23.72742731266823 82.3596040641798 0.7785184052765493 
+14.56071846057128 29.63372321046937 88.74762616240395 0.6587771733930533 
+16.454690568560316 33.79324803149835 96.70852539128114 0.5674696755346884 
+17.59779320285658 35.651354013345546 102.43358206168584 0.5211151279521137 
+18.442433157669146 36.99708268752416 108.15916592724395 0.489517444950911 
+19.197171660178835 37.84121969785205 114.39699620943323 0.4825863366588614 
+19.54165129672444 38.179517554640334 118.04402694188339 0.48181922377890646 
+19.711755080115484 38.204019772780214 119.32171725201269 0.4863172552139097 
+19.92045596510027 38.297190431331785 122.48091762701117 0.49479114013136016 
+19.52574900372589 37.71282299145396 121.70360699877531 0.5098276357733166 
+18.82418761383145 35.983374990476634 121.35654552524788 0.5406456788035573 
+17.10758994138498 34.14409247961187 106.07320666616882 0.5406456788035573 
+epoch: 7, train time every whole data:251.34s
+epoch: 7, total time:2649.01s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.16s
+test time on whole data:66.78s
+8.127705328899072 14.771109859112121 81.24643801844364 0.914151467804981 
+13.397650809810608 26.641204170425606 92.47680305176594 0.7015125599877765 
+15.369466041280953 35.01498618370464 98.8988776535258 0.5300075143708277 
+17.317948173887537 39.27248787714946 108.97765204973533 0.4420476245626721 
+18.282953250849708 40.724480101857225 113.83530971194718 0.4048330737153476 
+19.038398941964726 41.71990916260255 119.81212715113854 0.38129327953962355 
+19.778052614614662 42.406080762371914 125.28496071310468 0.37938462420188185 
+20.126988536799214 42.64684855907014 127.9918509804572 0.3857018968293439 
+20.24752942363825 42.71453218709634 128.1448126521588 0.38899431751017727 
+20.4322268810003 42.8512578601189 130.63284077178162 0.39638162920391345 
+20.161662934026875 42.47184477848044 129.22300864924486 0.4089088784729091 
+19.516219293325705 40.44752844612377 128.51443427163275 0.44290744530444726 
+17.649733519174802 38.528130634011866 115.41991427262674 0.44290744530444726 
+epoch: 8, train time every whole data:251.20s
+epoch: 8, total time:2979.17s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.08s
+test time on whole data:66.63s
+7.3145661570239815 13.425860779410554 84.95345744593968 0.9286862276964164 
+11.797869454086213 22.865582771045688 97.46638203188664 0.7816128913410655 
+13.960907012549477 31.13825447548186 107.81716338284164 0.6282294111943985 
+16.15615683828992 36.54198009946713 120.16867247771313 0.5239917232897512 
+17.530457450138208 38.94188081192986 129.57057996697444 0.47289731575127897 
+18.53661859796839 40.468544027115676 139.4811331142632 0.4432162896249034 
+19.38565479332991 41.77211215513924 146.30842923084114 0.4294154950351706 
+19.91694709630413 42.57451037290765 152.53745071453787 0.42705266802738917 
+20.167962369577815 43.00245822559208 157.17327395709438 0.4298355265401629 
+20.56316098177704 43.65092049700965 161.83402148285015 0.4372875480318605 
+20.425594494664075 43.531218244094866 163.18111604229284 0.4512670377753732 
+19.784172805803944 41.58289302265868 165.29160561002965 0.47455990923187813 
+17.12833900429276 37.74739004925354 135.4819316033462 0.47455990923187813 
+epoch: 9, train time every whole data:250.99s
+epoch: 9, total time:3308.56s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.04s
+test time on whole data:66.46s
+9.004582350291518 13.718806530881261 72.38626844246929 0.9438809057407191 
+14.70452783100315 25.39305520224328 87.08892038611052 0.7772123871456579 
+16.886954656680075 32.35474716952526 92.77685943130336 0.6246961037526685 
+19.02935901573593 37.57199766125208 103.8294700423328 0.5140242399468774 
+20.196324012460668 39.71811609285716 109.94567483741335 0.46108490747157294 
+20.989108467801692 40.90688067339635 114.4093125278273 0.4296990709239306 
+21.850198948837722 41.94504420606915 120.93270739905142 0.4152446673318143 
+22.42749825122673 42.621249541899644 125.68417657012829 0.40831985621330796 
+22.712161586400004 43.018622840686945 127.49136252281863 0.4020883424457363 
+22.963392842562925 43.40980691556048 130.60323384139977 0.39739069559262014 
+22.872405673905398 43.317286152677966 129.6786345836155 0.40029770712849533 
+22.135567344681284 41.70006265140653 125.23580167638808 0.41903291385819263 
+19.647673415132257 38.15391265264923 111.67185299259855 0.41903291385819263 
+epoch: 10, train time every whole data:251.01s
+epoch: 10, total time:3639.89s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 39.98s
+test time on whole data:66.58s
+14.214523975190787 17.702218593708505 215.03036352879298 0.9469553968738103 
+18.395174391405483 27.485070168738236 255.81449488126725 0.790665342992807 
+21.450292653867752 36.59468269490108 283.78961912347813 0.6888079056837273 
+24.485611718998037 43.55327970632961 311.91783215265076 0.6153442717868878 
+25.901501400386223 46.188219514373046 328.28832163936204 0.5853230308885983 
+27.106247522117204 47.82811499868604 346.77403062996825 0.5661140216613141 
+28.20639474368391 49.578223947249974 361.7030419423449 0.5529261795997626 
+28.68492870701769 50.4765855075641 371.3184863828254 0.5451922077216022 
+28.478049715004214 50.482832505634434 373.01661811077804 0.5369658028556827 
+28.757770275860334 50.99199094131786 378.5354982530759 0.529432045195 
+28.55405795285972 50.89810924899113 377.49936907903816 0.5223217038964093 
+26.44299470100142 47.581155041522585 353.1166094905184 0.5162932757149656 
+25.056462313116064 44.47368710700254 329.73363806539896 0.5162932757149656 
+epoch: 11, train time every whole data:251.39s
+epoch: 11, total time:3971.06s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.25s
+test time on whole data:66.79s
+7.223158615347778 11.750579034141944 96.55483231190179 0.9500630653001336 
+13.540580095722937 24.959507645619375 139.96239249643406 0.7226402962309191 
+14.875182740565277 28.70413232957768 155.57453835226787 0.6280609753232377 
+16.548976835210127 32.507381390323594 168.79043681349418 0.5357725912449968 
+17.41430423453879 34.221976145768544 174.70979186208126 0.49447016703302765 
+18.12332889368068 35.431934050713245 184.22783566342073 0.4668392265985398 
+18.836773458449954 36.85743078041458 194.17720705157123 0.44537089823534554 
+19.26612316052664 37.80150337273841 200.74702471206623 0.4325479820300678 
+19.355586733227973 38.23839550289186 201.88971730185568 0.42307285527055016 
+19.42373300708795 38.67888272204996 204.58070346621352 0.41825227999162573 
+19.42149505588752 38.79247172565468 205.4105300288741 0.42010243162842353 
+19.194741336397296 37.65302162151512 205.68468009541422 0.4339366363788606 
+16.93533201388691 33.83358342577281 177.69245515323496 0.4339366363788606 
+epoch: 12, train time every whole data:251.38s
+epoch: 12, total time:4301.46s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.31s
+test time on whole data:66.84s
+6.535181714943252 11.522792211850371 67.1594172653532 0.9553083367245649 
+12.033386133927145 25.328850120717956 87.13252824447174 0.7901570250964728 
+13.64407582868576 31.893053717850556 93.59656418501783 0.6988148056580116 
+15.568976400532275 35.82765888051517 103.78996915559406 0.6347324156070706 
+16.782689797138225 37.946667453384634 110.76845793705179 0.5917139322892304 
+17.573203586161803 39.50479389290345 117.86658257991604 0.5530323131850141 
+18.337389083244567 40.950569130904576 125.93558386402577 0.5232798426510711 
+18.82350253276225 41.797052923596034 132.02678284330455 0.5023199898147098 
+19.098380762055758 42.178114940276494 136.12435481770078 0.48748511295895547 
+19.537996801603057 42.82551577294947 142.67921070464791 0.4779935067079007 
+19.776953639412074 43.25604653038221 145.3067597344252 0.46961003897804826 
+19.700519399195187 42.44711816452028 143.5850428991043 0.4756236328240853 
+16.451021306638445 37.400418942317835 117.16426080872088 0.4756236328240853 
+epoch: 13, train time every whole data:251.18s
+epoch: 13, total time:4630.76s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.13s
+test time on whole data:66.71s
+7.094340500465587 11.869561233497176 60.03199250357726 0.957503562679866 
+15.222668055162941 27.13119694012045 92.24374754856554 0.7514514163439512 
+17.56323228476059 33.08432308201666 101.0956483327996 0.6319980004469398 
+19.83055702738135 36.95637389616932 112.91540810328742 0.5499391785118344 
+21.18162151000588 39.087960404773035 121.77456144918104 0.5009941886742468 
+22.24980451810311 40.791185314104005 128.28403028367944 0.46086303614412616 
+23.53295587781267 42.47217604113743 138.24759549075972 0.4322355354439174 
+24.332125417403248 43.49412439608717 145.57113050703188 0.4160028985362846 
+24.741629673377304 44.12586600607629 148.66136360048634 0.4031801447420439 
+25.294677692196224 44.86198229699689 153.25071381262515 0.3912381200846114 
+25.280999873801658 44.92514631714951 151.89252632517466 0.3908205573848977 
+24.38539390192066 43.393837167035514 145.1329628551476 0.41545400789270626 
+20.89250052769927 38.82195658957394 124.92511589603907 0.41545400789270626 
+epoch: 14, train time every whole data:251.33s
+epoch: 14, total time:4961.51s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 39.97s
+test time on whole data:66.48s
+7.300187264667304 12.07561957224536 75.51020222148898 0.9474802708066008 
+14.477857488889923 27.184491822038762 97.83219878727566 0.7459055597005481 
+16.691445757639023 32.838881622108474 107.88558038290266 0.6380496588722652 
+18.798896088463035 36.471576300070886 118.48498084548464 0.5657107577327349 
+19.977972941141594 38.36236307408269 126.89295993836274 0.5216380854682611 
+20.824978311424605 39.79060990117369 132.0885404332796 0.48669965086070227 
+21.6113976751401 41.12592358558656 134.6845332680967 0.4626797261238133 
+22.034385701234633 41.90900706450625 138.35377197940917 0.4476711341457944 
+22.20593324988956 42.31286757612122 140.58153438759183 0.43625539289768883 
+22.5821661921128 42.931512888570694 142.81560456447224 0.426253137308979 
+22.61191541712701 42.99601018644676 143.98547483332544 0.4248296863736883 
+22.118664210031362 42.19057121784157 144.08577105731771 0.44470761790477276 
+19.269650024813412 37.70306128328195 125.26675497907745 0.44470761790477276 
+epoch: 15, train time every whole data:251.20s
+epoch: 15, total time:5290.57s
+predicting testing set batch 1 / 168, time: 0.40s
+predicting testing set batch 101 / 168, time: 40.36s
+test time on whole data:66.99s
+6.033449658361253 11.747067405205161 47.19256997254785 0.9536491647488327 
+13.602614516404271 25.30551401525763 74.37477568674849 0.7705273311470039 
+15.594309185161661 30.47503728908465 81.97493911052543 0.6504399519389223 
+17.561871481852954 34.28343779204357 92.03584125365623 0.5647108264876523 
+18.69199916236064 36.12790021968451 100.46149774651371 0.5204841823368348 
+19.56858993039868 37.43502923819683 107.30349110208752 0.48863449937994263 
+20.488660980318766 38.60785458558926 112.91898478581031 0.46864664923137256 
+21.08518204946575 39.33196037960178 118.67999841954655 0.4572875171109574 
+21.36622446067958 39.911759177707445 121.70850267964262 0.4449117056514943 
+21.804105429811255 40.69731176707197 125.15495855589698 0.4323956105162568 
+21.86325929113245 41.02293154809129 126.93140691118015 0.4314281379258769 
+21.330223692385157 40.349407496752825 126.65328513166865 0.4456138841359066 
+18.249207486527702 35.574799217081 102.94917648812412 0.4456138841359066 
+epoch: 16, train time every whole data:251.32s
+epoch: 16, total time:5621.40s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.06s
+test time on whole data:66.63s
+5.6579600574902695 9.107527309166215 74.88630027098642 0.9714480201223933 
+10.641629152156922 20.564528068955454 106.92244704393113 0.8242595018367055 
+12.459041781948327 25.956285284186453 120.88728309865131 0.7339571117858519 
+14.385448674406843 29.862122337670282 138.05492020834328 0.6687474689784574 
+15.89521901874511 32.494084232745784 155.40779556338066 0.6254345836152272 
+17.10817175151079 34.62465141727533 173.831165636223 0.5897501306528445 
+18.10222001235995 36.6525790989495 189.41491621001148 0.5634246347495712 
+18.875828258107017 38.07301350335341 204.25424774352314 0.5481217738623998 
+19.41067607271676 38.911599700651955 216.71474208544973 0.5382247301571592 
+19.97913018081161 39.6873176951791 228.35432379009458 0.5300156937717315 
+20.45825747689139 40.24893514944894 239.65073566329406 0.5245001788400653 
+20.739476291692608 40.0885260392705 250.80818892058895 0.523529011338886 
+16.1427548940698 33.46052693117379 174.93225316161198 0.523529011338886 
+epoch: 17, train time every whole data:251.43s
+epoch: 17, total time:5950.50s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.18s
+test time on whole data:66.58s
+5.163061858518042 9.295345772923863 62.86599784847655 0.9689803369188478 
+11.343414859043957 22.762440176479636 99.1587997611505 0.7973877359956433 
+13.469752214298305 29.008647760122386 114.5207084238289 0.7081581286050798 
+15.647341416169704 33.62650896760341 131.6413711693064 0.6438342751836952 
+17.228627588045644 36.572401501047764 148.26363040126 0.6042306970794857 
+18.370425951928553 38.55983125636621 163.95369598521003 0.5749599221117446 
+19.240012761896175 40.09115611452491 175.96155379175556 0.5539684111728933 
+19.782580163468637 40.89760085142259 186.78939811285713 0.5416398698358809 
+20.0625725091369 41.22595309656711 195.5939015947688 0.5321117167105094 
+20.39681245745575 41.72631178052817 202.78416427174463 0.5218882839435983 
+20.619466853056622 42.03478612189803 208.91488897330436 0.5153474958993587 
+20.697340214498375 41.9626321110834 213.20031449296462 0.5084315793410118 
+16.83511740395972 36.112718927050715 158.63735647566637 0.5084315793410118 
+epoch: 18, train time every whole data:251.59s
+epoch: 18, total time:6282.36s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.08s
+test time on whole data:66.76s
+4.327259889836255 9.289361894837457 36.449954559748285 0.9681485991833989 
+11.535976685467052 23.0890487200122 67.32375004243507 0.787714909374458 
+13.46082804966558 28.192462617805855 78.05343400589179 0.6784583905799065 
+15.333523130430308 31.78348149361978 91.75950545288782 0.600316946760583 
+16.572895375793152 33.7307473000199 104.09168379880714 0.5573427774143838 
+17.50255303471184 35.08598080340465 115.34730266902042 0.5275522770691183 
+18.347444199348825 36.305551957071266 125.29697945850467 0.5066343947589055 
+18.972177788061536 37.25175343238468 133.21366016364166 0.49159751340008206 
+19.377090448838825 37.85741522712698 138.70879326730423 0.4798290061415481 
+19.848119747385148 38.43822642611966 143.90438924725007 0.4704538868014385 
+20.07085924446251 38.78482790411183 146.79627791992567 0.46549548263687346 
+19.85697042661692 38.52055340073027 146.11786856669673 0.4647677335425293 
+16.26714150171816 33.41376176927244 110.58861744523922 0.4647677335425293 
+epoch: 19, train time every whole data:251.23s
+epoch: 19, total time:6613.80s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 39.99s
+test time on whole data:66.51s
+6.8036979122986505 10.108511941585409 101.23386473295461 0.9709045227305969 
+11.909470875950989 20.849050898832818 137.8363467731958 0.8182703358540426 
+13.298199053399593 24.679880921467284 148.63603624727602 0.7338872201174422 
+14.750027012934584 28.160687897455396 160.4183064474349 0.6544276420076093 
+15.717869104429376 30.298898561994264 169.22487482932686 0.6053114384004065 
+16.441470421961554 31.786365490249157 177.92580071075042 0.5717809978207489 
+16.944782587914418 32.877664979395774 183.68823177368543 0.5512088208766632 
+17.408598113100645 33.80582924972231 189.45864414399028 0.5360701062103218 
+17.795835610150753 34.581614175749465 194.788851906791 0.5209115851286557 
+18.112842928859276 35.138979000582054 198.95138232877218 0.5090003123509776 
+18.393369428744766 35.63326823531184 203.6207453501807 0.4956401408870285 
+18.50560352535444 35.730142266743194 206.07614737059515 0.486537362181995 
+15.506813881258253 30.370168736298087 172.65492850196762 0.486537362181995 
+epoch: 20, train time every whole data:252.38s
+epoch: 20, total time:6945.88s
+predicting testing set batch 1 / 168, time: 0.40s
+predicting testing set batch 101 / 168, time: 40.09s
+test time on whole data:66.66s
+5.516113211069692 9.069104905357843 78.16627078254872 0.9724980318943075 
+11.442368343529834 21.08997660101773 118.03979989781848 0.810870864615904 
+13.311190104889382 25.859497998873998 133.76329983022072 0.7190948233715511 
+15.159223566866556 29.842168648522666 151.37360504330059 0.6445291616157698 
+16.524809523086297 32.29918282512809 168.30519268286042 0.6042938875908596 
+17.671888960249632 34.22418745774848 186.94913615890857 0.5785196717540334 
+18.635766687340478 35.85137372910319 203.59407169054137 0.5639264535370198 
+19.398500972050382 37.01642206787158 219.09565191884286 0.5547195321999204 
+19.9081625411899 37.65655184898382 231.47893622342872 0.5468853155112676 
+20.24090604299509 38.04104066157452 240.16565298019535 0.542654350817127 
+20.443862913329554 38.255933248770276 246.1494125588484 0.5392230450558398 
+20.44778177300865 38.0580409382075 249.17373955788972 0.5359203984752294 
+16.55838121996712 32.57483786485706 185.52121179335558 0.5359203984752294 
+epoch: 21, train time every whole data:252.37s
+epoch: 21, total time:7278.55s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.12s
+test time on whole data:66.77s
+4.8599595538806675 8.526172571954472 44.85355161116638 0.975504301284946 
+12.030280233352407 22.26043784022753 72.30203854998945 0.8272618959247886 
+14.128314279810857 27.00289311134311 81.20638128318491 0.7505801644933371 
+16.171649305283626 30.884454118696404 91.8858598786324 0.6798990847227983 
+17.462781219499192 33.176711832292234 99.09645305271474 0.6306909004280563 
+18.43554317427871 34.92882312310599 104.59626574520773 0.5889345865498311 
+19.34006138991525 36.29460201443521 111.33352383159331 0.5574326678249246 
+19.932461383909995 37.19056583690751 115.73661060650653 0.5324275871819507 
+20.250068759029173 37.872846780885986 117.19778125496052 0.5084573709174374 
+20.69087498684871 38.47413146288189 120.95038074806676 0.4913912025647825 
+20.823801928248677 38.78195471948575 121.33058182860302 0.48207925975241694 
+20.75444308870228 38.50763209744312 122.27716099578556 0.48226742395559247 
+17.073353275229962 33.13340550752053 100.23053807806485 0.48226742395559247 
+epoch: 22, train time every whole data:251.59s
+epoch: 22, total time:7610.37s
+predicting testing set batch 1 / 168, time: 0.40s
+predicting testing set batch 101 / 168, time: 40.15s
+test time on whole data:66.80s
+4.168901891574148 8.656589108181095 30.485700604220007 0.973993826168023 
+11.521654631292202 22.422639834051694 60.60807959856509 0.8102915776944837 
+13.500606210745863 26.962938214623087 68.95477140769594 0.7158474642817592 
+15.408794948498752 30.689510633499868 79.69500833179846 0.6331515870066174 
+16.699293396550466 32.932400272211275 89.06084821274071 0.5819273774199768 
+17.70023850944961 34.76337643932855 97.5938940079214 0.5412069418717743 
+18.539549892413223 36.18943776333247 105.4115963065688 0.5130769758958439 
+19.150804312400787 37.0736166357807 111.50392642820024 0.4945131436650275 
+19.485220172349297 37.524582674685796 115.60294836643902 0.48008085936975464 
+19.846769557430267 37.90103271671675 120.00006049712148 0.4702260705247636 
+19.996782801053836 38.11400653458146 122.89434848406704 0.46685081500593717 
+19.94325675436446 37.91251701432275 124.54175412479469 0.4703717666780522 
+16.330156089843577 32.86124899206473 93.86273426439679 0.4703717666780522 
+epoch: 23, train time every whole data:251.23s
+epoch: 23, total time:7941.40s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.12s
+test time on whole data:66.76s
+5.0130933645216205 9.639377790070537 40.73844707126686 0.9697982365747652 
+13.114947264280298 23.337873440272585 73.66073123842077 0.8115739510845021 
+15.259472855555915 28.132036084540722 81.44980040120518 0.713018858886234 
+17.18765770776887 32.00032488185347 90.89915182957292 0.6274179005027729 
+18.33785039158768 34.24858518998523 97.08835158179764 0.5755959636675487 
+19.20404053069116 35.93449732835562 102.27365921995049 0.5370178393215199 
+20.050377589410036 37.23518863264164 108.61931322660332 0.510136670537508 
+20.700195808499213 38.10771685831282 114.65675890285132 0.4902359280487387 
+21.0404286621247 38.58112501045858 118.26275176754794 0.47675327430503917 
+21.498246718639546 39.03307369403528 122.92958685687773 0.470011485531302 
+21.619340957305887 39.35507218024618 124.36095272250256 0.4660573126556909 
+21.65065539956381 39.264932635362584 127.33627685931428 0.47014861474426983 
+17.889692270829062 33.98352287061034 100.18964091836236 0.47014861474426983 
+epoch: 24, train time every whole data:251.50s
+epoch: 24, total time:8272.37s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.42s
+test time on whole data:67.23s
+3.6619216684886244 7.534973401872003 28.7781962843083 0.9788631110615686 
+10.410808347081305 19.95690068090878 60.834864862282664 0.8490503637585283 
+12.356852987012735 24.494469008302534 69.66077123395458 0.7689960440904317 
+14.244851626052311 28.415118320720243 82.04981286988385 0.6919846366264729 
+15.603340893616881 31.01408466559679 93.57772364478456 0.6379982336748329 
+16.657402446535105 33.0233681263693 103.29598839258045 0.5967011679411295 
+17.50913960938232 34.477786442838415 111.44850299167895 0.5684917990917896 
+18.165584190463534 35.56324526461702 118.83804550915926 0.5467371944392123 
+18.576717304755814 36.31968961371826 124.70213036927646 0.5288932366883344 
+18.988656656666716 36.87586954433821 130.4397032723865 0.5156261510399257 
+19.277695892320835 37.27706762080121 135.32808589668093 0.5057175394342044 
+19.340754260689504 37.37254009082849 138.83603383066983 0.5002564451599923 
+15.39947715692214 31.402715200376964 99.81581423989805 0.5002564451599923 
+epoch: 25, train time every whole data:251.50s
+epoch: 25, total time:8602.78s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.08s
+test time on whole data:66.71s
+5.936512012831347 9.028438890913035 87.13710367405521 0.9779265046168677 
+11.181051709608255 19.443487079798487 130.43657752198718 0.8517360764735405 
+12.683596741830256 23.31098298333617 142.91145747406452 0.7892297577343851 
+14.313023407954134 27.008355173893918 158.95914333001733 0.7264317605584915 
+15.490046416790946 29.58929738186574 171.742367440767 0.681960574029145 
+16.32812301216849 31.48898735426748 183.17049958291085 0.6497537079640093 
+16.87365005299118 32.66914730737691 191.53664096034586 0.6299372756122179 
+17.289126295232485 33.377096146586965 198.10260943992938 0.6142532671111005 
+17.593938768561813 33.84878284378017 202.724642492004 0.5988407889879109 
+17.774053676198015 34.269417914956236 205.17466948512717 0.5843918656831842 
+17.88449332758198 34.59036444606328 205.4892603382909 0.5709777235324563 
+17.77098164456577 34.634529044050225 202.6394350018043 0.5546163841829004 
+15.093216422192889 29.576142794837047 173.33534374081282 0.5546163841829004 
+epoch: 26, train time every whole data:251.56s
+epoch: 26, total time:8931.03s
+predicting testing set batch 1 / 168, time: 0.40s
+predicting testing set batch 101 / 168, time: 40.23s
+test time on whole data:66.85s
+4.186235449060289 7.84412594273261 43.41316001169665 0.9778466503739244 
+10.23959865808641 20.800418673648835 76.6578911813952 0.8318473425426838 
+12.17708275281068 25.752651397128297 87.87468080219222 0.7559054529568754 
+14.073700229391239 29.675840940246932 101.57081823884717 0.6942447988006556 
+15.493002489085466 32.42167747154582 114.85165778154797 0.6521364686166803 
+16.47280320192804 34.28447397103026 126.49307179374354 0.6232638873889157 
+17.094001225072365 35.30742908895284 134.5536641450688 0.6054202767300412 
+17.562313767105778 36.01313224172305 142.0793632226487 0.58845739693836 
+17.895107462874076 36.547614754380845 149.00361620903354 0.5692400766201856 
+18.178155992519894 36.844822636613216 154.29641076021565 0.5542061201103514 
+18.447649300818753 37.141166267983294 159.59977818493428 0.541565765455639 
+18.577072104376366 37.501100397322304 162.78518150381586 0.5259358481935903 
+15.033060219427448 31.99903741870213 121.09826587698835 0.5259358481935903 
+epoch: 27, train time every whole data:251.38s
+epoch: 27, total time:9261.65s
+predicting testing set batch 1 / 168, time: 0.41s
+predicting testing set batch 101 / 168, time: 40.46s
+test time on whole data:67.14s
+5.136969375070715 8.548605069754803 55.456426101733626 0.9781694379044567 
+12.620451188873169 21.662916938675927 86.37455407918118 0.8423289728829239 
+14.624595346940282 25.8656625168954 94.52787321466636 0.76925568970126 
+16.361057761598012 29.29529983314892 101.90887979507201 0.7008644007180633 
+17.433343760650477 31.375914072457462 105.69815487837346 0.6534945710733773 
+18.225388732640926 32.88542407771526 108.67129547733052 0.616653493448446 
+19.035481698287622 34.195648142858886 114.30206680682903 0.585529905710566 
+19.726732274361446 35.34325370964612 119.41899607480164 0.5569333176491436 
+20.16854062549436 36.22026433963824 122.2338652020633 0.5300051378354398 
+20.682692107059026 36.89950235609804 127.0580524438448 0.5107932042912003 
+20.887592231039847 37.3415835682691 128.13099878099268 0.4977203200104712 
+20.96820403944484 37.84178259354594 130.02092157583448 0.4847211536260199 
+17.155920761788394 31.693676998515603 107.81683411875744 0.4847211536260199 
+epoch: 28, train time every whole data:251.47s
+epoch: 28, total time:9593.64s
+predicting testing set batch 1 / 168, time: 0.40s
+predicting testing set batch 101 / 168, time: 40.17s
+test time on whole data:66.77s
+3.5059286676169026 7.0982382028019755 29.637389879850513 0.9808018108064451 
+10.023153209286207 19.80572160513739 57.94801048067353 0.8489062972590194 
+11.753280929306431 23.77865460414974 64.04003021581856 0.7773640611604331 
+13.383062911837358 27.019810271950824 73.176480387684 0.7102273695414206 
+14.628400952173191 29.094864821237568 83.03885347931472 0.6637737161238512 
+15.643395054992306 30.634027416122525 91.74909387864457 0.6289477547533415 
+16.484063453807032 31.860574466538182 98.68627640169673 0.6018261358567057 
+17.182298391417863 32.94162595782324 104.70570283785582 0.5779440303300042 
+17.651851829361537 33.84380729123371 110.15726186876948 0.5561068034094757 
+18.0402420627708 34.486287467397624 114.4844683753335 0.5411287877472456 
+18.25861304056363 34.891944448137814 118.00373103528041 0.5306464412142059 
+18.30813754310208 35.283550276578936 122.27567081196953 0.5195065121043058 
+14.571869003852946 29.468106911431022 88.9919073763324 0.5195065121043058 
+epoch: 29, train time every whole data:251.48s
+epoch: 29, total time:9922.05s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.27s
+test time on whole data:66.80s
+3.9950734144005016 7.055955365990904 40.764449812638205 0.9815050661592408 
+9.577568571217794 19.229101877473415 66.14701116899096 0.8544176149930295 
+11.376923597654187 23.543988123196314 74.4702490215174 0.786524792508446 
+13.151104374031107 27.18919571409198 86.73916390436302 0.72587730963945 
+14.542768440088787 29.83276812825905 100.459970889799 0.6817413766640811 
+15.63056992824335 31.949892127450585 113.6174834384357 0.648243210012244 
+16.458083338858284 33.626001464779314 124.33473970358024 0.6234051039597764 
+17.134676136807453 34.975859709151486 133.58304031651912 0.6022797750256872 
+17.627108670907003 35.95807676222581 141.71543494366497 0.5816448449700112 
+17.94842583276955 36.37998791549459 147.82230237789543 0.5664689522000438 
+18.166856123460356 36.55647731176438 154.16933296070533 0.555145400221144 
+18.20125205993617 36.698688424283844 156.9117137312932 0.5400101837259348 
+14.484200874031211 30.656132575986014 111.72789772521642 0.5400101837259348 
+epoch: 30, train time every whole data:251.33s
+epoch: 30, total time:10253.41s
+predicting testing set batch 1 / 168, time: 0.40s
+predicting testing set batch 101 / 168, time: 40.32s
+test time on whole data:67.01s
+4.886112391635925 8.02971061967072 41.433959798710504 0.9814661133604838 
+11.424946996414963 21.087477474028862 61.15317456658589 0.8432861003083869 
+13.292197202173597 25.08390822762255 69.16516773625908 0.7681818086530006 
+15.000705326042038 28.346676923714448 78.5413635288628 0.7002050403017401 
+16.265956668101428 30.454581558467524 87.30554904065252 0.6542471716503913 
+17.29950336294625 32.06465193418782 95.80141365773163 0.6193766157730101 
+18.201429189419816 33.36431145807638 104.89235368656857 0.5917644987999618 
+18.922873628338515 34.52428990057704 111.64542033175199 0.5670290217136488 
+19.36058603771427 35.36087322739472 115.36369763679532 0.5456994947546853 
+19.77819129294088 35.92835547921354 120.17161705154874 0.5295598951136803 
+19.957995733041052 36.33383665671522 121.20862321754409 0.5153185725498675 
+19.8663948634481 36.51366749039545 122.05250137836839 0.5034527148804511 
+16.18807439101807 30.81835965223732 94.06122419025554 0.5034527148804511 
+epoch: 31, train time every whole data:251.40s
+epoch: 31, total time:10584.50s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.15s
+test time on whole data:66.74s
+5.713385149755095 9.141038071705205 56.576495241358984 0.9788662132000415 
+13.770022489569316 22.50297547327234 93.91943275255423 0.8476113140274607 
+16.228899266678095 27.09887536016541 106.13103250048492 0.7627346726216103 
+18.351302792306996 30.734056890351987 117.29063022165766 0.6847709783946174 
+19.841788993372855 33.038185506476744 125.01083070217585 0.6315957875292555 
+20.908520455540863 34.637388968146304 130.6778320179746 0.5914642752522272 
+21.878270793057954 35.896222714631705 138.64095211216838 0.5604963236268675 
+22.55648492658184 36.94517341815819 143.25904416525827 0.5336921809203394 
+22.87443789477019 37.81578631317977 143.7916074533107 0.5083084643784277 
+23.384008667899185 38.60039542821357 148.53237050742635 0.48889243564035867 
+23.513317128422567 39.06622319547257 147.29980342711607 0.47297601464657807 
+23.455857809778735 39.39850474919333 146.75438754936897 0.4636487836915933 
+19.37302469731114 33.18140171089913 124.8236853781598 0.4636487836915933 
+epoch: 32, train time every whole data:251.68s
+epoch: 32, total time:10916.84s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.16s
+test time on whole data:66.91s
+3.4829471628360866 7.155079510366936 28.400735446891325 0.9804124011274838 
+9.869254649377945 19.55196039632934 57.29473537555864 0.8502726250408623 
+11.603728897426434 23.64143291354077 66.27312833452484 0.7780483997122156 
+13.271020986702302 27.166213947497635 77.76971788702811 0.7130081487015606 
+14.600481161512262 29.69666416250935 89.52192910985222 0.6664285938004425 
+15.64297319003896 31.659971102102297 99.79057503416803 0.6318086839932522 
+16.461870291490474 33.00379572828314 108.47566528726536 0.608322577730677 
+17.184829750590374 34.24003359290838 116.02288549192505 0.5862039723041281 
+17.738199853450674 35.28761605942011 121.87413171356935 0.5642120984106471 
+18.153082735731054 35.93085308684933 126.32354255848044 0.5478022636137821 
+18.376006265137026 36.34327918351297 129.71291726062964 0.5348245821044505 
+18.333298444151968 36.307200197554074 131.03891371288336 0.5276030264806272 
+14.559807782370463 30.347377279281137 96.04156107822766 0.5276030264806272 
+epoch: 33, train time every whole data:251.32s
+epoch: 33, total time:11248.89s
+predicting testing set batch 1 / 168, time: 0.40s
+predicting testing set batch 101 / 168, time: 40.14s
+test time on whole data:66.86s
+4.375616410350283 7.178056517933992 52.99776579822454 0.9821105737745515 
+9.647943484458693 18.655795489937848 75.87777321459411 0.8633294838008468 
+11.25541375748459 22.210420451072217 83.5722207958114 0.7952413721998896 
+12.817062496465411 25.295577762255895 94.25424440348891 0.7246217999340286 
+14.124354403066848 27.647328780312638 103.92039013390828 0.6679963214087696 
+15.118763560625199 29.339615037825222 113.71815958579228 0.6260136509967527 
+15.8214859067791 30.517747488589688 122.74106613322473 0.5962487723737534 
+16.46160350994469 31.72065432373171 130.8015540401267 0.5678251454054664 
+16.962590148946305 32.81804029353398 137.6851943395047 0.5418229011443448 
+17.296405821941285 33.46324543537548 143.92135698320132 0.5252645378981996 
+17.519981565990534 33.93769106407322 149.4667401181387 0.5132717813887501 
+17.600816908836162 34.53060639753786 153.13171144814638 0.502686158529994 
+14.083503164574092 28.337835529777475 113.50734257541342 0.502686158529994 
+epoch: 34, train time every whole data:251.51s
+epoch: 34, total time:11581.39s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 39.93s
+test time on whole data:66.64s
+3.6144902677397948 6.591893122073084 34.60760365918383 0.9832060442631624 
+9.559188723011207 18.27768720017502 64.53094583287321 0.8695746545964738 
+11.43472682381955 22.085645443265484 71.45370716607373 0.8085124898421792 
+13.244376417139236 25.274750246468084 81.9369959906405 0.7498536548810226 
+14.714352691723311 27.613542958981505 91.87521308647406 0.7030046898669369 
+15.850663408439479 29.375299946869372 100.04349267946311 0.6652189392484579 
+16.770221342259386 30.76716499077846 106.95936028287791 0.6336002941953451 
+17.505875408146686 31.982800289088637 112.73078130555602 0.6044451580896328 
+18.03779746028933 33.07843732029159 116.60126525189631 0.5767381126523616 
+18.49263856801834 33.92357904662274 119.847977942959 0.5545570706870733 
+18.745522178679664 34.429499268890076 121.01839593979942 0.5384602413553047 
+18.86337949023859 35.00860141555407 122.51391064683803 0.5223730409712022 
+14.736102731625381 28.511743809158965 95.34329150130132 0.5223730409712022 
+epoch: 35, train time every whole data:251.57s
+epoch: 35, total time:11913.85s
+predicting testing set batch 1 / 168, time: 0.40s
+predicting testing set batch 101 / 168, time: 40.22s
+test time on whole data:66.91s
+3.0224393214920395 6.540005397187835 23.45268549458591 0.9837296233408083 
+9.815073215787129 19.303661288772183 54.320506470769544 0.8568758484942666 
+11.779561190483552 23.662885648020833 62.12349223041856 0.7833491315572779 
+13.50446796404307 27.097210587610412 71.46241657370808 0.7190976274651895 
+14.845028657300698 29.548911560125582 80.29924234928266 0.670044710816228 
+15.866167615387289 31.342107311248846 87.61569987886844 0.6328386524466554 
+16.657628259611556 32.536622401232876 94.1255383163153 0.6054992216449763 
+17.326540214693154 33.50182348175829 99.68366736949599 0.5806352437737238 
+17.82950508981947 34.33146994877326 103.57977217281504 0.556601269962849 
+18.266793890458736 34.97469491120273 107.01311404230526 0.5359787308430667 
+18.548921181324744 35.57000551167927 108.19966704430932 0.5146065428115999 
+18.68990714825967 35.93939904754198 109.40822403278425 0.5002646509517829 
+14.67933614572176 29.86749715622228 83.44032411717951 0.5002646509517829 
+epoch: 36, train time every whole data:251.42s
+epoch: 36, total time:12245.29s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.09s
+test time on whole data:66.94s
+3.6703276223860843 7.4315854536957415 27.987951347666655 0.9811279441751627 
+10.968467614172821 20.27083223547839 58.686527650535346 0.8532723684109629 
+13.04758479247037 24.51883386188751 65.97045711922632 0.7791512899072219 
+14.859934134684094 27.851131885675848 74.3567253505282 0.7123039073819425 
+16.187803705138293 30.103480037369742 81.51415806332074 0.6623479407426557 
+17.255527411735837 31.831848247921553 87.81579123855006 0.6226181615946162 
+18.172668679964215 33.197493647281334 93.65427182383829 0.5911863088306638 
+18.88356829548731 34.30874149006934 98.15528974737605 0.5649158884759103 
+19.339062130442468 35.18807065677491 100.81129814024735 0.5414143898673909 
+19.79706699489479 35.78896210048338 103.9534263071011 0.5245001595000538 
+20.008929767755433 36.24744315546469 104.33165503726558 0.5079494898085158 
+20.070992849550635 36.610025359739716 104.43371401687875 0.4954295059056367 
+16.02182783322353 30.570771008149826 83.4725934463364 0.4954295059056367 
+epoch: 37, train time every whole data:251.52s
+epoch: 37, total time:12576.39s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.42s
+test time on whole data:66.92s
+3.846050708885133 7.842163227821471 31.077575531406943 0.9810202808136592 
+11.231558375323566 20.434939092557855 63.2645156945354 0.8642144929565956 
+13.384357862138915 24.530473491674684 72.39543219858363 0.7910376377181578 
+15.262536412033857 27.79496129427988 81.90729492962315 0.717031335265844 
+16.71367576419877 30.17496500995048 89.51027598400489 0.6577385454644461 
+17.885015809733364 31.98825938998744 96.51870465008184 0.6113295448576069 
+18.917169913146886 33.392430554324505 104.91980759583956 0.5758110555956748 
+19.70818492809625 34.581082303372334 110.58640067869368 0.5439610834417057 
+20.17290574103938 35.45861813966111 112.69803722093808 0.5170653912066807 
+20.62480569664965 36.15595820512046 116.30251727990056 0.4957939880092002 
+20.81144805639853 36.64103235210012 115.83327240145873 0.4800277456476427 
+20.860195712969833 36.81087822247748 116.59572688089894 0.47579797246207367 
+16.618158748384513 30.76828197467578 92.63411496001949 0.47579797246207367 
+epoch: 38, train time every whole data:251.57s
+epoch: 38, total time:12907.95s
+predicting testing set batch 1 / 168, time: 0.40s
+predicting testing set batch 101 / 168, time: 40.08s
+test time on whole data:66.78s
+3.0462858920468925 6.431964775758608 23.33630304310069 0.9849293463409169 
+9.905734757071336 18.885181085927258 56.057515438991366 0.8681533848263667 
+11.89097242347524 22.987426901584143 64.46458041109594 0.8001308961557929 
+13.610082146441638 26.386580602550712 73.86757748022542 0.7348503788462455 
+14.908584880191603 28.746231785983934 82.08225036032934 0.6856943263705133 
+15.876505671315861 30.382211073516505 89.31715895187973 0.649142157683116 
+16.663887539860816 31.61761823862599 96.28646662225513 0.6204376009530572 
+17.322372795317126 32.77434536971734 101.9004549781374 0.5936667560034967 
+17.802075567694946 33.74478174380239 105.47941172438338 0.5697229210585962 
+18.200825110462823 34.45977977199954 108.83546011893897 0.5495644025421478 
+18.408708260621545 35.08467018102311 109.98327416695395 0.5303072084937384 
+18.526867643884252 35.597993396779444 111.96482286055785 0.5138068683246385 
+14.680241890698673 29.255039008322367 85.29792844302305 0.5138068683246385 
+epoch: 39, train time every whole data:251.50s
+epoch: 39, total time:13238.86s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.26s
+test time on whole data:66.85s
+3.984897045113431 7.196032093415494 39.8429275505151 0.9809789456718782 
+10.818419798011476 19.66631654231799 68.53212669168065 0.8610816076853057 
+12.837946415405503 23.71991310225135 75.63085220714385 0.7970877608885918 
+14.56260953303148 26.975104151383654 83.27891485943394 0.7361149713590561 
+15.942262435872294 29.303782905978924 90.59118519391102 0.687510950363361 
+17.15098966958036 31.105728575622084 97.44235254947851 0.648220126609734 
+18.282539795681192 32.58316310765895 104.87328504481835 0.6160367421205207 
+19.26339942973477 33.96385644331013 111.50327000468079 0.5854587520164959 
+19.944637983990216 35.06820396293362 115.64506023763082 0.5569569226507204 
+20.534166463948115 35.90084638679943 119.86699036101696 0.5328705842641815 
+20.79038651687786 36.601043898272316 120.23572766999011 0.5076939901724117 
+20.744517898456802 36.94852462096802 119.63554595455686 0.4915850755284848 
+16.238064415475293 30.267971380371105 95.58983947044027 0.4915850755284848 
+epoch: 40, train time every whole data:251.30s
+epoch: 40, total time:13569.87s
+predicting testing set batch 1 / 168, time: 0.39s
+predicting testing set batch 101 / 168, time: 40.16s
+test time on whole data:66.73s
+4.030290058008627 6.640697928769747 43.16810852995024 0.9833731332292617 
+9.251662243757167 18.437338081146393 65.65357336141659 0.8632764779974352 
+10.812599815349897 22.032530260265972 71.01303446717499 0.8017221521116296 
+12.224370281143258 24.909385419344833 78.92343154162597 0.7448777244083291 
+13.376414731818722 26.995446757137824 87.45088024292941 0.6995605833765887 
+14.275493645982623 28.589218014111026 95.04291058370349 0.6620711828517437 
+14.968845296285332 29.757494765859047 102.00541340676314 0.6315120270610017 
+15.610468963290739 30.767718271358984 108.39783064995005 0.6036029601445708 
+16.169715470549203 31.77495526845351 113.71043050895027 0.5734961596660622 
+16.60256600425226 32.56764407807841 118.40280698197647 0.5465369169773072 
+16.94969154483168 33.33571339930311 122.42025148801312 0.5221388554327699 
+17.227467216162253 34.036189543250515 126.48691012496364 0.5008168059938914 
+13.458298772619314 27.701134002590194 94.38962694531362 0.5008168059938914 
+epoch: 41, train time every whole data:251.17s
+epoch: 41, total time:13899.11s

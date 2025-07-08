@@ -1,0 +1,2018 @@
+total training epoch, fine tune epoch: 30 , 40
+batch_size: 4
+folder_dir: MAE_ASTGNN_h1d0w0_layer3_head8_dm64_channel1_dir2_drop0.00_1.00e-03TcontextScaledSAtSE0TEallattention1_spt_trend
+load file: data/bike.npz
+ori length: 3001 , percent: 1.0 , scale: 3001
+train: torch.Size([3001, 250, 2, 12]) torch.Size([3001, 250, 2, 12]) torch.Size([3001, 250, 2, 12])
+val: torch.Size([672, 250, 2, 12]) torch.Size([672, 250, 2, 12]) torch.Size([672, 250, 2, 12])
+test: torch.Size([672, 250, 2, 12]) torch.Size([672, 250, 2, 12]) torch.Size([672, 250, 2, 12])
+TemporalPositionalEncoding max_len: 12
+h_index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+en_lookup_index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+EncoderDecoder(
+  (encoder): Encoder(
+    (layers): ModuleList(
+      (0): EncoderLayer(
+        (self_attn): ModuleList(
+          (0): MultiHeadAttentionAwareTemporalContex_q1d_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (1): MultiHeadAttentionAwareTemporalContex_q1d_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (2): MultiHeadAttentionAwareTemporalContex_q1d_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (3): MultiHeadAttentionAwareTemporalContex_q1d_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (feed_forward_gcn): ModuleList(
+          (0): spatialAttentionScaledGCN(
+            (Theta): Linear(in_features=64, out_features=64, bias=False)
+            (SAt): Spatial_Attention_layer(
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+          )
+          (1): spatialAttentionScaledGCN(
+            (Theta): Linear(in_features=64, out_features=64, bias=False)
+            (SAt): Spatial_Attention_layer(
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+          )
+        )
+        (feed_forward_gcn_cross): spatialAttentionScaledGCN_cross(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt_cross): Spatial_Attention_layer_cross(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (6): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (7): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (1): EncoderLayer(
+        (self_attn): ModuleList(
+          (0): MultiHeadAttentionAwareTemporalContex_q1d_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (1): MultiHeadAttentionAwareTemporalContex_q1d_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (2): MultiHeadAttentionAwareTemporalContex_q1d_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (3): MultiHeadAttentionAwareTemporalContex_q1d_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (feed_forward_gcn): ModuleList(
+          (0): spatialAttentionScaledGCN(
+            (Theta): Linear(in_features=64, out_features=64, bias=False)
+            (SAt): Spatial_Attention_layer(
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+          )
+          (1): spatialAttentionScaledGCN(
+            (Theta): Linear(in_features=64, out_features=64, bias=False)
+            (SAt): Spatial_Attention_layer(
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+          )
+        )
+        (feed_forward_gcn_cross): spatialAttentionScaledGCN_cross(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt_cross): Spatial_Attention_layer_cross(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (6): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (7): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (2): EncoderLayer(
+        (self_attn): ModuleList(
+          (0): MultiHeadAttentionAwareTemporalContex_q1d_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (1): MultiHeadAttentionAwareTemporalContex_q1d_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (2): MultiHeadAttentionAwareTemporalContex_q1d_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (3): MultiHeadAttentionAwareTemporalContex_q1d_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (feed_forward_gcn): ModuleList(
+          (0): spatialAttentionScaledGCN(
+            (Theta): Linear(in_features=64, out_features=64, bias=False)
+            (SAt): Spatial_Attention_layer(
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+          )
+          (1): spatialAttentionScaledGCN(
+            (Theta): Linear(in_features=64, out_features=64, bias=False)
+            (SAt): Spatial_Attention_layer(
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+          )
+        )
+        (feed_forward_gcn_cross): spatialAttentionScaledGCN_cross(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt_cross): Spatial_Attention_layer_cross(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (6): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (7): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+    (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+    (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+  )
+  (decoder): Decoder(
+    (layers): ModuleList(
+      (0): DecoderLayer(
+        (self_attn): ModuleList(
+          (0): MultiHeadAttentionAwareTemporalContex_qc_kc(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (1): MultiHeadAttentionAwareTemporalContex_qc_kc(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (src_attn): ModuleList(
+          (0): MultiHeadAttentionAwareTemporalContex_qc_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (query_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            (key_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (1): MultiHeadAttentionAwareTemporalContex_qc_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (query_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            (key_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (2): MultiHeadAttentionAwareTemporalContex_qc_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (query_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            (key_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (3): MultiHeadAttentionAwareTemporalContex_qc_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (query_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            (key_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (feed_forward_gcn): ModuleList(
+          (0): spatialAttentionScaledGCN(
+            (Theta): Linear(in_features=64, out_features=64, bias=False)
+            (SAt): Spatial_Attention_layer(
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+          )
+          (1): spatialAttentionScaledGCN(
+            (Theta): Linear(in_features=64, out_features=64, bias=False)
+            (SAt): Spatial_Attention_layer(
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+          )
+        )
+        (feed_forward_gcn_cross): spatialAttentionScaledGCN_cross(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt_cross): Spatial_Attention_layer_cross(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (6): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (7): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (8): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (9): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (1): DecoderLayer(
+        (self_attn): ModuleList(
+          (0): MultiHeadAttentionAwareTemporalContex_qc_kc(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (1): MultiHeadAttentionAwareTemporalContex_qc_kc(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (src_attn): ModuleList(
+          (0): MultiHeadAttentionAwareTemporalContex_qc_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (query_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            (key_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (1): MultiHeadAttentionAwareTemporalContex_qc_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (query_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            (key_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (2): MultiHeadAttentionAwareTemporalContex_qc_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (query_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            (key_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (3): MultiHeadAttentionAwareTemporalContex_qc_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (query_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            (key_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (feed_forward_gcn): ModuleList(
+          (0): spatialAttentionScaledGCN(
+            (Theta): Linear(in_features=64, out_features=64, bias=False)
+            (SAt): Spatial_Attention_layer(
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+          )
+          (1): spatialAttentionScaledGCN(
+            (Theta): Linear(in_features=64, out_features=64, bias=False)
+            (SAt): Spatial_Attention_layer(
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+          )
+        )
+        (feed_forward_gcn_cross): spatialAttentionScaledGCN_cross(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt_cross): Spatial_Attention_layer_cross(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (6): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (7): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (8): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (9): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+      (2): DecoderLayer(
+        (self_attn): ModuleList(
+          (0): MultiHeadAttentionAwareTemporalContex_qc_kc(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (1): MultiHeadAttentionAwareTemporalContex_qc_kc(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (conv1Ds_aware_temporal_context): ModuleList(
+              (0): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+              (1): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            )
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (src_attn): ModuleList(
+          (0): MultiHeadAttentionAwareTemporalContex_qc_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (query_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            (key_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (1): MultiHeadAttentionAwareTemporalContex_qc_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (query_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            (key_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (2): MultiHeadAttentionAwareTemporalContex_qc_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (query_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            (key_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (3): MultiHeadAttentionAwareTemporalContex_qc_k1d(
+            (linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (query_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 2))
+            (key_conv1Ds_aware_temporal_context): Conv2d(64, 64, kernel_size=(1, 3), stride=(1, 1), padding=(0, 1))
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+        )
+        (feed_forward_gcn): ModuleList(
+          (0): spatialAttentionScaledGCN(
+            (Theta): Linear(in_features=64, out_features=64, bias=False)
+            (SAt): Spatial_Attention_layer(
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+          )
+          (1): spatialAttentionScaledGCN(
+            (Theta): Linear(in_features=64, out_features=64, bias=False)
+            (SAt): Spatial_Attention_layer(
+              (dropout): Dropout(p=0.0, inplace=False)
+            )
+          )
+        )
+        (feed_forward_gcn_cross): spatialAttentionScaledGCN_cross(
+          (Theta): Linear(in_features=64, out_features=64, bias=False)
+          (SAt_cross): Spatial_Attention_layer_cross(
+            (dropout): Dropout(p=0.0, inplace=False)
+          )
+          (Gate): Linear(in_features=64, out_features=1, bias=False)
+        )
+        (sublayer): ModuleList(
+          (0): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (6): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (7): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (8): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+          (9): SublayerConnection(
+            (dropout): Dropout(p=0.0, inplace=False)
+            (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+        (sublayer2): SublayerConnection2(
+          (dropout): Dropout(p=0.0, inplace=False)
+          (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+    (norm): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+    (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+  )
+  (src_embed): Sequential(
+    (0): TemporalPositionalEncoding(
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (1): SpatialPositionalEncoding(
+      (dropout): Dropout(p=0.0, inplace=False)
+      (embedding): Embedding(250, 64)
+    )
+  )
+  (src_embed2): Sequential(
+    (0): TemporalPositionalEncoding(
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (1): SpatialPositionalEncoding(
+      (dropout): Dropout(p=0.0, inplace=False)
+      (embedding): Embedding(250, 64)
+    )
+  )
+  (trg_embed): Sequential(
+    (0): TemporalPositionalEncoding(
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (1): SpatialPositionalEncoding(
+      (dropout): Dropout(p=0.0, inplace=False)
+      (embedding): Embedding(250, 64)
+    )
+  )
+  (trg_embed2): Sequential(
+    (0): TemporalPositionalEncoding(
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (1): SpatialPositionalEncoding(
+      (dropout): Dropout(p=0.0, inplace=False)
+      (embedding): Embedding(250, 64)
+    )
+  )
+  (prediction_generator): Linear(in_features=64, out_features=1, bias=True)
+  (prediction_generator2): Linear(in_features=64, out_features=1, bias=True)
+)
+delete the old one and create params directory experiments/bike/MAE_ASTGNN_h1d0w0_layer3_head8_dm64_channel1_dir2_drop0.00_1.00e-03TcontextScaledSAtSE0TEallattention1_spt_trend
+Net's state_dict:
+encoder.layers.0.self_attn.0.linears.0.weight 	 torch.Size([64, 64])
+encoder.layers.0.self_attn.0.linears.0.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.0.linears.1.weight 	 torch.Size([64, 64])
+encoder.layers.0.self_attn.0.linears.1.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.0.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.0.self_attn.0.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.0.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.0.self_attn.0.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.1.linears.0.weight 	 torch.Size([64, 64])
+encoder.layers.0.self_attn.1.linears.0.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.1.linears.1.weight 	 torch.Size([64, 64])
+encoder.layers.0.self_attn.1.linears.1.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.1.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.0.self_attn.1.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.1.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.0.self_attn.1.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.2.linears.0.weight 	 torch.Size([64, 64])
+encoder.layers.0.self_attn.2.linears.0.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.2.linears.1.weight 	 torch.Size([64, 64])
+encoder.layers.0.self_attn.2.linears.1.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.2.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.0.self_attn.2.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.2.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.0.self_attn.2.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.3.linears.0.weight 	 torch.Size([64, 64])
+encoder.layers.0.self_attn.3.linears.0.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.3.linears.1.weight 	 torch.Size([64, 64])
+encoder.layers.0.self_attn.3.linears.1.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.3.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.0.self_attn.3.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+encoder.layers.0.self_attn.3.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.0.self_attn.3.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+encoder.layers.0.feed_forward_gcn.0.Theta.weight 	 torch.Size([64, 64])
+encoder.layers.0.feed_forward_gcn.1.Theta.weight 	 torch.Size([64, 64])
+encoder.layers.0.feed_forward_gcn_cross.Theta.weight 	 torch.Size([64, 64])
+encoder.layers.0.feed_forward_gcn_cross.Gate.weight 	 torch.Size([1, 64])
+encoder.layers.0.sublayer.0.norm.weight 	 torch.Size([64])
+encoder.layers.0.sublayer.0.norm.bias 	 torch.Size([64])
+encoder.layers.0.sublayer.1.norm.weight 	 torch.Size([64])
+encoder.layers.0.sublayer.1.norm.bias 	 torch.Size([64])
+encoder.layers.0.sublayer.2.norm.weight 	 torch.Size([64])
+encoder.layers.0.sublayer.2.norm.bias 	 torch.Size([64])
+encoder.layers.0.sublayer.3.norm.weight 	 torch.Size([64])
+encoder.layers.0.sublayer.3.norm.bias 	 torch.Size([64])
+encoder.layers.0.sublayer.4.norm.weight 	 torch.Size([64])
+encoder.layers.0.sublayer.4.norm.bias 	 torch.Size([64])
+encoder.layers.0.sublayer.5.norm.weight 	 torch.Size([64])
+encoder.layers.0.sublayer.5.norm.bias 	 torch.Size([64])
+encoder.layers.0.sublayer.6.norm.weight 	 torch.Size([64])
+encoder.layers.0.sublayer.6.norm.bias 	 torch.Size([64])
+encoder.layers.0.sublayer.7.norm.weight 	 torch.Size([64])
+encoder.layers.0.sublayer.7.norm.bias 	 torch.Size([64])
+encoder.layers.0.sublayer2.norm.weight 	 torch.Size([64])
+encoder.layers.0.sublayer2.norm.bias 	 torch.Size([64])
+encoder.layers.0.sublayer2.norm2.weight 	 torch.Size([64])
+encoder.layers.0.sublayer2.norm2.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.0.linears.0.weight 	 torch.Size([64, 64])
+encoder.layers.1.self_attn.0.linears.0.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.0.linears.1.weight 	 torch.Size([64, 64])
+encoder.layers.1.self_attn.0.linears.1.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.0.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.1.self_attn.0.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.0.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.1.self_attn.0.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.1.linears.0.weight 	 torch.Size([64, 64])
+encoder.layers.1.self_attn.1.linears.0.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.1.linears.1.weight 	 torch.Size([64, 64])
+encoder.layers.1.self_attn.1.linears.1.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.1.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.1.self_attn.1.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.1.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.1.self_attn.1.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.2.linears.0.weight 	 torch.Size([64, 64])
+encoder.layers.1.self_attn.2.linears.0.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.2.linears.1.weight 	 torch.Size([64, 64])
+encoder.layers.1.self_attn.2.linears.1.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.2.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.1.self_attn.2.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.2.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.1.self_attn.2.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.3.linears.0.weight 	 torch.Size([64, 64])
+encoder.layers.1.self_attn.3.linears.0.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.3.linears.1.weight 	 torch.Size([64, 64])
+encoder.layers.1.self_attn.3.linears.1.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.3.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.1.self_attn.3.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+encoder.layers.1.self_attn.3.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.1.self_attn.3.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+encoder.layers.1.feed_forward_gcn.0.Theta.weight 	 torch.Size([64, 64])
+encoder.layers.1.feed_forward_gcn.1.Theta.weight 	 torch.Size([64, 64])
+encoder.layers.1.feed_forward_gcn_cross.Theta.weight 	 torch.Size([64, 64])
+encoder.layers.1.feed_forward_gcn_cross.Gate.weight 	 torch.Size([1, 64])
+encoder.layers.1.sublayer.0.norm.weight 	 torch.Size([64])
+encoder.layers.1.sublayer.0.norm.bias 	 torch.Size([64])
+encoder.layers.1.sublayer.1.norm.weight 	 torch.Size([64])
+encoder.layers.1.sublayer.1.norm.bias 	 torch.Size([64])
+encoder.layers.1.sublayer.2.norm.weight 	 torch.Size([64])
+encoder.layers.1.sublayer.2.norm.bias 	 torch.Size([64])
+encoder.layers.1.sublayer.3.norm.weight 	 torch.Size([64])
+encoder.layers.1.sublayer.3.norm.bias 	 torch.Size([64])
+encoder.layers.1.sublayer.4.norm.weight 	 torch.Size([64])
+encoder.layers.1.sublayer.4.norm.bias 	 torch.Size([64])
+encoder.layers.1.sublayer.5.norm.weight 	 torch.Size([64])
+encoder.layers.1.sublayer.5.norm.bias 	 torch.Size([64])
+encoder.layers.1.sublayer.6.norm.weight 	 torch.Size([64])
+encoder.layers.1.sublayer.6.norm.bias 	 torch.Size([64])
+encoder.layers.1.sublayer.7.norm.weight 	 torch.Size([64])
+encoder.layers.1.sublayer.7.norm.bias 	 torch.Size([64])
+encoder.layers.1.sublayer2.norm.weight 	 torch.Size([64])
+encoder.layers.1.sublayer2.norm.bias 	 torch.Size([64])
+encoder.layers.1.sublayer2.norm2.weight 	 torch.Size([64])
+encoder.layers.1.sublayer2.norm2.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.0.linears.0.weight 	 torch.Size([64, 64])
+encoder.layers.2.self_attn.0.linears.0.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.0.linears.1.weight 	 torch.Size([64, 64])
+encoder.layers.2.self_attn.0.linears.1.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.0.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.2.self_attn.0.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.0.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.2.self_attn.0.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.1.linears.0.weight 	 torch.Size([64, 64])
+encoder.layers.2.self_attn.1.linears.0.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.1.linears.1.weight 	 torch.Size([64, 64])
+encoder.layers.2.self_attn.1.linears.1.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.1.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.2.self_attn.1.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.1.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.2.self_attn.1.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.2.linears.0.weight 	 torch.Size([64, 64])
+encoder.layers.2.self_attn.2.linears.0.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.2.linears.1.weight 	 torch.Size([64, 64])
+encoder.layers.2.self_attn.2.linears.1.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.2.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.2.self_attn.2.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.2.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.2.self_attn.2.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.3.linears.0.weight 	 torch.Size([64, 64])
+encoder.layers.2.self_attn.3.linears.0.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.3.linears.1.weight 	 torch.Size([64, 64])
+encoder.layers.2.self_attn.3.linears.1.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.3.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.2.self_attn.3.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+encoder.layers.2.self_attn.3.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+encoder.layers.2.self_attn.3.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+encoder.layers.2.feed_forward_gcn.0.Theta.weight 	 torch.Size([64, 64])
+encoder.layers.2.feed_forward_gcn.1.Theta.weight 	 torch.Size([64, 64])
+encoder.layers.2.feed_forward_gcn_cross.Theta.weight 	 torch.Size([64, 64])
+encoder.layers.2.feed_forward_gcn_cross.Gate.weight 	 torch.Size([1, 64])
+encoder.layers.2.sublayer.0.norm.weight 	 torch.Size([64])
+encoder.layers.2.sublayer.0.norm.bias 	 torch.Size([64])
+encoder.layers.2.sublayer.1.norm.weight 	 torch.Size([64])
+encoder.layers.2.sublayer.1.norm.bias 	 torch.Size([64])
+encoder.layers.2.sublayer.2.norm.weight 	 torch.Size([64])
+encoder.layers.2.sublayer.2.norm.bias 	 torch.Size([64])
+encoder.layers.2.sublayer.3.norm.weight 	 torch.Size([64])
+encoder.layers.2.sublayer.3.norm.bias 	 torch.Size([64])
+encoder.layers.2.sublayer.4.norm.weight 	 torch.Size([64])
+encoder.layers.2.sublayer.4.norm.bias 	 torch.Size([64])
+encoder.layers.2.sublayer.5.norm.weight 	 torch.Size([64])
+encoder.layers.2.sublayer.5.norm.bias 	 torch.Size([64])
+encoder.layers.2.sublayer.6.norm.weight 	 torch.Size([64])
+encoder.layers.2.sublayer.6.norm.bias 	 torch.Size([64])
+encoder.layers.2.sublayer.7.norm.weight 	 torch.Size([64])
+encoder.layers.2.sublayer.7.norm.bias 	 torch.Size([64])
+encoder.layers.2.sublayer2.norm.weight 	 torch.Size([64])
+encoder.layers.2.sublayer2.norm.bias 	 torch.Size([64])
+encoder.layers.2.sublayer2.norm2.weight 	 torch.Size([64])
+encoder.layers.2.sublayer2.norm2.bias 	 torch.Size([64])
+encoder.norm.weight 	 torch.Size([64])
+encoder.norm.bias 	 torch.Size([64])
+encoder.norm2.weight 	 torch.Size([64])
+encoder.norm2.bias 	 torch.Size([64])
+decoder.layers.0.self_attn.0.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.0.self_attn.0.linears.0.bias 	 torch.Size([64])
+decoder.layers.0.self_attn.0.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.0.self_attn.0.linears.1.bias 	 torch.Size([64])
+decoder.layers.0.self_attn.0.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.0.self_attn.0.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+decoder.layers.0.self_attn.0.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.0.self_attn.0.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+decoder.layers.0.self_attn.1.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.0.self_attn.1.linears.0.bias 	 torch.Size([64])
+decoder.layers.0.self_attn.1.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.0.self_attn.1.linears.1.bias 	 torch.Size([64])
+decoder.layers.0.self_attn.1.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.0.self_attn.1.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+decoder.layers.0.self_attn.1.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.0.self_attn.1.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.0.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.0.src_attn.0.linears.0.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.0.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.0.src_attn.0.linears.1.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.0.query_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.0.src_attn.0.query_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.0.key_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.0.src_attn.0.key_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.1.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.0.src_attn.1.linears.0.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.1.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.0.src_attn.1.linears.1.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.1.query_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.0.src_attn.1.query_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.1.key_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.0.src_attn.1.key_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.2.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.0.src_attn.2.linears.0.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.2.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.0.src_attn.2.linears.1.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.2.query_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.0.src_attn.2.query_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.2.key_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.0.src_attn.2.key_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.3.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.0.src_attn.3.linears.0.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.3.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.0.src_attn.3.linears.1.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.3.query_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.0.src_attn.3.query_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.0.src_attn.3.key_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.0.src_attn.3.key_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.0.feed_forward_gcn.0.Theta.weight 	 torch.Size([64, 64])
+decoder.layers.0.feed_forward_gcn.1.Theta.weight 	 torch.Size([64, 64])
+decoder.layers.0.feed_forward_gcn_cross.Theta.weight 	 torch.Size([64, 64])
+decoder.layers.0.feed_forward_gcn_cross.Gate.weight 	 torch.Size([1, 64])
+decoder.layers.0.sublayer.0.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.0.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.1.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.1.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.2.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.2.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.3.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.3.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.4.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.4.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.5.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.5.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.6.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.6.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.7.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.7.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.8.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.8.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer.9.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer.9.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer2.norm.weight 	 torch.Size([64])
+decoder.layers.0.sublayer2.norm.bias 	 torch.Size([64])
+decoder.layers.0.sublayer2.norm2.weight 	 torch.Size([64])
+decoder.layers.0.sublayer2.norm2.bias 	 torch.Size([64])
+decoder.layers.1.self_attn.0.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.1.self_attn.0.linears.0.bias 	 torch.Size([64])
+decoder.layers.1.self_attn.0.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.1.self_attn.0.linears.1.bias 	 torch.Size([64])
+decoder.layers.1.self_attn.0.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.1.self_attn.0.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+decoder.layers.1.self_attn.0.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.1.self_attn.0.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+decoder.layers.1.self_attn.1.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.1.self_attn.1.linears.0.bias 	 torch.Size([64])
+decoder.layers.1.self_attn.1.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.1.self_attn.1.linears.1.bias 	 torch.Size([64])
+decoder.layers.1.self_attn.1.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.1.self_attn.1.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+decoder.layers.1.self_attn.1.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.1.self_attn.1.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.0.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.1.src_attn.0.linears.0.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.0.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.1.src_attn.0.linears.1.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.0.query_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.1.src_attn.0.query_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.0.key_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.1.src_attn.0.key_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.1.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.1.src_attn.1.linears.0.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.1.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.1.src_attn.1.linears.1.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.1.query_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.1.src_attn.1.query_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.1.key_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.1.src_attn.1.key_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.2.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.1.src_attn.2.linears.0.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.2.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.1.src_attn.2.linears.1.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.2.query_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.1.src_attn.2.query_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.2.key_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.1.src_attn.2.key_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.3.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.1.src_attn.3.linears.0.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.3.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.1.src_attn.3.linears.1.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.3.query_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.1.src_attn.3.query_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.1.src_attn.3.key_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.1.src_attn.3.key_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.1.feed_forward_gcn.0.Theta.weight 	 torch.Size([64, 64])
+decoder.layers.1.feed_forward_gcn.1.Theta.weight 	 torch.Size([64, 64])
+decoder.layers.1.feed_forward_gcn_cross.Theta.weight 	 torch.Size([64, 64])
+decoder.layers.1.feed_forward_gcn_cross.Gate.weight 	 torch.Size([1, 64])
+decoder.layers.1.sublayer.0.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.0.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.1.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.1.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.2.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.2.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.3.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.3.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.4.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.4.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.5.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.5.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.6.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.6.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.7.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.7.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.8.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.8.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer.9.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer.9.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer2.norm.weight 	 torch.Size([64])
+decoder.layers.1.sublayer2.norm.bias 	 torch.Size([64])
+decoder.layers.1.sublayer2.norm2.weight 	 torch.Size([64])
+decoder.layers.1.sublayer2.norm2.bias 	 torch.Size([64])
+decoder.layers.2.self_attn.0.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.2.self_attn.0.linears.0.bias 	 torch.Size([64])
+decoder.layers.2.self_attn.0.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.2.self_attn.0.linears.1.bias 	 torch.Size([64])
+decoder.layers.2.self_attn.0.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.2.self_attn.0.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+decoder.layers.2.self_attn.0.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.2.self_attn.0.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+decoder.layers.2.self_attn.1.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.2.self_attn.1.linears.0.bias 	 torch.Size([64])
+decoder.layers.2.self_attn.1.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.2.self_attn.1.linears.1.bias 	 torch.Size([64])
+decoder.layers.2.self_attn.1.conv1Ds_aware_temporal_context.0.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.2.self_attn.1.conv1Ds_aware_temporal_context.0.bias 	 torch.Size([64])
+decoder.layers.2.self_attn.1.conv1Ds_aware_temporal_context.1.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.2.self_attn.1.conv1Ds_aware_temporal_context.1.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.0.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.2.src_attn.0.linears.0.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.0.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.2.src_attn.0.linears.1.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.0.query_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.2.src_attn.0.query_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.0.key_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.2.src_attn.0.key_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.1.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.2.src_attn.1.linears.0.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.1.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.2.src_attn.1.linears.1.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.1.query_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.2.src_attn.1.query_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.1.key_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.2.src_attn.1.key_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.2.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.2.src_attn.2.linears.0.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.2.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.2.src_attn.2.linears.1.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.2.query_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.2.src_attn.2.query_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.2.key_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.2.src_attn.2.key_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.3.linears.0.weight 	 torch.Size([64, 64])
+decoder.layers.2.src_attn.3.linears.0.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.3.linears.1.weight 	 torch.Size([64, 64])
+decoder.layers.2.src_attn.3.linears.1.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.3.query_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.2.src_attn.3.query_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.2.src_attn.3.key_conv1Ds_aware_temporal_context.weight 	 torch.Size([64, 64, 1, 3])
+decoder.layers.2.src_attn.3.key_conv1Ds_aware_temporal_context.bias 	 torch.Size([64])
+decoder.layers.2.feed_forward_gcn.0.Theta.weight 	 torch.Size([64, 64])
+decoder.layers.2.feed_forward_gcn.1.Theta.weight 	 torch.Size([64, 64])
+decoder.layers.2.feed_forward_gcn_cross.Theta.weight 	 torch.Size([64, 64])
+decoder.layers.2.feed_forward_gcn_cross.Gate.weight 	 torch.Size([1, 64])
+decoder.layers.2.sublayer.0.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.0.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.1.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.1.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.2.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.2.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.3.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.3.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.4.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.4.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.5.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.5.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.6.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.6.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.7.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.7.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.8.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.8.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer.9.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer.9.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer2.norm.weight 	 torch.Size([64])
+decoder.layers.2.sublayer2.norm.bias 	 torch.Size([64])
+decoder.layers.2.sublayer2.norm2.weight 	 torch.Size([64])
+decoder.layers.2.sublayer2.norm2.bias 	 torch.Size([64])
+decoder.norm.weight 	 torch.Size([64])
+decoder.norm.bias 	 torch.Size([64])
+decoder.norm2.weight 	 torch.Size([64])
+decoder.norm2.bias 	 torch.Size([64])
+src_embed.0.pe 	 torch.Size([1, 1, 12, 64])
+src_embed.1.embedding.weight 	 torch.Size([250, 64])
+src_embed2.0.pe 	 torch.Size([1, 1, 12, 64])
+src_embed2.1.embedding.weight 	 torch.Size([250, 64])
+trg_embed.0.pe 	 torch.Size([1, 1, 12, 64])
+trg_embed.1.embedding.weight 	 torch.Size([250, 64])
+trg_embed2.0.pe 	 torch.Size([1, 1, 12, 64])
+trg_embed2.1.embedding.weight 	 torch.Size([250, 64])
+prediction_generator.weight 	 torch.Size([1, 64])
+prediction_generator.bias 	 torch.Size([1])
+prediction_generator2.weight 	 torch.Size([1, 64])
+prediction_generator2.bias 	 torch.Size([1])
+Net's total params: 1140994
+Optimizer's state_dict:
+state 	 {}
+param_groups 	 [{'lr': 0.001, 'betas': (0.9, 0.999), 'eps': 1e-08, 'weight_decay': 0, 'amsgrad': False, 'params': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301, 302, 303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 365, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375, 376, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 387, 388, 389, 390, 391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411]}]
+predicting testing set batch 1 / 168, time: 0.75s
+predicting testing set batch 101 / 168, time: 34.24s
+test time on whole data:57.03s
+24.51700926158728 28.181909685410023 969.1385170496135 0.16858318421291157 
+25.85533254320201 29.348357622114285 1023.3240921577151 0.14598149993574627 
+28.11286536684641 31.106152196454598 1113.7336797829507 0.13353521320087944 
+31.322393287329003 33.9765773423829 1244.662384716538 0.11912485051365755 
+34.15144720848339 36.65089746404828 1361.8639864066117 0.10396040834558215 
+35.94536566644969 38.29823776147671 1438.1869411230634 0.09279474208647116 
+36.277115778090966 38.53773612380697 1455.7414558454716 0.08270274638044528 
+35.33041433989416 37.58956317755151 1420.4843270027577 0.0708300203746705 
+34.61062642347112 36.923480642393955 1392.6876470025081 0.05665257083826633 
+35.25501905007669 37.63156898529978 1419.2456074619927 0.04216247887108633 
+36.72479198361419 39.089166771505106 1479.281075076606 0.028461415530750978 
+37.72407508103505 39.960678503602686 1520.337929132523 0.015779659069564744 
+32.98553799917333 35.8120318461426 1319.9008041592558 0.015779659069564744 
+epoch: 0, train time every whole data:207.80s
+epoch: 0, total time:279.85s
+predicting testing set batch 1 / 168, time: 0.34s
+predicting testing set batch 101 / 168, time: 35.50s
+test time on whole data:59.12s
+3.3343200261748973 4.670545576745968 107.81911777892842 0.33268679396866235 
+3.3732920212286213 4.7407299281375925 108.56580809163536 0.3123136621925276 
+3.3830091160708773 4.787493990983126 108.24276954376046 0.2892066059403753 
+3.422024481293701 4.860367019839012 108.9783433709095 0.26309649464806306 
+3.4807085625299563 4.942915010882061 110.81480282788345 0.23351174047174822 
+3.5421710101924835 5.032185144845716 112.39781467281134 0.20541427002815246 
+3.5882863728455487 5.102794855541775 113.61208799841569 0.1790369551352438 
+3.608100239640102 5.145162082352803 113.80042014033627 0.15714286310540765 
+3.6372761380956287 5.195422437409493 114.11031624373697 0.13731547686315496 
+3.711932142658159 5.27545762687215 116.5389529591528 0.11840203622165954 
+3.7766308651468936 5.342782753211758 118.63301441570277 0.10257935267493563 
+3.7338299881161325 5.314026872146583 115.94164071617598 0.09279666012380126 
+3.5492984136660835 5.039058803217849 112.4547862930364 0.09279666012380126 
+epoch: 1, train time every whole data:209.45s
+epoch: 1, total time:560.40s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.32s
+test time on whole data:58.77s
+2.4840341424051493 4.101921995209398 56.815658690744876 0.6190424886326963 
+2.4993198542748356 4.1422049183417196 57.38709011093921 0.5897067999327493 
+2.553267893479339 4.212154426305067 58.82744914474395 0.5493506437052564 
+2.57954905044997 4.254572218471624 59.84425482225569 0.5134336369835173 
+2.6096560979302796 4.296542014217804 60.84690948993726 0.4785228272434026 
+2.6370818228324255 4.346038763500162 61.20541174108961 0.4446981132723813 
+2.6663105054124303 4.397583131787351 61.51393448286589 0.40938895800886316 
+2.6975378138996837 4.44297939515628 61.86109031226154 0.3757890023439488 
+2.7293092987381278 4.490844156520667 62.00707577499034 0.3430397105297018 
+2.761360640737095 4.53848492552798 61.97913851303324 0.3143827521011991 
+2.796768514844722 4.5796843975947406 62.176288151800016 0.28676100881068506 
+2.8351444532554595 4.599429264835103 63.031818009297524 0.25839756073454306 
+2.6541116740216264 4.369860507263478 60.624789718291275 0.25839756073454306 
+epoch: 2, train time every whole data:209.77s
+epoch: 2, total time:842.62s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.26s
+test time on whole data:58.66s
+2.494032192436712 3.684062663194474 78.55316433944046 0.6319999297407918 
+2.5283378819159807 3.752388869712971 79.416641943147 0.6029798187887381 
+2.645015902037954 3.9469135122259544 78.35035577500325 0.546086975340727 
+2.677291348338127 4.00448401904252 79.33663154881981 0.5160224127175875 
+2.7209450217794093 4.06621726948524 80.7321285152613 0.4823711302668003 
+2.7627259325068443 4.125900349113765 81.69756936656486 0.4497255563144937 
+2.8040175488254144 4.1846592208785935 82.18322350718856 0.41833494466734944 
+2.846503396186534 4.234696924708593 83.13916774899617 0.38847079939860013 
+2.8822967317392605 4.281822103533899 83.57759188492541 0.35886952328369115 
+2.915841777934737 4.329365163104404 83.58766725557817 0.3281744138055763 
+2.949990498532408 4.37661961089703 83.33491626768507 0.2974114765236923 
+2.9949424139987677 4.416589290633021 83.93000962918707 0.27070211148558226 
+2.7684950538526794 4.123170597394096 81.48671310006625 0.27070211148558226 
+epoch: 3, train time every whole data:209.22s
+epoch: 3, total time:1125.28s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.27s
+test time on whole data:58.67s
+1.9557005338138413 3.4446366072397474 61.32361458524913 0.7087089400838628 
+2.091882668334636 3.7028996623523134 63.28654703639272 0.6616586779828036 
+2.3200054193177215 4.163670457331051 63.6445632792349 0.5855845888248974 
+2.385682086755832 4.262770039207272 65.2255132064816 0.5551419519725763 
+2.47507097119838 4.382161744789338 65.70165825416844 0.528782656831215 
+2.54740216319263 4.475543657823718 66.19448511170725 0.5171395878294951 
+2.592905351119559 4.520693900888972 66.78133955811812 0.517554274255788 
+2.674480075091301 4.6113662298263955 68.9080270521298 0.5246349312970547 
+2.713522551639272 4.644473834555367 70.90105349997597 0.5187995793868471 
+2.726358486868175 4.667757872285101 71.41289010392383 0.5092737398440753 
+2.7535540492462793 4.7114242496412935 72.56822737825928 0.49039280159194926 
+2.7791444213191667 4.749785278117026 73.14388964675648 0.4605447366592104 
+2.5013090648247327 4.379275350956796 67.424527386455 0.4605447366592104 
+epoch: 4, train time every whole data:209.27s
+epoch: 4, total time:1406.71s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.29s
+test time on whole data:58.68s
+2.327684257178878 3.9249253234728734 69.86591651742565 0.6975280651718143 
+2.39369857010946 4.05602595622176 71.74348105732784 0.6695456208002145 
+2.5250936242456414 4.289759619864988 75.51402357442657 0.6132583163309461 
+2.549645426676919 4.348010560331172 75.8372831998364 0.5916700798144469 
+2.599443878248334 4.445422658818464 76.16567096680296 0.5692968674368422 
+2.654202795226038 4.522087259897853 77.2121777697629 0.5541392284490363 
+2.6653110429178923 4.530821609690605 77.3361362690935 0.5547707993167897 
+2.6567010510105287 4.500838657382132 76.83960795117623 0.5671894261849161 
+2.6895633373732366 4.522018863129849 78.17954548785757 0.5710702725009261 
+2.717119961937623 4.549606729924311 79.04016507199259 0.5714352606815883 
+2.756084158530636 4.6036942795297096 80.13287139863363 0.5551245149083286 
+2.7892690332843255 4.661311632270181 80.90917383410778 0.5221427594384518 
+2.6103180947282927 4.418049822504999 76.5648350369197 0.5221427594384518 
+epoch: 5, train time every whole data:209.76s
+epoch: 5, total time:1688.12s
+predicting testing set batch 1 / 168, time: 0.34s
+predicting testing set batch 101 / 168, time: 35.20s
+test time on whole data:58.58s
+1.8430454172190456 3.139793442082955 52.66545980747593 0.7460955831280326 
+1.9296629623137413 3.312069870320333 53.73130315654188 0.71431640718801 
+2.061125655091146 3.61798747903987 52.214201129984296 0.6681054443496351 
+2.116261079173092 3.7056762883647525 53.18696668231371 0.6463653152127865 
+2.19524796945105 3.8417313919579286 52.79779207371013 0.6276840692216168 
+2.243317600990956 3.9181822149363073 52.56492052031714 0.615041456173696 
+2.2469600992544243 3.9021590947192006 52.60766460919201 0.619034625318858 
+2.237300837456027 3.8604734616029863 52.767651899103974 0.629948224912127 
+2.2304580697227445 3.8247794364572427 53.974850405326045 0.6300912394900833 
+2.221254396146873 3.8085333323245356 54.26219164143931 0.6392353190354663 
+2.208303695901785 3.8183822537486822 53.87570657213917 0.6375813791251351 
+2.226002555052794 3.868701947248043 54.46152614464877 0.6149908321057662 
+2.14657836148114 3.725720225858626 53.25920750742862 0.6149908321057662 
+epoch: 6, train time every whole data:209.86s
+epoch: 6, total time:1969.71s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.26s
+test time on whole data:58.60s
+1.9565145925733127 3.539148887282048 52.31782445838129 0.7472751522205349 
+1.978954020967707 3.609911301189699 52.76693967462865 0.734271055525509 
+2.1137166616583154 3.8735734157260766 54.262066219036306 0.6771366115382246 
+2.1308050253521653 3.8951568008732553 53.6504147837035 0.6839020849289427 
+2.178386874072076 3.9532006444726018 53.497877427777155 0.6699862367909433 
+2.188866029240812 3.9508633151722865 53.80387281984389 0.6673318734067138 
+2.1814592538420112 3.9212463198792302 53.84013364285807 0.6632150391230844 
+2.170082102495024 3.885506947738011 53.9920718719791 0.663784159809458 
+2.150264345826847 3.830896439925047 53.39550795612639 0.6700725287129626 
+2.135112822010581 3.778039848583051 53.980390772181494 0.6736189379275828 
+2.13285222787481 3.788464985178015 54.794535601928814 0.6672649865665826 
+2.152384763232388 3.841254295677698 55.2955376868352 0.6439733466176208 
+2.122449893262171 3.8242794453207063 53.79979381299732 0.6439733466176208 
+epoch: 7, train time every whole data:209.56s
+epoch: 7, total time:2250.50s
+predicting testing set batch 1 / 168, time: 0.34s
+predicting testing set batch 101 / 168, time: 35.33s
+test time on whole data:58.78s
+1.7653738189460266 3.202174674359 54.14227196842318 0.7596091979231514 
+1.8059876829195944 3.2922156293833753 55.39721524987316 0.7409839382068701 
+1.860471684408862 3.408740341041634 56.95802938385752 0.7095903417433524 
+1.8741664776127962 3.4100311339918297 57.13521819578167 0.7093001415905041 
+1.9096558988766656 3.4472171670610057 57.18592128901294 0.6974758927446683 
+1.9383863783590496 3.490123599036257 57.60155103219058 0.6908515850587843 
+1.9514789299123168 3.5072298667527173 58.08424873797399 0.6851634790354294 
+1.9619563341560287 3.5238603045118344 58.25168542666793 0.6835394518303192 
+1.9758451775181152 3.555100583807381 57.86736428756705 0.6815621949325916 
+1.991984013207789 3.5915168940584907 57.62565469155321 0.6815639504262997 
+2.027984798095056 3.6690589807977725 58.693694247814065 0.6708404326761354 
+2.0826279938744294 3.75814467629352 60.30928161937753 0.6403033772846367 
+1.9288265989905609 3.4910162099082784 57.43775278400022 0.6403033772846367 
+epoch: 8, train time every whole data:209.03s
+epoch: 8, total time:2533.40s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.23s
+test time on whole data:58.60s
+1.7008111636033725 2.9354473178073786 55.60440455874727 0.7719500250000086 
+1.7529485793964317 3.033118896930667 56.6187466306317 0.7567899201180915 
+1.812509896940064 3.187323180863431 56.06401599728391 0.737995372060408 
+1.8696104840366614 3.2594751392242625 57.21188584792765 0.7270174524841815 
+1.911717482285574 3.345497427296567 57.167510358698884 0.7136571847506272 
+1.9421340334065968 3.409287595519471 57.32332989504981 0.7005964409534188 
+1.9722939849456862 3.4746280419694955 57.67848898904677 0.6874038211224867 
+2.007147334260245 3.5409221985317716 58.33855026457847 0.6688586185007304 
+2.0269060112380735 3.59058504424639 59.02660952063265 0.6583682799949131 
+2.019515262886438 3.6010061295893565 58.45481599029411 0.6672040882131248 
+2.0196262943551297 3.6102564284668 58.83364720934755 0.6743701089540467 
+2.079783427289022 3.7100912967582897 60.890661300214546 0.6447818093578991 
+1.926250329553608 3.399569929258344 57.767793920158816 0.6447818093578991 
+epoch: 9, train time every whole data:209.70s
+epoch: 9, total time:2816.35s
+predicting testing set batch 1 / 168, time: 0.34s
+predicting testing set batch 101 / 168, time: 35.28s
+test time on whole data:58.69s
+1.698738864685453 2.952274074642886 55.54699097160643 0.787817232430352 
+1.7525268916882397 3.0545261550260614 56.413425867774556 0.7714958983121522 
+1.8023907304905533 3.190250947468645 55.80433147346808 0.7564394053733187 
+1.8452026576320864 3.255081259389227 56.274593585064395 0.748203797349517 
+1.897219958142067 3.366229455073856 56.11555440916287 0.7335223917153949 
+1.9320905585858439 3.433699043661998 55.056728750795735 0.726589296054154 
+1.9476783471649424 3.447906030392863 54.56861959350772 0.7259882637203671 
+1.9552646926872077 3.446253455748238 54.100095046411056 0.7248874271670642 
+1.9552237093708522 3.438484731101179 54.205586901731664 0.7231198544101665 
+1.9538568883897471 3.4325027664352836 55.16297646382549 0.7192214095336159 
+1.9821574271615772 3.4859766534275742 56.22749761581524 0.7151161757689537 
+2.0096762355228086 3.5547289975285516 57.11021698536396 0.6969099460847217 
+1.8943355801267816 3.3428929594569357 55.54886197154927 0.6969099460847217 
+epoch: 10, train time every whole data:209.62s
+epoch: 10, total time:3098.49s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.31s
+test time on whole data:58.72s
+1.9714590649567545 3.4011803764404234 60.60242288078973 0.7817383958287771 
+2.0132224260007163 3.4873959271133304 61.54377859768824 0.765403642872196 
+2.0333356151942694 3.5408026567988244 62.06981609948522 0.7519633387706997 
+2.0517202300757527 3.566152378710193 62.71175190631961 0.7442486843028628 
+2.0356572418334404 3.5508014330842217 61.771976393759566 0.7330371025990077 
+2.021037854507477 3.5154143180040833 61.32972891021262 0.7288725664260093 
+1.9861354860803555 3.4435604561732576 60.91055891640911 0.7349587203344616 
+1.970053717859799 3.41020448290096 60.989882201156306 0.741242550272694 
+1.9390818313929652 3.383272410458778 60.67266094194104 0.7429417264514352 
+1.9395289407516165 3.3996964771972102 61.17491136291535 0.7383310443515939 
+1.982133106975772 3.4944010830455983 61.87049226999438 0.7272832736293381 
+2.0281861274418023 3.589361499620482 63.10461334009503 0.701496284095734 
+1.9976293035892267 3.4825450423939235 61.562711165882945 0.701496284095734 
+epoch: 11, train time every whole data:209.55s
+epoch: 11, total time:3381.09s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.18s
+test time on whole data:58.62s
+1.7240842333357072 2.7727328108160787 60.28590908848762 0.7972557850020158 
+1.7540185826019872 2.8584545252926943 60.29094616701537 0.7828264068976499 
+1.773461689086897 2.9723694210195326 57.49867908040448 0.768187781615071 
+1.797797521627996 3.025485672416447 56.675423429182025 0.7621793505474034 
+1.8398795322515071 3.1304841154057597 56.80899569401222 0.7459242866174488 
+1.8694809688665859 3.2226079729746786 56.09234307923704 0.7357639781918364 
+1.8833920117786953 3.25393392188404 56.11589890513529 0.7336727079121197 
+1.8899824468926305 3.2546069172706473 56.1839769895808 0.7329122441373842 
+1.8986892156845756 3.2712298532303024 56.23087876774044 0.728982918632099 
+1.9184033241260443 3.3190066047152302 56.80037535262272 0.7180983752626059 
+1.9449940050045649 3.358415918729762 57.554832264615165 0.7075702162459689 
+2.0098260957000864 3.4760045744639725 58.632942251086405 0.6807960567831075 
+1.8586674689131064 3.166114245941616 57.430877072440445 0.6807960567831075 
+epoch: 12, train time every whole data:209.79s
+epoch: 12, total time:3663.94s
+predicting testing set batch 1 / 168, time: 0.34s
+predicting testing set batch 101 / 168, time: 35.26s
+test time on whole data:58.60s
+1.9092008180167703 2.942172270915991 68.70676240846946 0.8012371889477923 
+1.9521706891003996 3.011103352645202 69.80678612457069 0.7888683010547592 
+1.9770020670660196 3.0754465693415987 68.27875484213357 0.7815035072064362 
+2.025183804064989 3.1567212502638005 69.09832152389465 0.7700960032669041 
+2.0587233121930844 3.1923790010907163 69.49759509031293 0.7665427843335552 
+2.0746101197547144 3.2031141413417332 69.82678880936562 0.7633075972467477 
+2.0835375123195172 3.205359478236544 70.52188743333787 0.7606414515245794 
+2.079671619806439 3.2101237590964162 70.2644254801018 0.7597439968544992 
+2.087302948501759 3.25380588430546 69.61927110375767 0.75408615570439 
+2.0931579255059893 3.313266046608994 68.8794612365987 0.743345467639938 
+2.118896038645967 3.3782393958660286 68.5438741125138 0.7389151991756008 
+2.162435566499652 3.4891971801967734 69.13329895196088 0.7245284280891423 
+2.051824368456275 3.2058385870383925 69.34811537286267 0.7245284280891423 
+epoch: 13, train time every whole data:209.69s
+epoch: 13, total time:3945.89s
+predicting testing set batch 1 / 168, time: 0.34s
+predicting testing set batch 101 / 168, time: 35.28s
+test time on whole data:58.69s
+1.8705527928576229 2.7648539557358176 62.22980382220694 0.8054535431868198 
+1.916878757303758 2.85326775202461 62.834978364102966 0.7909508494553396 
+1.9372107229933497 2.9348193702288303 60.855828093309775 0.7840494945768182 
+1.9704170923290685 3.0116615987413757 59.11337536348643 0.7730832377218497 
+2.008046456023607 3.1388785247445243 56.94655353484336 0.7564508928572851 
+2.0584975295481938 3.262685480468405 55.71871774956817 0.7350403478118479 
+2.0870649896314633 3.345016138562123 55.16889518086143 0.7124758652753 
+2.1180556175475496 3.4036392030848486 55.486408879002646 0.6920858492824794 
+2.154413762779729 3.4596210142435346 56.295774797117794 0.6728683907841982 
+2.174890582684605 3.5048137808207507 56.288883782846575 0.663347679689369 
+2.192644819135112 3.5665413762187432 55.75424180158799 0.6527391951772047 
+2.234138254928979 3.6557338917839677 56.279304551094555 0.6326906786270123 
+2.0602342814802532 3.254198534052059 57.74758026423733 0.6326906786270123 
+epoch: 14, train time every whole data:209.57s
+epoch: 14, total time:4227.51s
+predicting testing set batch 1 / 168, time: 0.34s
+predicting testing set batch 101 / 168, time: 35.27s
+test time on whole data:58.67s
+1.7479534409344197 3.033893497834347 55.84337764132662 0.8005087757647215 
+1.7887127763824981 3.117910242484184 56.78057845696291 0.7888579496768657 
+1.8601341293418692 3.2838975643497434 56.66163114595489 0.775491110818987 
+1.9043352894599417 3.3612934300736357 56.92610530952226 0.7710220807426018 
+1.962173283902396 3.461588291804085 57.09534731356107 0.7631136117761911 
+2.006708074703014 3.5115616176674864 57.348430594910404 0.7621768004464705 
+2.0206624284046923 3.5192416231029098 57.076915398543925 0.761172034028629 
+2.021941599067212 3.5093461216902804 57.05365167994765 0.7591701089481433 
+2.0283808895781457 3.5283962031194602 57.55434394032078 0.7504771485030086 
+2.030913101739117 3.527194226811909 58.460820131070626 0.7396101166037344 
+2.0736919429081357 3.5953325116933748 60.17515856522879 0.728061617371852 
+2.109472425503656 3.665088615744074 61.41676398586034 0.7131386312843435 
+1.9629232818270914 3.431136235315742 57.69948462879427 0.7131386312843435 
+epoch: 15, train time every whole data:209.72s
+epoch: 15, total time:4510.08s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.32s
+test time on whole data:58.76s
+1.889267762396662 3.1104590189206696 59.130086158730464 0.8215828309507509 
+1.9265902022120676 3.177049603810279 59.9815973703528 0.8135087863006691 
+1.9581911479397012 3.2186768091300313 60.58628804134478 0.8067693186610317 
+1.96888892196447 3.2304787761620894 60.89242493345686 0.8048866899780364 
+2.006178254154289 3.2908959599094336 61.92944738547922 0.7978839838821702 
+2.0540188505248653 3.359991852464944 63.22182320788392 0.7914879620772242 
+2.0981127930845886 3.4260048734815203 64.35636098777115 0.7843198846587922 
+2.1227613716845712 3.472289662012079 64.7419513070857 0.7768126350278626 
+2.177045932899806 3.5648260766819937 66.10581795844126 0.7645166478436621 
+2.2228226333765226 3.6607054829260406 66.90755732780306 0.752078921117812 
+2.2719253150473926 3.773060961967627 67.60553226256962 0.7404223735289779 
+2.318596474130505 3.8811938627051057 68.5519860680163 0.7193694535472984 
+2.084533304951287 3.4385889037544155 63.66774892286522 0.7193694535472984 
+epoch: 16, train time every whole data:209.74s
+epoch: 16, total time:4792.88s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.24s
+test time on whole data:58.54s
+1.6689480054792727 2.6345235791032144 60.961802774873775 0.8184050852117569 
+1.7216162319102635 2.7547929209727338 62.04290280698209 0.799746920580045 
+1.7604786451805738 2.894823091958809 61.15644825526535 0.7806018088122166 
+1.8089625890463412 3.003691535381462 60.59910828550776 0.7644506603640574 
+1.8628726884358164 3.143377533591586 60.16518449266698 0.7443277582742406 
+1.9081866485765648 3.242599543143695 59.48710281942658 0.728698828504943 
+1.9490382671365072 3.344293979913081 58.79492326632274 0.7122103236347834 
+1.9716904071529529 3.4024772197981505 58.07656016677859 0.7023285889282923 
+1.9814765804004633 3.4270034834987495 57.388701828350854 0.7002785882761452 
+1.9729533439118947 3.427905525176469 56.87941713853392 0.7034335032402692 
+1.9772180388961875 3.453174016232132 56.20246147405186 0.7058781198349451 
+2.004978849213038 3.5354064662946025 56.77154838230951 0.6910767819150254 
+1.8823683579449897 3.201647863532038 59.04374017828425 0.6910767819150254 
+epoch: 17, train time every whole data:209.44s
+epoch: 17, total time:5078.79s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.20s
+test time on whole data:58.51s
+1.726464069763908 2.9847980206834857 52.73642673941702 0.8159378933086521 
+1.7788735643497535 3.095357255554549 54.213411920272534 0.8029890676565551 
+1.8556169140063048 3.2705569972916715 55.292037131454144 0.7920244496687263 
+1.915567225666628 3.380811053096309 56.5966371090081 0.7843014536596061 
+1.951060331725471 3.4439741694288166 57.51111052524788 0.7757324630278979 
+1.9692362743060858 3.460121827467636 58.528942874333836 0.766828072065351 
+1.9678427307763624 3.438026518006188 59.812110601850236 0.7564511999558571 
+1.9513785673319584 3.3748766179269216 60.61525584927037 0.749567783558753 
+1.9924662714246661 3.434964846746863 62.555708402006886 0.729287073318259 
+2.0593176223899103 3.5626901662803396 64.598269311116 0.7006123024635919 
+2.132834301890628 3.7217011667711994 65.2569519617433 0.6790119054389488 
+2.198396221090197 3.86264913768075 66.08835078953605 0.661122940155785 
+1.9582545078934894 3.426888342375214 59.48400822173193 0.661122940155785 
+epoch: 18, train time every whole data:209.37s
+epoch: 18, total time:5365.21s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.12s
+test time on whole data:58.45s
+1.629663801684887 2.5616359952459464 55.63305756935124 0.8290657344473633 
+1.6634860957758058 2.637059073871691 55.74004236177562 0.8182447613816355 
+1.6884503297585816 2.7193615399136224 54.44436540946801 0.8068570136702437 
+1.7169494568294004 2.786716105751323 53.51142243146549 0.799192562509112 
+1.745615102141386 2.867140630980305 53.138551778276366 0.7903609323252938 
+1.772716899710663 2.938000278552797 53.01768364791094 0.7822014659984134 
+1.8016769480780654 3.0167143398335003 53.0314743780194 0.7735999212838546 
+1.8244982408144113 3.05527258365647 53.266508271595114 0.7672715412589516 
+1.8512598210268076 3.111361546378465 53.68515849135312 0.7546407084968522 
+1.8719368983532878 3.1620555099585763 54.04186196606193 0.7458161094635362 
+1.8969655653951423 3.228459156969236 54.149143324581395 0.7382459659957307 
+1.9403975612922084 3.3255191618410347 55.286381579413145 0.7208538588619863 
+1.7836347267383872 2.9598080218933505 54.07877648778906 0.7208538588619863 
+epoch: 19, train time every whole data:209.77s
+epoch: 19, total time:5648.33s
+predicting testing set batch 1 / 168, time: 0.34s
+predicting testing set batch 101 / 168, time: 35.28s
+test time on whole data:58.71s
+1.6837653764492522 2.7722453276683945 54.98137912406952 0.8317276249139489 
+1.7264734194929756 2.8710126731927157 55.67286265016076 0.8194051543532211 
+1.7816942483616016 2.997489418477673 55.86273898282966 0.812483465690482 
+1.8227746872906352 3.0820188567647815 56.51414657031558 0.8073335697290821 
+1.8670914397454332 3.1853697114705786 57.17201445523864 0.7956023691125312 
+1.9119779842393916 3.2768444408556943 57.5419979394994 0.784102447849953 
+1.9648903031034306 3.377392719677008 58.37265083563965 0.7715613834898927 
+1.9996317341207925 3.4456033806592115 58.73913214460275 0.7615069187365489 
+2.027172104329403 3.5010133958248524 59.1806836693911 0.7504798708379855 
+2.0429613346042377 3.5378166942280855 59.481607802804504 0.7430768565438928 
+2.0685631534327706 3.5932846092754582 60.03492179210574 0.7345821965356526 
+2.0990611323435746 3.6487503354241664 61.14249596275725 0.7241783615661375 
+1.9163380764594582 3.2859981988611926 57.89149129267399 0.7241783615661375 
+epoch: 20, train time every whole data:209.60s
+epoch: 20, total time:5931.15s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.25s
+test time on whole data:58.62s
+1.626250259361629 2.6368168098317066 55.64391780439879 0.8260914180779301 
+1.6793299841597853 2.775553516399066 55.933097997581804 0.8111170568689628 
+1.736446495660004 2.9210597677014114 55.70465555530808 0.7983513647963676 
+1.7631016056036488 2.9637742566783807 56.0072557169918 0.7925158618233908 
+1.7866939168925442 3.0076389851328766 56.27392285381857 0.7849149281097686 
+1.7897176637260155 2.9929649252717345 56.88111290296494 0.7806954118352273 
+1.7857289323155723 2.9693639175896904 57.70819633125451 0.777822250393279 
+1.7750240108478106 2.924152346544758 58.67027940839593 0.7803373779838668 
+1.7969591552465267 2.956145146659908 60.17757115840401 0.7726000229388039 
+1.8326357636136845 3.050412595329182 61.58778294821418 0.7563011044148175 
+1.8657173581169475 3.1503479320453502 60.910269768354674 0.7402689049817476 
+1.8780150463556249 3.201851977038436 59.972172184163774 0.734420876248787 
+1.7763016826583162 2.9659867365599673 57.95596863102801 0.734420876248787 
+epoch: 21, train time every whole data:209.75s
+epoch: 21, total time:6216.29s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.33s
+test time on whole data:58.67s
+1.6430009929928928 2.728402007380442 54.49092713064855 0.8335778856805887 
+1.6874886382116625 2.836140614055666 55.40653021715685 0.8217874890156431 
+1.7327514149478327 2.9378422655571845 55.972409808844716 0.8138571289002489 
+1.792593254548808 3.0565594379994185 56.75819818582336 0.8039681407591014 
+1.8496253628944535 3.1808235643945886 57.453696365265515 0.7910532910412759 
+1.89748831157067 3.275185750053762 57.98395891163298 0.7798250935824328 
+1.9226302277797922 3.30555233893323 58.39077315122058 0.7738268188812018 
+1.907991993973564 3.250964017332017 58.48953756234974 0.777998090528925 
+1.8984503323213153 3.2140958497310406 59.28950823233927 0.778331559173205 
+1.8828246929408716 3.1828412181814207 59.92176278836463 0.774535270465157 
+1.8894797687452465 3.1773644363904627 61.15109243637209 0.7714723148950118 
+1.9223434814226237 3.248331481775601 62.13612025288771 0.7578697031264813 
+1.8355557060291443 3.121290597827218 58.12049650013432 0.7578697031264813 
+epoch: 22, train time every whole data:209.28s
+epoch: 22, total time:6497.52s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.32s
+test time on whole data:58.75s
+1.836391307875869 2.7070387585820987 57.80134942077719 0.8190636158651664 
+1.8669792904017404 2.8056070523334213 57.43479933326745 0.8092645440816397 
+1.888278238466453 2.8964016061986584 56.40758159762801 0.7992038256098729 
+1.900937006036618 2.9497796430661625 55.31153466372067 0.7933495061218354 
+1.9076662242296374 2.9669485643524194 55.29913676263649 0.7895574722788483 
+1.9020972173613098 2.9321205343745635 55.36167760095615 0.791415346782106 
+1.8943191172794571 2.8872694962426873 55.668606829897904 0.7922524578766552 
+1.894638965435681 2.849887176856116 56.500916385246924 0.79186315696716 
+1.9122439933875133 2.861167980446551 57.587736972950665 0.7867352189028364 
+1.941211075168369 2.9044385540493254 58.99259456076415 0.7777087626277746 
+1.9562170556463478 2.9331390812948306 59.42148797221635 0.7741111054615388 
+1.9802621680863557 3.0031554068431103 59.6978000028325 0.7624330891772658 
+1.9067701382812792 2.892409915774007 57.123801511841485 0.7624330891772658 
+epoch: 23, train time every whole data:209.85s
+epoch: 23, total time:6779.69s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.29s
+test time on whole data:58.63s
+1.64493136285751 2.5748081310436506 58.84130025579879 0.8271719278537479 
+1.6691781876118232 2.636498445754356 59.508046773632685 0.8177676581363853 
+1.6796386963009302 2.67763255630979 59.33887488695153 0.8117851420516852 
+1.6798653027139427 2.685265204991893 58.91103589277655 0.8110440515051077 
+1.7014776206797964 2.7291012505639265 59.73801310107542 0.8040518333813699 
+1.7190265885542724 2.763127207092296 59.99940961572884 0.7987216639378559 
+1.7453424100904238 2.822966517048522 59.75605695249225 0.7896080489116687 
+1.769832795023918 2.870699765762826 59.512456864136354 0.781901104893851 
+1.8035794567716796 2.9569657429923253 59.320608754050554 0.7676118897725368 
+1.81961355601872 3.0218206197502067 58.9139968915288 0.7572977651847165 
+1.8359573765765167 3.067035659732716 58.09079335011853 0.7522969930796759 
+1.86577289627386 3.1558171345164623 58.02681819502894 0.7410049153401617 
+1.7445180207894495 2.835709564077282 59.163114006336215 0.7410049153401617 
+epoch: 24, train time every whole data:208.54s
+epoch: 24, total time:7058.10s
+predicting testing set batch 1 / 168, time: 0.34s
+predicting testing set batch 101 / 168, time: 35.13s
+test time on whole data:58.54s
+1.6275255970716298 2.675944006708156 55.35156945789797 0.8309585560533378 
+1.654225336047067 2.7347669999701787 56.0676707502736 0.8211436684971914 
+1.6726465900560752 2.7688996336133287 56.45353636651285 0.8148565277398013 
+1.6794120927255245 2.765123296615442 56.796788839732415 0.8136455803221205 
+1.6970997922826736 2.797463655720523 57.577879476364004 0.8069097695838563 
+1.7272402941798348 2.86129754610784 57.9375504543856 0.7958727043065723 
+1.7628954979003895 2.9467546498449018 57.973639136607794 0.7847808586815122 
+1.7800179226447252 2.9807450684597154 57.79381413812194 0.782765102455672 
+1.803711583565832 3.037607398057048 57.68645779463921 0.7777356774371144 
+1.8347928398700342 3.101103747820486 57.9259209894475 0.7715251497701389 
+1.8508208578667116 3.1251820161314927 58.22865165585458 0.767855152649909 
+1.8876308355966493 3.2035812978588245 59.212262831661945 0.7521531343663225 
+1.748168269983929 2.921286367696342 57.41720154576051 0.7521531343663225 
+epoch: 25, train time every whole data:209.68s
+epoch: 25, total time:7340.02s
+predicting testing set batch 1 / 168, time: 0.34s
+predicting testing set batch 101 / 168, time: 35.24s
+test time on whole data:58.66s
+1.6018082004351808 2.601966922373157 54.65143717790156 0.8334201943145155 
+1.6330652600093079 2.7063427859954783 54.74125206838766 0.826656878673857 
+1.6566977438232195 2.7656529383627864 54.84142999688169 0.8222800147664645 
+1.6725731226965075 2.807741130839945 55.06249606665784 0.8179724246171562 
+1.6846479630865867 2.8409297148974164 55.62792283576062 0.8124591249572206 
+1.6917126653898684 2.848199374655726 56.15849427661907 0.8072041267887679 
+1.6981165501132962 2.862117670208842 56.37876570415872 0.8013379659057681 
+1.7052822882132161 2.8613557920454595 56.6062750042281 0.7992695699014247 
+1.7230780699161723 2.8806733466312924 57.06881544968611 0.7939521448290258 
+1.7435967406484165 2.9229000993937384 57.5612373996501 0.7841111160897152 
+1.7670230004476117 2.9684776295878104 58.15640988164037 0.7752542692382134 
+1.81149243868781 3.0679993881877645 59.54644794262829 0.7562021332005323 
+1.6990911702889329 2.8468560001576106 56.36682515984312 0.7562021332005323 
+epoch: 26, train time every whole data:209.75s
+epoch: 26, total time:7623.70s
+predicting testing set batch 1 / 168, time: 0.34s
+predicting testing set batch 101 / 168, time: 35.30s
+test time on whole data:58.63s
+1.5840374138324211 2.5750653920140123 57.56627808145305 0.8327869188258996 
+1.6241413594253715 2.672862289407147 57.805534485066026 0.8234226613979804 
+1.6879824487345205 2.8329120189610904 57.714559466040036 0.810040772276407 
+1.764326331460671 3.0128428411345256 58.075254946577545 0.7939636653971354 
+1.8311997812055938 3.148822073876433 58.96360316507814 0.778156078721706 
+1.8799555058844741 3.230750068309843 59.69214953189352 0.7698411163010931 
+1.9260116605773745 3.3251616135391404 60.428870806948495 0.7579129959747695 
+1.9616029939078503 3.40287055123288 61.041748796935025 0.7457870206790311 
+1.9945962765845693 3.4822999205826277 61.533290806418194 0.7318834139214228 
+2.019531033712661 3.533979669292699 62.054847214215634 0.7176454793335482 
+2.0465577682984906 3.588405588165865 62.48956160385393 0.704340234262627 
+2.088904381551913 3.672526017077684 63.39985676234357 0.6853068855767102 
+1.8674039129313258 3.225501877439734 60.06390934754703 0.6853068855767102 
+epoch: 27, train time every whole data:227.36s
+epoch: 27, total time:7923.20s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.22s
+test time on whole data:58.61s
+1.5761609415333009 2.5297035194190802 55.46027467740052 0.8367195981336781 
+1.5999174747733134 2.5854986973101104 55.57078522125568 0.8304264631261926 
+1.6193072064139304 2.608719172917913 55.350917676043444 0.8279197329174687 
+1.632838134020833 2.632902629408636 55.28637870270741 0.8256717568338585 
+1.6541665406360158 2.690248891527767 55.36168296550872 0.8184641278117022 
+1.6728877353081923 2.722480108951093 55.62815933577625 0.8139438821570844 
+1.684165981429496 2.7506187428726494 55.85291769688816 0.8084844760947794 
+1.6963368644120083 2.7606527635250666 56.255481286122055 0.8049882651314614 
+1.7186141265996155 2.802191468843562 57.093796140427266 0.7965445877349803 
+1.7508150128811775 2.8766428844543763 58.33319873693233 0.7841651609448238 
+1.757540376677577 2.863995952734938 58.82453804882394 0.7852035708376542 
+1.7836385671372215 2.9237983493241195 59.34987415223727 0.7744184908288432 
+1.6788657468185568 2.7315542049961485 56.53072893135551 0.7744184908288432 
+epoch: 28, train time every whole data:209.52s
+epoch: 28, total time:8205.87s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.37s
+test time on whole data:58.80s
+1.592489882083255 2.651397206942943 52.82420264982498 0.8369908559033439 
+1.6231226698305634 2.7207983159164484 53.235207776499124 0.8310122957366708 
+1.647338494317961 2.7609183300862092 53.66704534066918 0.8280554571341129 
+1.6681048654596367 2.803813780886226 54.17292618385646 0.8254102970289902 
+1.6961176073655841 2.866057841910964 54.99154727632042 0.8172438032912572 
+1.7131608668948035 2.8844133893985466 55.53669712218042 0.8143512970987189 
+1.7466801863095414 2.9457174508409216 56.2509856638225 0.8069366377426582 
+1.7819580599567189 3.0074365652660897 56.92312099150539 0.7989283472877552 
+1.8224539294879707 3.099456000688226 57.84265174928598 0.7840477885283751 
+1.8581913263634557 3.1681687983046416 58.475819957210554 0.7744728497215955 
+1.8829968761187046 3.2125283377597005 58.753245223692694 0.7695238495325548 
+1.9153388415943122 3.2823269740202052 59.40197278949617 0.7598873887467866 
+1.7456628004818755 2.956781417868429 56.00641249201944 0.7598873887467866 
+epoch: 29, train time every whole data:215.00s
+epoch: 29, total time:8494.46s
+fine tune the model ... 
+epoch: 30, train time every whole data:454.74s
+epoch: 30, total time:8949.21s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.49s
+test time on whole data:59.03s
+1.5295032837916875 2.4984725131767 55.62530377346293 0.844563404731148 
+1.555878658460808 2.5676811965530817 55.84940454239865 0.8366520432181861 
+1.5841178598369339 2.6270553480503502 55.87945408943151 0.8313019882704691 
+1.5999414315556308 2.655667217000122 56.02675247707344 0.829901596842768 
+1.6200560345094475 2.696805993146566 56.461416749494006 0.8262727270212292 
+1.6425381303797697 2.7411233935011783 56.73699975793317 0.8210240232369428 
+1.6724875006076125 2.8018570517846673 57.121578267806264 0.814350129514553 
+1.6952201441482064 2.8395752900994564 57.49172791701403 0.8092520311027667 
+1.7268850683407593 2.912133901159443 58.06826205257497 0.7971912184387698 
+1.76064246850035 2.9920826504061933 58.69613691199711 0.7822858113674658 
+1.7875148370893938 3.0412393732820964 59.07091128921426 0.7745325200472107 
+1.8202461157332042 3.116101857045072 59.66641604741789 0.7624496307539618 
+1.6662526277461502 2.797048455358424 57.22460135468007 0.7624496307539618 
+epoch: 31, train time every whole data:450.16s
+epoch: 31, total time:9488.50s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.45s
+test time on whole data:58.98s
+1.5273674402611241 2.5004812930741 55.40346131050203 0.8448526134729261 
+1.5550654573160267 2.5669377878136266 55.63650189154205 0.8377215806284657 
+1.584066142313892 2.6285104684414926 55.86682686045078 0.8317682604089726 
+1.6042144512598004 2.6661444211973966 56.08850805924048 0.8293638889064316 
+1.6274850251552249 2.713417566919409 56.64389973172699 0.8246916267887529 
+1.6515769998754952 2.756313164615073 57.09252673864905 0.8191389986011618 
+1.682191221620178 2.818080189793568 57.61453982508373 0.8116099909090688 
+1.7059178841354414 2.858930735192587 58.16768083532207 0.8055334102966571 
+1.7381718897351197 2.9314967917388493 58.91732322550291 0.7931822062559856 
+1.771897243025491 3.007776473167908 59.71040907518138 0.7794379822632481 
+1.7986458097493188 3.0557796725295026 60.10566265984571 0.7718921571381693 
+1.8277658020171026 3.122427843918502 60.6540516215795 0.7611267822262564 
+1.6728637805386846 2.8086423992085 57.65854715953772 0.7611267822262564 
+epoch: 32, train time every whole data:453.00s
+epoch: 32, total time:10014.99s
+predicting testing set batch 1 / 168, time: 0.34s
+predicting testing set batch 101 / 168, time: 35.13s
+test time on whole data:58.51s
+1.5310626675491 2.5180707168269336 55.09571873481486 0.8454298688888495 
+1.5600984839177026 2.5877702538660627 55.35596916535113 0.8386438783053742 
+1.5924368750871647 2.657716273339574 55.565642953128915 0.8323026560556149 
+1.6153163263824368 2.7017641888595048 55.88352257615053 0.8291796962092711 
+1.6412206825289344 2.752483857644832 56.508542234200455 0.8245001127542158 
+1.6684129757314388 2.79915022099293 57.01376035520072 0.8182057341094816 
+1.7017681297297989 2.865759105242151 57.632132475962386 0.80924186227923 
+1.7307059486334522 2.9213615391275587 58.25768035243054 0.8004354230376219 
+1.7654225082591708 3.000748515492218 58.94895702493861 0.7864226015439746 
+1.7965498368845632 3.0689953264315912 59.59793065777214 0.773649319717144 
+1.820268300460208 3.1106728355327795 59.953627510731046 0.7663630930693446 
+1.845426536819321 3.1658864046456268 60.49711053891622 0.7568951288842227 
+1.6890574393319409 2.853081733919399 57.525987112772256 0.7568951288842227 
+epoch: 33, train time every whole data:439.37s
+epoch: 33, total time:10528.81s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.49s
+test time on whole data:58.97s
+1.525712808769817 2.5032468975253352 55.30762755235563 0.8455461237221044 
+1.5577851260725764 2.581812592164214 55.394941819223966 0.8385798286622964 
+1.5941281315730442 2.6647667689953676 55.53960740742939 0.8311994236857236 
+1.6191927869193965 2.714909368069106 55.79626961899594 0.8277665269615304 
+1.6429107357713262 2.7570549048180073 56.41384763581618 0.8240945234708535 
+1.6708106110731051 2.8078416929925942 56.96486980348821 0.8171261550742377 
+1.7016828170318512 2.8696456104571744 57.62457764046869 0.8084431071030955 
+1.7271871613714667 2.9141879141772815 58.32703726084816 0.8007146309032555 
+1.757321541791427 2.9826902900334944 59.09419752625822 0.7875347243028967 
+1.7862098685177488 3.0484475862217026 59.83352055195169 0.7743219979703528 
+1.8091640658007846 3.088360433805743 60.15629198133128 0.76763505864597 
+1.8348080229498447 3.1444842099955332 60.641780581698114 0.7584269101999849 
+1.6855761398035323 2.846512853754132 57.591320853422154 0.7584269101999849 
+epoch: 34, train time every whole data:445.76s
+epoch: 34, total time:11048.33s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.57s
+test time on whole data:59.12s
+1.5262894936700662 2.495765217463302 55.57498498310137 0.8448316326354616 
+1.5509689768737271 2.547889715127578 55.91719485147745 0.8389864858666585 
+1.5781605716001774 2.607482923347512 56.231832089847664 0.8326574930822561 
+1.59674907996949 2.6447694778100503 56.3837644692843 0.8301245165868443 
+1.620325080146747 2.6905392152231684 56.95061445377196 0.8259567265343847 
+1.6459221729121747 2.7397366071709337 57.392214460503844 0.8198789890100733 
+1.676909404241879 2.8059626011951204 57.92180285796758 0.8118170078428429 
+1.7050653899055683 2.858045957053675 58.49846288714413 0.8045740193144284 
+1.7372870056396794 2.931297563634264 59.172497149207445 0.7922089995838476 
+1.7671657380611592 2.999939611429225 59.90076509511749 0.7793559120808587 
+1.7917053163368255 3.0462124877360024 60.34946340695632 0.7709141203336257 
+1.8172452428799477 3.098924214130602 61.06924865603539 0.7611209800385877 
+1.6678161226864534 2.795476322693413 57.94700202239245 0.7611209800385877 
+epoch: 35, train time every whole data:434.52s
+epoch: 35, total time:11552.99s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.58s
+test time on whole data:59.21s
+1.5207571205966883 2.48643371522587 55.29265742061945 0.8461597309769385 
+1.5467073236332232 2.5479545389961866 55.47083196896841 0.839906904135844 
+1.577103603279839 2.6172184303089105 55.646279303726544 0.8332636518544867 
+1.599578672599225 2.6620126287487884 55.77572237377962 0.8306847064019798 
+1.6265203649661548 2.714892303627305 56.28707275461874 0.8263361051785844 
+1.653246374749268 2.768315271383638 56.703357797811805 0.8199981539491311 
+1.6840925641941527 2.8300334630706865 57.327593020941734 0.8114955654124175 
+1.7086788179507213 2.8716051650146768 57.924537019155586 0.8050975792192632 
+1.7417022346037307 2.9449912740937085 58.565425148763474 0.7928666781774056 
+1.7775010310184387 3.025040250745695 59.30088363696024 0.7791832400485053 
+1.8082492087492277 3.089666806612362 59.61904173375021 0.7692302060173056 
+1.8379331619238393 3.14874444206845 60.15227200256884 0.7597445504949576 
+1.6735058731887091 2.816387438559934 57.33889876150259 0.7597445504949576 
+epoch: 36, train time every whole data:432.83s
+epoch: 36, total time:12057.18s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.62s
+test time on whole data:59.22s
+1.5223324344447327 2.4779079146246916 56.51135025055753 0.8460083463993243 
+1.5511060008862543 2.5453341164850674 56.51678866341143 0.8392823500871686 
+1.5832277521721665 2.619916214240485 56.45522433525677 0.8326284319005782 
+1.6087999741674535 2.673024215729402 56.506951524224526 0.8292364088543173 
+1.6371180455993328 2.7266059681651713 56.97573989988047 0.8249131189661608 
+1.6662573656833597 2.782447118601169 57.390275168164194 0.8183414247196765 
+1.6967145906964405 2.8476076344367054 57.95512109485724 0.8098485697029323 
+1.722317683473052 2.895708593939606 58.62113755296844 0.8023060047600213 
+1.7553789038400032 2.969310683237621 59.366256646827495 0.7896333655980275 
+1.7892540594473303 3.0434201693810055 60.20149028297483 0.7763591550101353 
+1.8179908670029115 3.1036135341571707 60.51391115982347 0.7665465655361298 
+1.843705919735045 3.15204655929825 60.881988588598425 0.7592760920503399 
+1.6828502997623402 2.8276195692660226 58.15810689571589 0.7592760920503399 
+epoch: 37, train time every whole data:433.72s
+epoch: 37, total time:12560.27s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.51s
+test time on whole data:59.02s
+1.5195671419263597 2.4856403317552154 55.36175131513625 0.846151468827196 
+1.5473565570983503 2.551493651511552 55.49014329238494 0.8396820327512843 
+1.5786878420393915 2.6209500954913794 55.73421744407927 0.8328918444573256 
+1.6018166671889347 2.6689078391586176 55.95863888154036 0.8297738308726597 
+1.6276621121165475 2.716116140552714 56.55416070549614 0.8257008391123496 
+1.6569010440355965 2.773761488530459 57.109047434052364 0.8183128627148473 
+1.691154622427853 2.8454621166297454 57.79769350531494 0.8085740000420079 
+1.7209549881515227 2.9026501440931405 58.4733047635064 0.7997654745221499 
+1.7523297612869313 2.972063320445272 59.121226332533695 0.7874707010446745 
+1.780913456875476 3.038979560754564 59.76809377250737 0.7747131037851471 
+1.8019818639435052 3.082223003130297 60.11468780871604 0.7669232510974237 
+1.8269279042674849 3.1313788790401578 60.73094603305125 0.7579308501952638 
+1.6755211634464962 2.823240423202856 57.68459732675366 0.7579308501952638 
+epoch: 38, train time every whole data:434.75s
+epoch: 38, total time:13064.45s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.42s
+test time on whole data:58.85s
+1.517615534001163 2.4792714764699646 55.505285507540115 0.8465301677642226 
+1.547443371120929 2.549059637152639 55.597140050682995 0.8398214491065067 
+1.5810873664856135 2.627326436665902 55.761756115255665 0.8327423671375267 
+1.6052757755380478 2.6790684242494502 55.99683070809339 0.8290194058581795 
+1.6297799120475316 2.721087140711018 56.65138454345621 0.825098255934536 
+1.6536932564807967 2.7622473011206923 57.23722335950225 0.8189723019109442 
+1.6836583948773998 2.824622105707687 57.98788130473025 0.8096758781743773 
+1.711144210088732 2.873932079501596 58.72166959344815 0.8019834684674454 
+1.7452118319569245 2.95240854485446 59.45795924339659 0.788595122627981 
+1.7784057022630282 3.0271893718145413 60.21835482951451 0.7756096697604936 
+1.805575939823297 3.0836776866601223 60.63285557012477 0.7661986462263476 
+1.8337141574490816 3.138148034741987 61.177036775796346 0.7572686405641339 
+1.6743837876777121 2.817130304104718 57.91222726072284 0.7572686405641339 
+epoch: 39, train time every whole data:434.44s
+epoch: 39, total time:13570.59s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.39s
+test time on whole data:58.83s
+1.516129028272948 2.4784841291693698 55.65077578937825 0.8472813594453193 
+1.5407709384839983 2.5331209566084114 55.838398296083 0.8416743253607983 
+1.5681058891391648 2.5943279279574094 56.00731042346834 0.8356203842917999 
+1.5886145122448603 2.637063946981766 56.160255853335016 0.8322075164597406 
+1.6121308753324584 2.679466755800028 56.703035937885325 0.8281483530034973 
+1.6356601273731461 2.7227753145209035 57.149412753394415 0.8225992579753952 
+1.663968234450246 2.778527508211159 57.74821971262215 0.814929082578243 
+1.6909085234598744 2.8287722844825947 58.42710039818644 0.8072472605886258 
+1.7247003985930767 2.9057683836109485 59.145133034667076 0.7947335113489216 
+1.7606981084864763 2.9918624096165933 59.87502447765104 0.7805307677296787 
+1.7909025402225198 3.0549206735089576 60.174431279452314 0.7712305563943477 
+1.8218259851897047 3.115467071013872 60.58454047067665 0.7623396109416383 
+1.6595345967707062 2.7837751682296292 57.788733454537535 0.7623396109416383 
+epoch: 40, train time every whole data:435.03s
+epoch: 40, total time:14077.27s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.36s
+test time on whole data:58.76s
+1.5191702143228833 2.4868706515770485 55.07383426976098 0.8473071208137251 
+1.547890370869743 2.5551628497864947 55.09036620692147 0.8409849182206579 
+1.5786817511128528 2.6285996365704642 55.23477386766517 0.8335941469455238 
+1.5993597725756643 2.6712005796191014 55.42256016578088 0.8299182783960789 
+1.621128838466303 2.7048972933549416 55.942532700212276 0.826947357085705 
+1.6461807575285257 2.7498917612222264 56.43011245846692 0.8211410402436097 
+1.677414421833342 2.8138797187464393 57.07343704423862 0.8125176718980732 
+1.7059909942038358 2.8679650862819943 57.81089356521287 0.8039650668533278 
+1.7391237061184255 2.9399419831548577 58.532666448930236 0.7915951445348617 
+1.7702526149964404 3.010908046159374 59.221570162542534 0.7790240177862815 
+1.7953011009270947 3.064603436241442 59.53913936540415 0.7706476353716695 
+1.8226108196219872 3.1178899776104996 60.01937423394692 0.7628680023805744 
+1.6685921135480914 2.8077512732156977 57.11603737203019 0.7628680023805744 
+epoch: 41, train time every whole data:434.34s
+epoch: 41, total time:14582.74s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.58s
+test time on whole data:59.03s
+1.5197247602381698 2.493520430054359 54.50534091580918 0.8482254698083739 
+1.5478318806381097 2.5612829369848584 54.693806083913984 0.8414208351714719 
+1.5763037241124327 2.62265935046186 55.10451182330378 0.8348776170373314 
+1.5978661908150784 2.6654391134940942 55.37488011858432 0.8313101976982961 
+1.6201515269235132 2.7028740103965663 55.9486902803922 0.8278973220011873 
+1.6435415257273154 2.7458234607854823 56.43711605307653 0.8221719588848689 
+1.6744476530136807 2.8083914970349264 57.089877214883444 0.8135843017923805 
+1.7004429164446357 2.855009570814031 57.743661254481225 0.8062346083708618 
+1.7312808057556728 2.9204249324920495 58.45921239939973 0.7941033387251475 
+1.7620478481857018 2.9870576941434672 59.221750806791164 0.781476908544148 
+1.7869182281877314 3.0399730119964916 59.619065393696516 0.772169919099441 
+1.8123687758676352 3.0918358232722736 60.118659639429474 0.7633137901345561 
+1.6644104863258065 2.7972638286492275 57.02648871316739 0.7633137901345561 
+epoch: 42, train time every whole data:433.78s
+epoch: 42, total time:15087.64s
+predicting testing set batch 1 / 168, time: 0.34s
+predicting testing set batch 101 / 168, time: 35.45s
+test time on whole data:59.12s
+1.5191765474992849 2.479241220357235 55.61996496605227 0.8477606510755822 
+1.5468789090102628 2.5436810805467815 55.808678867646876 0.8411502047572909 
+1.58041525884425 2.6194528871474536 56.14339514228719 0.8338245658817548 
+1.6043808781128555 2.6692951659931543 56.4607973700026 0.8297267139802355 
+1.6297804020031221 2.7139406676197573 57.04358673770956 0.8254717577142658 
+1.6581842266608562 2.7630400292224944 57.626127781482786 0.819845074493389 
+1.6946560850411299 2.8354507618206677 58.36758218654183 0.8111734833246161 
+1.7288214156706596 2.9002378041407084 59.122732468469806 0.802474803407289 
+1.764090507159187 2.9776716718501133 59.8609238725209 0.7893495180335863 
+1.793043396507523 3.0382801690422236 60.55241074625296 0.7778137026612251 
+1.8127679093604288 3.0777397890914537 60.867823916414274 0.7701907772774099 
+1.832087179368894 3.1146696635219517 61.352017291378736 0.763083121884667 
+1.6803568929365378 2.818480225321008 58.23561749524513 0.763083121884667 
+epoch: 43, train time every whole data:436.17s
+epoch: 43, total time:15593.52s
+predicting testing set batch 1 / 168, time: 0.35s
+predicting testing set batch 101 / 168, time: 35.93s
+test time on whole data:59.79s
+1.5150876519161143 2.481569118864144 55.12052273074549 0.8477115493543399 
+1.5426618503639031 2.544925606777985 55.231911800724184 0.8414580860023139 
+1.5733594446561876 2.6142842688657506 55.49426451388834 0.8344578333407291 
+1.5972840583796302 2.663559096205689 55.757955427630975 0.8303334466820551 
+1.6222487618639356 2.706638549653584 56.34888779957539 0.8259752405956315 
+1.6490818487846604 2.756249550196021 56.867949882485746 0.8194807214562138 
+1.6828854046594353 2.8264198668637532 57.538728020195094 0.8103228735396423 
+1.7130316327559274 2.883996751594288 58.230211733316885 0.8023972539098763 
+1.7470321386487533 2.957390534494841 58.94513127813168 0.7902015911609898 
+1.7779594171288469 3.024891073959086 59.64518392672874 0.7780505897101863 
+1.8014185060343395 3.070414529910141 59.972357174755 0.7703929455519436 
+1.826312752096426 3.1197682368807356 60.38097165950652 0.7622361735203843 
+1.6706969556073465 2.811424243181128 57.461278530109325 0.7622361735203843 
+epoch: 44, train time every whole data:437.83s
+epoch: 44, total time:16102.77s
+predicting testing set batch 1 / 168, time: 0.34s
+predicting testing set batch 101 / 168, time: 35.58s
+test time on whole data:59.55s
+1.512554303726536 2.4699175210874387 55.26240203130142 0.8478432006677421 
+1.539430977493968 2.531614036791177 55.35612180429732 0.8414955370177036 
+1.5695245740539616 2.6000967966865938 55.64600971134141 0.8346555120726855 
+1.5903969789182857 2.645345365224182 55.87982026662429 0.8310735724052789 
+1.614604912246267 2.6864359835952616 56.45141914813012 0.8275089840430644 
+1.6416429144233642 2.7403412871222335 57.01279654043552 0.8211344199122299 
+1.675041995250398 2.8091432111317833 57.69923871490528 0.8125792898429766 
+1.7049663909159245 2.867030798346516 58.37767855430896 0.8045720533836732 
+1.7400040717885963 2.944940336107696 59.112354697346206 0.7917243376450259 
+1.772777944105012 3.01836879498608 59.862684770109276 0.7786129453277095 
+1.7981240216858152 3.0693266963055827 60.229162857813314 0.7699228438400654 
+1.8231885309155498 3.1182951522249427 60.62570644191335 0.7618121015930255 
+1.6651881346269732 2.7993039652698597 57.6263902322759 0.7618121015930255 
+epoch: 45, train time every whole data:432.45s
+epoch: 45, total time:16606.19s
