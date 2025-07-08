@@ -19,6 +19,7 @@ __pycache__/
 .vscode/
 .ipynb_checkpoints/
 PD_OPEN/configurations/.ipynb_checkpoints/
+PD_OPEN
 
 DMGL/data/
 Taxi_Trips__2024-_.csv (2).csv
