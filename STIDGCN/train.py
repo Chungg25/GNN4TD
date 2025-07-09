@@ -10,6 +10,7 @@ import random
 from model import STIDGCN
 from ranger21 import Ranger
 import torch.optim as optim
+from scipy.stats import pearsonr
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--device", type=str, default="cuda:0", help="")
@@ -38,6 +39,25 @@ parser.add_argument(
 )
 
 args = parser.parse_args()
+
+
+def calculate_pcc(y_true, y_pred):
+    """
+    Tính Pearson Correlation Coefficient
+    """
+    y_true_flat = y_true.detach().cpu().numpy().flatten()
+    y_pred_flat = y_pred.detach().cpu().numpy().flatten()
+    
+    # Loại bỏ NaN values
+    mask = ~(np.isnan(y_true_flat) | np.isnan(y_pred_flat))
+    y_true_clean = y_true_flat[mask]
+    y_pred_clean = y_pred_flat[mask]
+    
+    if len(y_true_clean) == 0:
+        return 0.0
+    
+    correlation, _ = pearsonr(y_true_clean, y_pred_clean)
+    return correlation if not np.isnan(correlation) else 0.0
 
 
 class trainer:
@@ -80,7 +100,8 @@ class trainer:
         mape = util.MAPE_torch(predict, real, 0.0).item()
         rmse = util.RMSE_torch(predict, real, 0.0).item()
         wmape = util.WMAPE_torch(predict, real, 0.0).item()
-        return loss.item(), mape, rmse, wmape
+        pcc = calculate_pcc(real, predict)
+        return loss.item(), mape, rmse, wmape, pcc
 
     def eval(self, input, real_val):
         self.model.eval()
@@ -92,7 +113,8 @@ class trainer:
         mape = util.MAPE_torch(predict, real, 0.0).item()
         rmse = util.RMSE_torch(predict, real, 0.0).item()
         wmape = util.WMAPE_torch(predict, real, 0.0).item()
-        return loss.item(), mape, rmse, wmape
+        pcc = calculate_pcc(real, predict)
+        return loss.item(), mape, rmse, wmape, pcc
 
 
 def seed_it(seed):
@@ -131,13 +153,11 @@ def main():
         granularity = 288
         channels = 48
 
-
     elif args.data == "PEMS07":
         args.data = "data//" + args.data
         num_nodes = 883
         granularity = 288
         channels = 128
-
 
     elif args.data == "bike_drop":
         args.data = "data//" + args.data
@@ -145,25 +165,35 @@ def main():
         granularity = 48
         channels = 32
 
-
     elif args.data == "bike_pick":
         args.data = "data//" + args.data
         num_nodes = 250
         granularity = 48
         channels = 32
     
-    elif args.data == "NYC/bike_data":
+    elif args.data == "NYC/bike_pick":
+        args.data = "data//" + args.data
+        num_nodes = 250
+        granularity = 48
+        channels = 32
+    
+    elif args.data == "NYC/bike_drop":
         args.data = "data//" + args.data
         num_nodes = 250
         granularity = 48
         channels = 32
 
-    elif args.data == "NYC/taxi_data":
+    elif args.data == "NYC/taxi_drop":
         args.data = "data//" + args.data
         num_nodes = 266
         granularity = 48
-        channels = 32
-
+        channels = 96
+    
+    elif args.data == "NYC/taxi_pick":
+        args.data = "data//" + args.data
+        num_nodes = 266
+        granularity = 48
+        channels = 96
 
     elif args.data == "taxi_drop":
         args.data = "data//" + args.data
@@ -176,7 +206,6 @@ def main():
         num_nodes = 266
         granularity = 48
         channels = 96
-
 
     device = torch.device(args.device)
 
@@ -220,9 +249,9 @@ def main():
         train_mape = []
         train_rmse = []
         train_wmape = []
+        train_pcc = []
 
         t1 = time.time()
-        # dataloader['train_loader'].shuffle()
         for iter, (x, y) in enumerate(dataloader["train_loader"].get_iterator()):
             trainx = torch.Tensor(x).to(device)
             trainx = trainx.transpose(1, 3)
@@ -233,9 +262,10 @@ def main():
             train_mape.append(metrics[1])
             train_rmse.append(metrics[2])
             train_wmape.append(metrics[3])
+            train_pcc.append(metrics[4])
 
             if iter % args.print_every == 0:
-                log = "Iter: {:03d}, Train Loss: {:.4f}, Train RMSE: {:.4f}, Train MAPE: {:.4f}, Train WMAPE: {:.4f}"
+                log = "Iter: {:03d}, Train Loss: {:.4f}, Train RMSE: {:.4f}, Train MAPE: {:.4f}, Train WMAPE: {:.4f}, Train PCC: {:.4f}"
                 print(
                     log.format(
                         iter,
@@ -243,6 +273,7 @@ def main():
                         train_rmse[-1],
                         train_mape[-1],
                         train_wmape[-1],
+                        train_pcc[-1],
                     ),
                     flush=True,
                 )
@@ -255,6 +286,7 @@ def main():
         valid_mape = []
         valid_wmape = []
         valid_rmse = []
+        valid_pcc = []
 
         s1 = time.time()
         for iter, (x, y) in enumerate(dataloader["val_loader"].get_iterator()):
@@ -267,6 +299,7 @@ def main():
             valid_mape.append(metrics[1])
             valid_rmse.append(metrics[2])
             valid_wmape.append(metrics[3])
+            valid_pcc.append(metrics[4])
 
         s2 = time.time()
 
@@ -278,11 +311,13 @@ def main():
         mtrain_mape = np.mean(train_mape)
         mtrain_wmape = np.mean(train_wmape)
         mtrain_rmse = np.mean(train_rmse)
+        mtrain_pcc = np.mean(train_pcc)
 
         mvalid_loss = np.mean(valid_loss)
         mvalid_mape = np.mean(valid_mape)
         mvalid_wmape = np.mean(valid_wmape)
         mvalid_rmse = np.mean(valid_rmse)
+        mvalid_pcc = np.mean(valid_pcc)
 
         his_loss.append(mvalid_loss)
         train_m = dict(
@@ -290,29 +325,30 @@ def main():
             train_rmse=np.mean(train_rmse),
             train_mape=np.mean(train_mape),
             train_wmape=np.mean(train_wmape),
+            train_pcc=np.mean(train_pcc),
             valid_loss=np.mean(valid_loss),
             valid_rmse=np.mean(valid_rmse),
             valid_mape=np.mean(valid_mape),
             valid_wmape=np.mean(valid_wmape),
+            valid_pcc=np.mean(valid_pcc),
         )
         train_m = pd.Series(train_m)
         result.append(train_m)
 
-        log = "Epoch: {:03d}, Train Loss: {:.4f}, Train RMSE: {:.4f}, Train MAPE: {:.4f}, Train WMAPE: {:.4f}, "
+        log = "Epoch: {:03d}, Train Loss: {:.4f}, Train RMSE: {:.4f}, Train MAPE: {:.4f}, Train WMAPE: {:.4f}, Train PCC: {:.4f}"
         print(
-            log.format(i, mtrain_loss, mtrain_rmse, mtrain_mape, mtrain_wmape),
+            log.format(i, mtrain_loss, mtrain_rmse, mtrain_mape, mtrain_wmape, mtrain_pcc),
             flush=True,
         )
-        log = "Epoch: {:03d}, Valid Loss: {:.4f}, Valid RMSE: {:.4f}, Valid MAPE: {:.4f}, Valid WMAPE: {:.4f}"
+        log = "Epoch: {:03d}, Valid Loss: {:.4f}, Valid RMSE: {:.4f}, Valid MAPE: {:.4f}, Valid WMAPE: {:.4f}, Valid PCC: {:.4f}"
         print(
-            log.format(i, mvalid_loss, mvalid_rmse, mvalid_mape, mvalid_wmape),
+            log.format(i, mvalid_loss, mvalid_rmse, mvalid_mape, mvalid_wmape, mvalid_pcc),
             flush=True,
         )
 
         if mvalid_loss < loss:
             print("###Update tasks appear###")
             if i < 100:
-                # It is not necessary to print the results of the test set when epoch is less than 100, because the model has not yet converged.
                 loss = mvalid_loss
                 torch.save(engine.model.state_dict(), path + "best_model.pth")
                 bestid = i
@@ -339,16 +375,18 @@ def main():
                 amape = []
                 awmape = []
                 armse = []
+                apcc = []
                 test_m = []
 
                 for j in range(12):
                     pred = scaler.inverse_transform(yhat[:, :, j])
                     real = realy[:, :, j]
                     metrics = util.metric(pred, real)
-                    log = "Evaluate best model on test data for horizon {:d}, Test MAE: {:.4f}, Test RMSE: {:.4f}, Test MAPE: {:.4f}, Test WMAPE: {:.4f}"
+                    pcc = calculate_pcc(real, pred)
+                    log = "Evaluate best model on test data for horizon {:d}, Test MAE: {:.4f}, Test RMSE: {:.4f}, Test MAPE: {:.4f}, Test WMAPE: {:.4f}, Test PCC: {:.4f}"
                     print(
                         log.format(
-                            j + 1, metrics[0], metrics[2], metrics[1], metrics[3]
+                            j + 1, metrics[0], metrics[2], metrics[1], metrics[3], pcc
                         )
                     )
 
@@ -357,6 +395,7 @@ def main():
                         test_rmse=np.mean(metrics[2]),
                         test_mape=np.mean(metrics[1]),
                         test_wmape=np.mean(metrics[3]),
+                        test_pcc=pcc,
                     )
                     test_m = pd.Series(test_m)
 
@@ -364,11 +403,12 @@ def main():
                     amape.append(metrics[1])
                     armse.append(metrics[2])
                     awmape.append(metrics[3])
+                    apcc.append(pcc)
 
-                log = "On average over 12 horizons, Test MAE: {:.4f}, Test RMSE: {:.4f}, Test MAPE: {:.4f}, Test WMAPE: {:.4f}"
+                log = "On average over 12 horizons, Test MAE: {:.4f}, Test RMSE: {:.4f}, Test MAPE: {:.4f}, Test WMAPE: {:.4f}, Test PCC: {:.4f}"
                 print(
                     log.format(
-                        np.mean(amae), np.mean(armse), np.mean(amape), np.mean(awmape)
+                        np.mean(amae), np.mean(armse), np.mean(amape), np.mean(awmape), np.mean(apcc)
                     )
                 )
 
@@ -420,6 +460,7 @@ def main():
     amape = []
     armse = []
     awmape = []
+    apcc = []
 
     test_m = []
 
@@ -427,14 +468,16 @@ def main():
         pred = scaler.inverse_transform(yhat[:, :, i])
         real = realy[:, :, i]
         metrics = util.metric(pred, real)
-        log = "Evaluate best model on test data for horizon {:d}, Test MAE: {:.4f}, Test RMSE: {:.4f}, Test MAPE: {:.4f}, Test WMAPE: {:.4f}"
-        print(log.format(i + 1, metrics[0], metrics[2], metrics[1], metrics[3]))
+        pcc = calculate_pcc(real, pred)
+        log = "Evaluate best model on test data for horizon {:d}, Test MAE: {:.4f}, Test RMSE: {:.4f}, Test MAPE: {:.4f}, Test WMAPE: {:.4f}, Test PCC: {:.4f}"
+        print(log.format(i + 1, metrics[0], metrics[2], metrics[1], metrics[3], pcc))
 
         test_m = dict(
             test_loss=np.mean(metrics[0]),
             test_rmse=np.mean(metrics[2]),
             test_mape=np.mean(metrics[1]),
             test_wmape=np.mean(metrics[3]),
+            test_pcc=pcc,
         )
         test_m = pd.Series(test_m)
         test_result.append(test_m)
@@ -443,15 +486,17 @@ def main():
         amape.append(metrics[1])
         armse.append(metrics[2])
         awmape.append(metrics[3])
+        apcc.append(pcc)
 
-    log = "On average over 12 horizons, Test MAE: {:.4f}, Test RMSE: {:.4f}, Test MAPE: {:.4f}, Test WMAPE: {:.4f}"
-    print(log.format(np.mean(amae), np.mean(armse), np.mean(amape), np.mean(awmape)))
+    log = "On average over 12 horizons, Test MAE: {:.4f}, Test RMSE: {:.4f}, Test MAPE: {:.4f}, Test WMAPE: {:.4f}, Test PCC: {:.4f}"
+    print(log.format(np.mean(amae), np.mean(armse), np.mean(amape), np.mean(awmape), np.mean(apcc)))
 
     test_m = dict(
         test_loss=np.mean(amae),
         test_rmse=np.mean(armse),
         test_mape=np.mean(amape),
         test_wmape=np.mean(awmape),
+        test_pcc=np.mean(apcc),
     )
     test_m = pd.Series(test_m)
     test_result.append(test_m)
