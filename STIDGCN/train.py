@@ -12,7 +12,7 @@ from ranger21 import Ranger
 import torch.optim as optim
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--device", type=str, default="cuda:2", help="")
+parser.add_argument("--device", type=str, default="cuda:0", help="")
 parser.add_argument("--data", type=str, default="PEMS08", help="data path")
 parser.add_argument("--input_dim", type=int, default=3, help="number of input_dim")
 parser.add_argument("--batch_size", type=int, default=64, help="batch size")
