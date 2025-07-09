@@ -422,10 +422,10 @@ def predict_and_save_results(net, data_loader, data_target_tensor, epoch, _max, 
         rmse = mean_squared_error(data_target_tensor.reshape(-1, 1), prediction.reshape(-1, 1)) ** 0.5
         mape = masked_mape_np(data_target_tensor.reshape(-1, 1), prediction.reshape(-1, 1), 0)
         pcc_ = pcc(data_target_tensor.reshape(-1, 1), prediction.reshape(-1, 1))
-        print('all MAE: %.2f' % (mae))
-        print('all RMSE: %.2f' % (rmse))
-        print('all MAPE: %.2f' % (mape))
-        print('all PCC: %.2f' % (pcc_))
+        print('all MAE: %f' % (mae))
+        print('all RMSE: %f' % (rmse))
+        print('all MAPE: %f' % (mape))
+        print('all PCC: %f' % (pcc_))
         excel_list.append([mae, rmse, mape, pcc_])
         for t in excel_list:
             for tt in t:
