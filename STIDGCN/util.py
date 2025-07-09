@@ -128,7 +128,11 @@ def metric(pred, real):
     mape = MAPE_torch(pred, real, 0.0).item()
     wmape = WMAPE_torch(pred, real, 0.0).item()
     rmse = RMSE_torch(pred, real, 0.0).item()
-    return mae, mape, rmse, wmape
+    
+    # Thêm PCC (Pearson Correlation Coefficient)
+    pcc_value = pcc(pred.detach().cpu().numpy(), real.detach().cpu().numpy())
+    
+    return mae, mape, rmse, wmape, pcc_value
 
 def pcc(x, y):
     x, y = x.reshape(-1), y.reshape(-1)

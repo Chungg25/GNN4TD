@@ -151,6 +151,18 @@ def main():
         num_nodes = 250
         granularity = 48
         channels = 32
+    
+    elif args.data == "NYC/bike_data":
+        args.data = "data//" + args.data
+        num_nodes = 250
+        granularity = 48
+        channels = 32
+
+    elif args.data == "NYC/taxi_data":
+        args.data = "data//" + args.data
+        num_nodes = 266
+        granularity = 48
+        channels = 32
 
 
     elif args.data == "taxi_drop":
