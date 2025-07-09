@@ -1,0 +1,14 @@
+saves/
+
+*.log
+__pycache__/
+*.pyc
+.vscode/
+
+DMGL/data
+
+Taxi_Trips__2024-_.csv (2).csv
+
+monthly_data
+PD_OPEN/logs
+PD_OPEN/configurations/.ipynb_checkpoints
