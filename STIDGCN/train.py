@@ -59,6 +59,25 @@ def calculate_pcc(y_true, y_pred):
     correlation, _ = pearsonr(y_true_clean, y_pred_clean)
     return correlation if not np.isnan(correlation) else 0.0
 
+def calculate_pcc_per_feature(y_true, y_pred, feature_names=['pick', 'drop']):
+    pcc_results = {}
+    
+    for i, feature_name in enumerate(feature_names):
+        y_true_feature = y_true[..., i].detach().cpu().numpy().flatten()
+        y_pred_feature = y_pred[..., i].detach().cpu().numpy().flatten()
+        
+        mask = ~(np.isnan(y_true_feature) | np.isnan(y_pred_feature))
+        y_true_clean = y_true_feature[mask]
+        y_pred_clean = y_pred_feature[mask]
+        
+        if len(y_true_clean) == 0:
+            pcc_results[feature_name] = 0.0
+        else:
+            correlation, _ = pearsonr(y_true_clean, y_pred_clean)
+            pcc_results[feature_name] = correlation if not np.isnan(correlation) else 0.0
+    
+    return pcc_results
+
 
 class trainer:
     def __init__(
@@ -89,32 +108,39 @@ class trainer:
         self.model.train()
         self.optimizer.zero_grad()
         output = self.model(input)
-        output = output.transpose(1, 3)
-        real = torch.unsqueeze(real_val, dim=1)
-        predict = self.scaler.inverse_transform(output)
-        loss = self.loss(predict, real, 0.0)
+        output = output[:, :, -1, :, :]
+        predict = self.scaler.inverse_transform(output.cpu().numpy())
+        predict = torch.from_numpy(predict).to(input.device)
+        # output = output.transpose(1, 3)
+        # real = torch.unsqueeze(real_val, dim=1)
+        # predict = self.scaler.inverse_transform(output)
+        loss = self.loss(predict, real_val, 0.0)
         loss.backward()
         if self.clip is not None:
             torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.clip)
         self.optimizer.step()
-        mape = util.MAPE_torch(predict, real, 0.0).item()
-        rmse = util.RMSE_torch(predict, real, 0.0).item()
-        wmape = util.WMAPE_torch(predict, real, 0.0).item()
-        pcc = calculate_pcc(real, predict)
+        mape = util.MAPE_torch(predict, real_val, 0.0).item()
+        rmse = util.RMSE_torch(predict, real_val, 0.0).item()
+        wmape = util.WMAPE_torch(predict, real_val, 0.0).item()
+        pcc = calculate_pcc(real_val, predict)
         return loss.item(), mape, rmse, wmape, pcc
 
     def eval(self, input, real_val):
         self.model.eval()
-        output = self.model(input)
-        output = output.transpose(1, 3)
-        real = torch.unsqueeze(real_val, dim=1)
-        predict = self.scaler.inverse_transform(output)
-        loss = self.loss(predict, real, 0.0)
-        mape = util.MAPE_torch(predict, real, 0.0).item()
-        rmse = util.RMSE_torch(predict, real, 0.0).item()
-        wmape = util.WMAPE_torch(predict, real, 0.0).item()
-        pcc = calculate_pcc(real, predict)
-        return loss.item(), mape, rmse, wmape, pcc
+        with torch.no_grad():
+            output = self.model(input)
+            # output = output.transpose(1, 3)
+            output = output[:, :, -1, :, :]
+            # real = torch.unsqueeze(real_val, dim=1)
+            # predict = self.scaler.inverse_transform(output)
+            predict = self.scaler.inverse_transform(output.cpu().numpy())
+            predict = torch.from_numpy(predict).to(input.device)
+            loss = self.loss(predict, real_val, 0.0)
+            mape = util.MAPE_torch(predict, real_val, 0.0).item()
+            rmse = util.RMSE_torch(predict, real_val, 0.0).item()
+            wmape = util.WMAPE_torch(predict, real_val, 0.0).item()
+            pcc = calculate_pcc(real_val, predict)
+            return loss.item(), mape, rmse, wmape, pcc
 
 
 def seed_it(seed):
@@ -138,6 +164,12 @@ def main():
         num_nodes = 170
         granularity = 288
         channels = 48
+
+    elif args.data == "NYC/bike_combined":  
+        args.data = "data//" + args.data
+        num_nodes = 250
+        granularity = 48
+        channels = 32
 
     elif args.data == "PEMS03":
         args.data = "data//" + args.data
@@ -313,11 +345,17 @@ def main():
 
         t1 = time.time()
         for iter, (x, y) in enumerate(dataloader["train_loader"].get_iterator()):
+            # trainx = torch.Tensor(x).to(device)
+            # trainx = trainx.transpose(1, 3)
+            # trainy = torch.Tensor(y).to(device)
+            # trainy = trainy.transpose(1, 3)
+            # metrics = engine.train(trainx, trainy[:, 0, :, :])
             trainx = torch.Tensor(x).to(device)
-            trainx = trainx.transpose(1, 3)
             trainy = torch.Tensor(y).to(device)
-            trainy = trainy.transpose(1, 3)
-            metrics = engine.train(trainx, trainy[:, 0, :, :])
+  
+            trainx = trainx.permute(0, 3, 1, 2)  
+            
+            metrics = engine.train(trainx, trainy)
             train_loss.append(metrics[0])
             train_mape.append(metrics[1])
             train_rmse.append(metrics[2])
@@ -351,10 +389,12 @@ def main():
         s1 = time.time()
         for iter, (x, y) in enumerate(dataloader["val_loader"].get_iterator()):
             testx = torch.Tensor(x).to(device)
-            testx = testx.transpose(1, 3)
+            # testx = testx.transpose(1, 3)
             testy = torch.Tensor(y).to(device)
-            testy = testy.transpose(1, 3)
-            metrics = engine.eval(testx, testy[:, 0, :, :])
+            # testy = testy.transpose(1, 3)
+            # metrics = engine.eval(testx, testy[:, 0, :, :])
+            testx = testx.permute(0, 3, 1, 2)
+            metrics = engine.eval(testx, testy)
             valid_loss.append(metrics[0])
             valid_mape.append(metrics[1])
             valid_rmse.append(metrics[2])
@@ -423,10 +463,13 @@ def main():
 
                 for iter, (x, y) in enumerate(dataloader["test_loader"].get_iterator()):
                     testx = torch.Tensor(x).to(device)
-                    testx = testx.transpose(1, 3)
+                    # testx = testx.transpose(1, 3)
+                    testx = testx.permute(0, 3, 1, 2)
                     with torch.no_grad():
-                        preds = engine.model(testx).transpose(1, 3)
-                    outputs.append(preds.squeeze())
+                        preds = engine.model(testx)
+                        preds = preds[:, :, -1, :, :]
+                    # outputs.append(preds.squeeze())
+                    outputs.append(preds)
 
                 yhat = torch.cat(outputs, dim=0)
                 yhat = yhat[: realy.size(0), ...]
@@ -439,10 +482,16 @@ def main():
                 test_m = []
 
                 for j in range(12):
-                    pred = scaler.inverse_transform(yhat[:, :, j])
-                    real = realy[:, :, j]
-                    metrics = util.metric(pred, real)
-                    pcc = calculate_pcc(real, pred)
+                    # pred = scaler.inverse_transform(yhat[:, :, j])
+                    pred_step = scaler.inverse_transform(yhat[:, :, j, :].cpu().numpy())
+                    # real = realy[:, :, j]
+                    real_step = realy[:, :, j, :].cpu().numpy()
+                    # metrics = util.metric(pred, real)
+                    # pcc = calculate_pcc(real, pred)
+                    pred_step = torch.from_numpy(pred_step).to(device)
+                    real_step = torch.from_numpy(real_step).to(device)
+                    metrics = util.metric(pred_step, real_step)
+                    pcc = calculate_pcc(real_step, pred_step)
                     log = "Evaluate best model on test data for horizon {:d}, Test MAE: {:.4f}, Test RMSE: {:.4f}, Test MAPE: {:.4f}, Test WMAPE: {:.4f}, Test PCC: {:.4f}"
                     print(
                         log.format(
@@ -504,17 +553,26 @@ def main():
     engine.model.load_state_dict(torch.load(path + "best_model.pth"))
     outputs = []
     realy = torch.Tensor(dataloader["y_test"]).to(device)
-    realy = realy.transpose(1, 3)[:, 0, :, :]
+    # realy = realy.transpose(1, 3)[:, 0, :, :]
 
     for iter, (x, y) in enumerate(dataloader["test_loader"].get_iterator()):
         testx = torch.Tensor(x).to(device)
-        testx = testx.transpose(1, 3)
+        # testx = testx.transpose(1, 3)
+        testx = testx.permute(0, 3, 1, 2)
         with torch.no_grad():
-            preds = engine.model(testx).transpose(1, 3)
+            preds = engine.model(testx)
+            preds = preds[:, :, -1, :, :]
+            # preds = engine.model(testx).transpose(1, 3)
         outputs.append(preds.squeeze())
 
     yhat = torch.cat(outputs, dim=0)
     yhat = yhat[: realy.size(0), ...]
+
+    yhat_denorm = scaler.inverse_transform(yhat.cpu().numpy())
+    yhat_denorm = torch.from_numpy(yhat_denorm).to(device)
+
+    results = util.comprehensive_evaluation(yhat_denorm, realy)
+    util.print_evaluation_summary(results, "Final Test Results")
 
     amae = []
     amape = []
@@ -525,10 +583,14 @@ def main():
     test_m = []
 
     for i in range(12):
-        pred = scaler.inverse_transform(yhat[:, :, i])
-        real = realy[:, :, i]
-        metrics = util.metric(pred, real)
-        pcc = calculate_pcc(real, pred)
+        # pred = scaler.inverse_transform(yhat[:, :, i])
+        # real = realy[:, :, i]
+        pred_step = yhat_denorm[:, :, i, :]
+        real_step = realy[:, :, i, :]
+        # metrics = util.metric(pred, real)
+        # pcc = calculate_pcc(real, pred)
+        metrics = util.metric(pred_step, real_step)
+        pcc = calculate_pcc(real_step, pred_step)
         log = "Evaluate best model on test data for horizon {:d}, Test MAE: {:.4f}, Test RMSE: {:.4f}, Test MAPE: {:.4f}, Test WMAPE: {:.4f}, Test PCC: {:.4f}"
         print(log.format(i + 1, metrics[0], metrics[2], metrics[1], metrics[3], pcc))
 

@@ -51,6 +51,25 @@ class StandardScaler:
     def inverse_transform(self, data):
         return (data * self.std) + self.mean
 
+class MultiFeatureStandardScaler:
+    def __init__(self, mean_pick, std_pick, mean_drop, std_drop):
+        self.mean_pick = mean_pick
+        self.std_pick = std_pick
+        self.mean_drop = mean_drop
+        self.std_drop = std_drop
+
+    def transform(self, data):
+        data_normalized = data.copy()
+        data_normalized[..., 0] = (data[..., 0] - self.mean_pick) / self.std_pick
+        data_normalized[..., 1] = (data[..., 1] - self.mean_drop) / self.std_drop
+        return data_normalized
+
+    def inverse_transform(self, data):
+        data_denormalized = data.copy()
+        data_denormalized[..., 0] = (data[..., 0] * self.std_pick) + self.mean_pick
+        data_denormalized[..., 1] = (data[..., 1] * self.std_drop) + self.mean_drop
+        return data_denormalized
+
 
 def load_dataset(dataset_dir, batch_size, valid_batch_size=None, test_batch_size=None):
     data = {}
@@ -58,12 +77,26 @@ def load_dataset(dataset_dir, batch_size, valid_batch_size=None, test_batch_size
         cat_data = np.load(os.path.join(dataset_dir, category + ".npz"))
         data["x_" + category] = cat_data["x"]
         data["y_" + category] = cat_data["y"]
-    scaler = StandardScaler(
-        mean=data["x_train"][..., 0].mean(), std=data["x_train"][..., 0].std()
+    # scaler = StandardScaler(
+    #     mean=data["x_train"][..., 0].mean(), std=data["x_train"][..., 0].std()
+    # )
+
+    scaler = MultiFeatureStandardScaler(
+        mean_pick=data["x_train"][..., 0].mean(),  # pick feature
+        std_pick=data["x_train"][..., 0].std(),
+        mean_drop=data["x_train"][..., 1].mean(),  # drop feature
+        std_drop=data["x_train"][..., 1].std()
     )
     # Data format
+    # for category in ["train", "val", "test"]:
+    #     data["x_" + category][..., 0] = scaler.transform(data["x_" + category][..., 0])
+
     for category in ["train", "val", "test"]:
-        data["x_" + category][..., 0] = scaler.transform(data["x_" + category][..., 0])
+        # Normalize input features (pick và drop)
+        data["x_" + category][..., :2] = scaler.transform(data["x_" + category][..., :2])
+        
+        # Normalize output features (predicted pick và drop)
+        data["y_" + category] = scaler.transform(data["y_" + category])
 
     # 对顺序出现的数据全局随机打乱
     print("Perform shuffle on the dataset")
@@ -123,7 +156,22 @@ def WMAPE_torch(pred, true, mask_value=None):
     return loss
 
 
+# def metric(pred, real):
+#     mae = MAE_torch(pred, real, 0.0).item()
+#     mape = MAPE_torch(pred, real, 0.0).item()
+#     wmape = WMAPE_torch(pred, real, 0.0).item()
+#     rmse = RMSE_torch(pred, real, 0.0).item()
+    
+#     # Thêm PCC (Pearson Correlation Coefficient)
+#     pcc_value = pcc(pred.detach().cpu().numpy(), real.detach().cpu().numpy())
+    
+#     return mae, mape, rmse, wmape, pcc_value
+
 def metric(pred, real):
+    """
+    🔧 Tính metrics cho cả pick và drop features
+    pred, real shape: [batch, nodes, time, 2] hoặc [batch, nodes, time, 12, 2]
+    """
     mae = MAE_torch(pred, real, 0.0).item()
     mape = MAPE_torch(pred, real, 0.0).item()
     wmape = WMAPE_torch(pred, real, 0.0).item()
@@ -139,7 +187,24 @@ def pcc(x, y):
     return np.corrcoef(x, y)[0][1]
 
 
+# def masked_mae(preds, labels, null_val=np.nan, mask_val=np.nan):
+#     labels[torch.abs(labels) < 10] = 0
+#     if np.isnan(null_val):
+#         mask = ~torch.isnan(labels)
+#     else:
+#         mask = labels.ne(null_val)
+#     if not np.isnan(mask_val):
+#         mask &= labels.ge(mask_val)
+#     mask = mask.float()
+#     mask /= torch.mean(mask)
+#     mask = torch.where(torch.isnan(mask), torch.zeros_like(mask), mask)
+#     loss = torch.abs(torch.sub(preds, labels))
+#     loss = loss * mask
+#     loss = torch.where(torch.isnan(loss), torch.zeros_like(loss), loss)
+#     return torch.mean(loss)
+
 def masked_mae(preds, labels, null_val=np.nan, mask_val=np.nan):
+    """Masked MAE cho multi-feature data"""
     labels[torch.abs(labels) < 10] = 0
     if np.isnan(null_val):
         mask = ~torch.isnan(labels)
@@ -156,7 +221,24 @@ def masked_mae(preds, labels, null_val=np.nan, mask_val=np.nan):
     return torch.mean(loss)
 
 
+# def masked_mape(preds, labels, null_val=np.nan, mask_val=np.nan):
+#     labels[torch.abs(labels) < 10] = 0
+#     if np.isnan(null_val):
+#         mask = ~torch.isnan(labels)
+#     else:
+#         mask = labels.ne(null_val)
+#     if not np.isnan(mask_val):
+#         mask &= labels.ge(mask_val)
+#     mask = mask.float()
+#     mask /= torch.mean(mask)
+#     mask = torch.where(torch.isnan(mask), torch.zeros_like(mask), mask)
+#     loss = torch.abs((preds - labels) / labels)
+#     loss = loss * mask
+#     loss = torch.where(torch.isnan(loss), torch.zeros_like(loss), loss)
+#     return torch.mean(loss)
+
 def masked_mape(preds, labels, null_val=np.nan, mask_val=np.nan):
+    """Masked MAPE cho multi-feature data"""
     labels[torch.abs(labels) < 10] = 0
     if np.isnan(null_val):
         mask = ~torch.isnan(labels)
@@ -173,8 +255,25 @@ def masked_mape(preds, labels, null_val=np.nan, mask_val=np.nan):
     return torch.mean(loss)
 
 
+# def masked_mse(preds, labels, null_val=np.nan, mask_val=np.nan):
+#     labels[torch.abs(labels) < 10] = 0
+#     if np.isnan(null_val):
+#         mask = ~torch.isnan(labels)
+#     else:
+#         mask = labels.ne(null_val)
+#     if not np.isnan(mask_val):
+#         mask &= labels.ge(mask_val)
+#     mask = mask.float()
+#     mask /= torch.mean(mask)
+#     mask = torch.where(torch.isnan(mask), torch.zeros_like(mask), mask)
+#     loss = torch.square(torch.sub(preds, labels))
+#     loss = loss * mask
+#     loss = torch.where(torch.isnan(loss), torch.zeros_like(loss), loss)
+#     return torch.mean(loss)
+
 
 def masked_mse(preds, labels, null_val=np.nan, mask_val=np.nan):
+    """Masked MSE cho multi-feature data"""
     labels[torch.abs(labels) < 10] = 0
     if np.isnan(null_val):
         mask = ~torch.isnan(labels)
@@ -191,11 +290,16 @@ def masked_mse(preds, labels, null_val=np.nan, mask_val=np.nan):
     return torch.mean(loss)
 
 
+# def masked_rmse(preds, labels, null_val=np.nan, mask_val=np.nan):
+#     labels[torch.abs(labels) < 10] = 0
+#     return torch.sqrt(masked_mse(preds=preds, labels=labels,
+#                                  null_val=null_val, mask_val=mask_val))
+
 def masked_rmse(preds, labels, null_val=np.nan, mask_val=np.nan):
+    """Masked RMSE cho multi-feature data"""
     labels[torch.abs(labels) < 10] = 0
     return torch.sqrt(masked_mse(preds=preds, labels=labels,
                                  null_val=null_val, mask_val=mask_val))
-
 
 def metric_grid(pred, real):
     mae = masked_mae(pred, real, 0.0, 10).item()

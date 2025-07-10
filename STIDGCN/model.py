@@ -33,11 +33,11 @@ class TemporalEmbedding(nn.Module):
         nn.init.xavier_uniform_(self.time_week)
 
     def forward(self, x):
-        day_emb = x[..., 1]
+        day_emb = x[..., 2]
         time_day = self.time_day[(day_emb[:, :, :] * self.time).type(torch.LongTensor)]
         time_day = time_day.transpose(1, 2).contiguous()
 
-        week_emb = x[..., 2]
+        week_emb = x[..., 3]
         time_week = self.time_week[(week_emb[:, :, :]).type(torch.LongTensor)]
         time_week = time_week.transpose(1, 2).contiguous()
 
@@ -294,6 +294,7 @@ class STIDGCN(nn.Module):
         self.device = device
         self.num_nodes = num_nodes
         self.output_len = 12
+        self.output_features = 2
         diffusion_step = 1
 
         self.Temb = TemporalEmbedding(granularity, channels)
@@ -313,21 +314,59 @@ class STIDGCN(nn.Module):
         self.glu = GLU(channels*2, dropout)
 
         self.regression_layer = nn.Conv2d(
-            channels*2, self.output_len, kernel_size=(1, self.output_len)
+            channels*2, out_channels=self.output_features * self.output_len, kernel_size=(1, 1)
         )
 
     def param_num(self):
         return sum([param.nelement() for param in self.parameters()])
 
     def forward(self, input):
-        x = input
-        # Encoder
-        # Data Embedding
-        time_emb = self.Temb(input.permute(0, 3, 2, 1))
-        x = torch.cat([self.start_conv(x)] + [time_emb], dim=1)
+        data_features = input[..., :2]
+
+        temporal_features = input       # [B, N, T, 4] - all features for temporal embedding
+        
+        # Data embedding: chỉ sử dụng pick, drop
+        data_features = data_features.permute(0, 3, 1, 2)  # [B, 2, N, T]
+        x = self.start_conv(data_features)  # [B, channels, N, T]
+        
+        # Temporal embedding: sử dụng hour, day
+        time_emb = self.Temb(temporal_features)  # [B, channels, T, N]
+        time_emb = time_emb.permute(0, 1, 3, 2)  # [B, channels, N, T]
+        
+        # Combine data and temporal embeddings
+        x = torch.cat([x, time_emb], dim=1)  # [B, channels*2, N, T]
+        
         # IDGCN_Tree
-        x = self.tree(x)
+        x = self.tree(x)  # [B, channels*2, N, T]
+        
         # Decoder
-        gcn = self.glu(x) + x
-        prediction = self.regression_layer(F.relu(gcn))
+        gcn = self.glu(x) + x  # [B, channels*2, N, T]
+        
+        # Final prediction
+        prediction = self.regression_layer(F.relu(gcn))  # [B, 24, N, T]
+        
+        # 🔧 Reshape để có output [B, N, T, 2, 12]
+        # prediction shape: [B, 24, N, T] -> [B, 2, 12, N, T]
+        prediction = prediction.view(
+            prediction.shape[0], 
+            self.output_features, 
+            self.output_len, 
+            prediction.shape[2], 
+            prediction.shape[3]
+        )
+        
+        # Permute để có shape [B, N, 12, 2] - [batch, nodes, time_steps, features]
+        prediction = prediction.permute(0, 3, 4, 2, 1)  # [B, N, T, 12, 2]
+        
         return prediction
+        # x = input
+        # # Encoder
+        # # Data Embedding
+        # time_emb = self.Temb(input.permute(0, 3, 2, 1))
+        # x = torch.cat([self.start_conv(x)] + [time_emb], dim=1)
+        # # IDGCN_Tree
+        # x = self.tree(x)
+        # # Decoder
+        # gcn = self.glu(x) + x
+        # prediction = self.regression_layer(F.relu(gcn))
+        # return prediction
