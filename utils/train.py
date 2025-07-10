@@ -14,7 +14,7 @@ from utils.util import MyEncoder
 from utils.normalization import Standard
 
 
-def seed_all(seed=42):
+def seed_all(seed=6666):
     import random
     random.seed(seed)
     np.random.seed(seed)
@@ -24,7 +24,7 @@ def seed_all(seed=42):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 
-seed_all(42)
+seed_all(6666)
 
 
 def train_model(model: nn.Module,
