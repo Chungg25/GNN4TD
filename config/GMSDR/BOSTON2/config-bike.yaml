@@ -17,15 +17,15 @@ preprocess:
 
 
 train:
-  epochs: 200
+  epochs: 300
   max_grad_norm: 5
-  early_stop_steps: 10
+  early_stop_steps: 30
 
 optimizer:
   name: Adam
   Adam:
-    lr: 0.0005
-    weight_decay: 0.0005
+    lr: 0.001
+    weight_decay: 0.0001
     eps: 0.001
     amsgrad: true
   RMSprop:
