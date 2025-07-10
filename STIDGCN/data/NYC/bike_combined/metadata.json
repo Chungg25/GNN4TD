@@ -1,0 +1,26 @@
+{
+  "data_type": "combined_pick_drop_separate_channels",
+  "pick_key": "bike_pick",
+  "drop_key": "bike_drop",
+  "input_features": 4,
+  "output_channels": 2,
+  "num_nodes": 250,
+  "seq_length_x": 12,
+  "seq_length_y": 12,
+  "feature_breakdown": {
+    "pick_traffic": 1,
+    "drop_traffic": 1,
+    "temporal_features": 2
+  },
+  "dataset_splits": {
+    "train": 3001,
+    "val": 672,
+    "test": 672,
+    "total": 4345
+  },
+  "time_range": {
+    "start": "2016-04-01 00:00:00",
+    "end": "2016-06-30 23:30:00",
+    "frequency": "30min"
+  }
+}
