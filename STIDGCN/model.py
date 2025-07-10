@@ -321,17 +321,17 @@ class STIDGCN(nn.Module):
         return sum([param.nelement() for param in self.parameters()])
 
     def forward(self, input):
-        data_features = input[..., :2]
+        data_features = input[:, :2, :, :]
 
-        temporal_features = input       # [B, N, T, 4] - all features for temporal embedding
+        temporal_features = input.permute(0, 2, 3, 1)       # [B, N, T, 4] - all features for temporal embedding
         
         # Data embedding: chỉ sử dụng pick, drop
-        data_features = data_features.permute(0, 3, 1, 2)  # [B, 2, N, T]
+        # data_features = data_features.permute(0, 3, 1, 2)  # [B, 2, N, T]
         x = self.start_conv(data_features)  # [B, channels, N, T]
         
         # Temporal embedding: sử dụng hour, day
         time_emb = self.Temb(temporal_features)  # [B, channels, T, N]
-        time_emb = time_emb.permute(0, 1, 3, 2)  # [B, channels, N, T]
+        # time_emb = time_emb.permute(0, 1, 3, 2)  # [B, channels, N, T]
         
         # Combine data and temporal embeddings
         x = torch.cat([x, time_emb], dim=1)  # [B, channels*2, N, T]
