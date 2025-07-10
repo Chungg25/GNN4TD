@@ -24,7 +24,7 @@ def seed_all(seed=6666):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 
-# seed_all(6666)
+seed_all(6666)
 
 
 def train_model(model: nn.Module,
