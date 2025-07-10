@@ -13,6 +13,20 @@ from utils.evaluate import evaluate
 from utils.util import MyEncoder
 from utils.normalization import Standard
 
+
+def seed_all(seed=42):
+    import random
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
+seed_all(42)
+
+
 def train_model(model: nn.Module,
                    dataloaders,
                    optimizer,
@@ -27,6 +41,9 @@ def train_model(model: nn.Module,
                    early_stop_steps: float = None):
 
     save_path = os.path.join(folder, 'best_model.pkl')
+
+    train_durations = []
+    inference_durations = []
 
     if os.path.exists(save_path):
         print("path exist")
@@ -88,9 +105,11 @@ def train_model(model: nn.Module,
                 if phase == 'train': 
                     log = "Epoch: {:03d}, Training Time: {:.4f} secs"
                     print(log.format(epoch, (epoch_end - epoch_start)))
+                    train_durations.append(epoch_end - epoch_start)
                 if phase == 'validate': 
                     log = "Epoch: {:03d}, Inference Time: {:.4f} secs"
                     print(log.format(epoch, (epoch_end - epoch_start)))
+                    inference_durations.append(epoch_end - epoch_start)
                 running_metrics[phase] = evaluate(np.concatenate(predictions), np.concatenate(running_targets), normal)
                 running_metrics[phase].pop('rmse')
                 running_metrics[phase].pop('pcc')
@@ -118,6 +137,9 @@ def train_model(model: nn.Module,
             writer.add_scalars('Loss', {
                 f'{phase} loss': running_loss[phase] / len(dataloaders[phase].dataset) for phase in phases},
                                global_step=epoch)
+        print(f"\nAverage Train Time: {np.mean(train_durations):.4f} secs")
+        print(f"Average Inference Time: {np.mean(inference_durations):.4f} secs")
+
     except (ValueError, KeyboardInterrupt):
         writer.close()
         time_elapsed = time.perf_counter() - since

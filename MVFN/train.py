@@ -26,7 +26,7 @@ parser.add_argument('--parameter', type=str, default='parameter/bike', help='loc
 parser.add_argument('--batch_size', type=int, default=64, help='batch size')
 parser.add_argument('--learning_rate', type=float, default=0.001, help='init learning rate')
 parser.add_argument('--epochs', type=int, default=200, help='num of training epochs')
-parser.add_argument('--seed', type=int, default=0, help='random seed')
+parser.add_argument('--seed', type=int, default=6666, help='random seed')
 parser.add_argument('--train_rate', type=float, default=24*7*4, help='train_rate')
 parser.add_argument('--val_rate', type=float, default=24*7*2, help='val_rate')
 parser.add_argument('--input_dim', type=int, default=12, help='input_dim')
@@ -68,12 +68,17 @@ def main():
 
     best_loss = 100
     best_epoch = 1
-    for epoch in range(1, args.epochs + 1):
-        start = time.time()
-        train_loss = train(train_loader, model, criterion, optimizer)
-        valid_loss = valid(valid_loader, model, criterion)
 
-        end = time.time()
+    train_durations = []
+    inference_durations = []
+    for epoch in range(1, args.epochs + 1):
+        train_start = time.perf_counter()
+        train_loss = train(train_loader, model, criterion, optimizer)
+        train_time = time.perf_counter() - train_start
+
+        valid_start = time.perf_counter()
+        valid_loss = valid(valid_loader, model, criterion)
+        valid_time = time.perf_counter() - valid_start
 
         # 保存一下模型
         if valid_loss < best_loss:
@@ -81,8 +86,14 @@ def main():
             best_loss = valid_loss
             torch.save(model, args.parameter)
 
-        print('Epoch:{}, train_loss:{:.5f}, valid_loss:{:.5f},本轮耗时：{:.2f}s, best_epoch:{}, best_loss:{:.5f}'
-              .format(epoch, train_loss, valid_loss, end - start, best_epoch, best_loss))
+        train_durations.append(train_time)
+        inference_durations.append(valid_time)
+
+        print('Epoch:{}, train_loss:{:.5f}, valid_loss:{:.5f}, Training Time:{:.4f}s, Inference Time:{:.4f}s, best_epoch:{}, best_loss:{:.5f}'
+              .format(epoch, train_loss, valid_loss, train_time, valid_time, best_epoch, best_loss))
+    
+    print(f"\nAverage Train Time: {np.mean(train_durations):.4f} secs")
+    print(f"Average Inference Time: {np.mean(inference_durations):.4f} secs")
 
     output, target = test(test_loader)
     # print(f"Tran output | test: {output[0, :1, :]}")
