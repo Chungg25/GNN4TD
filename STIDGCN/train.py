@@ -18,7 +18,7 @@ parser.add_argument("--data", type=str, default="PEMS08", help="data path")
 parser.add_argument("--input_dim", type=int, default=3, help="number of input_dim")
 parser.add_argument("--batch_size", type=int, default=16, help="batch size")
 parser.add_argument("--learning_rate", type=float, default=0.001, help="learning rate")
-parser.add_argument("--dropout", type=float, default=0.1, help="dropout rate")
+parser.add_argument("--dropout", type=float, default=0.3, help="dropout rate")
 parser.add_argument(
     "--weight_decay", type=float, default=0.0001, help="weight decay rate"
 )
@@ -77,8 +77,8 @@ class trainer:
             device, input_dim, num_nodes, channels, granularity, dropout
         )
         self.model.to(device)
-        self.optimizer = Ranger(self.model.parameters(), lr=lrate, weight_decay=wdecay)
-        # self.optimizer = optim.Adam(self.model.parameters(), lr=lrate, weight_decay=wdecay)
+        # self.optimizer = Ranger(self.model.parameters(), lr=lrate, weight_decay=wdecay)
+        self.optimizer = optim.Adam(self.model.parameters(), lr=lrate, weight_decay=wdecay)
         self.loss = util.MAE_torch
         self.scaler = scaler
         self.clip = 5
