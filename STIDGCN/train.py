@@ -22,7 +22,7 @@ parser.add_argument("--dropout", type=float, default=0.1, help="dropout rate")
 parser.add_argument(
     "--weight_decay", type=float, default=0.0001, help="weight decay rate"
 )
-parser.add_argument("--epochs", type=int, default=500, help="")
+parser.add_argument("--epochs", type=int, default=200, help="")
 parser.add_argument("--print_every", type=int, default=50, help="")
 parser.add_argument(
     "--save",
@@ -34,7 +34,7 @@ parser.add_argument("--expid", type=int, default=1, help="experiment id")
 parser.add_argument(
     "--es_patience",
     type=int,
-    default=100,
+    default=10,
     help="quit if no improvement after this many iterations",
 )
 
