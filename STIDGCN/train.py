@@ -353,11 +353,45 @@ def main():
             trainx = torch.Tensor(x).to(device)
             trainy = torch.Tensor(y).to(device)
 
-            print(f"Debug - trainx shape: {trainx.shape}") 
-            print(f"Debug - trainy shape: {trainy.shape}")
+            if iter == 0:
+                print(f"🔍 Raw data shapes:")
+                print(f"  x: {x.shape}")
+                print(f"  y: {y.shape}")
+                print(f"🔍 After torch.Tensor:")
+                print(f"  trainx: {trainx.shape}")
+                print(f"  trainy: {trainy.shape}")
+                print(f"🔍 trainx features (last dim): {trainx.shape[-1]}")
+                print(f"🔍 Expected input_dim: {args.input_dim}")
+                
+                # 🔧 KIỂM TRA NẾU DATA CÓ ĐỦ FEATURES
+                if trainx.shape[-1] != args.input_dim:
+                    print(f"❌ ERROR: Data has {trainx.shape[-1]} features but model expects {args.input_dim}")
+                    print(f"📊 Adjusting input_dim to match data...")
+                    args.input_dim = trainx.shape[-1]
+                    
+                    # 🔧 TẠO LẠI MODEL VỚI ĐÚNG input_dim
+                    print(f"🔄 Recreating model with input_dim={args.input_dim}")
+                    engine = trainer(
+                        scaler,
+                        args.input_dim,
+                        num_nodes,
+                        channels,
+                        args.dropout,
+                        args.learning_rate,
+                        args.weight_decay,
+                        device,
+                        granularity,
+                    )
   
             trainx = trainx.permute(0, 3, 2, 1)  
             trainy = trainy.permute(0, 2, 1, 3)
+
+            if iter == 0:
+                print(f"🔍 After permutation:")
+                print(f"  trainx: {trainx.shape}")
+                print(f"  trainy: {trainy.shape}")
+                print(f"🔍 Model expects input: [batch, {args.input_dim}, {num_nodes}, time]")
+                print(f"🔍 Model expects output: [batch, {num_nodes}, time, 12, 2]")
             
             metrics = engine.train(trainx, trainy)
             train_loss.append(metrics[0])
