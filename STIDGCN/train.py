@@ -194,6 +194,66 @@ def main():
         num_nodes = 266
         granularity = 48
         channels = 96
+    
+    elif args.data == "DC/taxi_pick":
+        args.data = "data//" + args.data
+        num_nodes = 271
+        granularity = 48
+        channels = 96
+    
+    elif args.data == "DC/taxi_drop":
+        args.data = "data//" + args.data
+        num_nodes = 271
+        granularity = 48
+        channels = 96
+    
+    elif args.data == "CHI/taxi_drop":
+        args.data = "data//" + args.data
+        num_nodes = 77
+        granularity = 48
+        channels = 96
+    
+    elif args.data == "CHI/taxi_pick":
+        args.data = "data//" + args.data
+        num_nodes = 77
+        granularity = 48
+        channels = 96
+    
+    elif args.data == "DC/bike_drop":
+        args.data = "data//" + args.data
+        num_nodes = 196
+        granularity = 48
+        channels = 32
+    
+    elif args.data == "DC/bike_pick":
+        args.data = "data//" + args.data
+        num_nodes = 196
+        granularity = 48
+        channels = 32
+    
+    elif args.data == "BOSTON/bike_pick":
+        args.data = "data//" + args.data
+        num_nodes = 145
+        granularity = 48
+        channels = 32
+
+    elif args.data == "BOSTON/bike_drop":
+        args.data = "data//" + args.data
+        num_nodes = 145
+        granularity = 48
+        channels = 32
+    
+    elif args.data == "BAY/bike_pick":
+        args.data = "data//" + args.data
+        num_nodes = 208
+        granularity = 48
+        channels = 32
+    
+    elif args.data == "BAY/bike_drop":
+        args.data = "data//" + args.data
+        num_nodes = 208
+        granularity = 48
+        channels = 32
 
     elif args.data == "taxi_drop":
         args.data = "data//" + args.data
