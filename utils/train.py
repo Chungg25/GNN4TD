@@ -52,8 +52,10 @@ def train_model(model: nn.Module,
             running_loss, running_metrics = defaultdict(float), dict()
             for phase in phases:
                 if phase == 'train':
+                    epoch_start = time.perf_counter()
                     model.train()
                 else:
+                    epoch_start = time.perf_counter()
                     model.eval()
                 steps, predictions, running_targets = 0, list(), list()
                 tqdm_loader = tqdm(enumerate(dataloaders[phase]))
@@ -82,6 +84,13 @@ def train_model(model: nn.Module,
                     tqdm_loader.set_description(
                         f'{phase:5} epoch: {epoch:3}, {phase:5} loss: {normal[0].rmse_transform(running_loss[phase] / steps):3.6}')
                     torch.cuda.empty_cache()
+                epoch_end = time.perf_counter()
+                if phase == 'train': 
+                    log = "Epoch: {:03d}, Training Time: {:.4f} secs"
+                    print(log.format(epoch, (epoch_end - epoch_start)))
+                if phase == 'validate': 
+                    log = "Epoch: {:03d}, Inference Time: {:.4f} secs"
+                    print(log.format(epoch, (epoch_end - epoch_start)))
                 running_metrics[phase] = evaluate(np.concatenate(predictions), np.concatenate(running_targets), normal)
                 running_metrics[phase].pop('rmse')
                 running_metrics[phase].pop('pcc')

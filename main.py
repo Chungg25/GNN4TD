@@ -1,6 +1,7 @@
 import argparse
 import shutil, yaml, torch
 import torch.nn as nn
+import time
 import os
 from models.model import create_model
 from utils.train import train_model, test_model
@@ -51,6 +52,7 @@ def train(conf, data_category):
     data_loader, normal = get_data_loader(**conf['data'], data_category=data_category, device=device,
                                           model_name=model_name)
 
+
     train_model(model=model,
                 dataloaders=data_loader,
                 trainer=trainer,
@@ -61,6 +63,7 @@ def train(conf, data_category):
                 tensorboard_folder=run_folder,
                 device=device,
                 **conf['train'])
+
     test_model(folder=save_folder,
                trainer=trainer,
                model=model,
