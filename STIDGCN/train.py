@@ -491,7 +491,7 @@ def main():
 
         train_csv = pd.DataFrame(result)
         train_csv.round(8).to_csv(f"{path}/train.csv")
-        if epochs_since_best_mae >= args.es_patience and i >= 300:
+        if epochs_since_best_mae >= args.es_patience and i >= 200:
             break
 
     print("Average Training Time: {:.4f} secs/epoch".format(np.mean(train_time)))
