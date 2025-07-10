@@ -321,7 +321,7 @@ class STIDGCN(nn.Module):
         return sum([param.nelement() for param in self.parameters()])
 
     def forward(self, input):
-        data_features = input[:, :2, :, :]
+        data_features = input
 
         temporal_features = input.permute(0, 2, 3, 1)       # [B, N, T, 4] - all features for temporal embedding
         
