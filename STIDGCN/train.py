@@ -83,7 +83,7 @@ class trainer:
         self.scaler = scaler
         self.clip = 5
         print("The number of parameters: {}".format(self.model.param_num()))
-        print(self.model)
+        # print(self.model)
 
     def train(self, input, real_val):
         self.model.train()
