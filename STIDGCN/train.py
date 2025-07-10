@@ -16,13 +16,13 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--device", type=str, default="cuda:0", help="")
 parser.add_argument("--data", type=str, default="PEMS08", help="data path")
 parser.add_argument("--input_dim", type=int, default=3, help="number of input_dim")
-parser.add_argument("--batch_size", type=int, default=16, help="batch size")
+parser.add_argument("--batch_size", type=int, default=64, help="batch size")
 parser.add_argument("--learning_rate", type=float, default=0.001, help="learning rate")
-parser.add_argument("--dropout", type=float, default=0.3, help="dropout rate")
+parser.add_argument("--dropout", type=float, default=0.1, help="dropout rate")
 parser.add_argument(
     "--weight_decay", type=float, default=0.0001, help="weight decay rate"
 )
-parser.add_argument("--epochs", type=int, default=300, help="")
+parser.add_argument("--epochs", type=int, default=200, help="")
 parser.add_argument("--print_every", type=int, default=50, help="")
 parser.add_argument(
     "--save",
@@ -34,7 +34,7 @@ parser.add_argument("--expid", type=int, default=1, help="experiment id")
 parser.add_argument(
     "--es_patience",
     type=int,
-    default=30,
+    default=10,
     help="quit if no improvement after this many iterations",
 )
 
@@ -77,13 +77,13 @@ class trainer:
             device, input_dim, num_nodes, channels, granularity, dropout
         )
         self.model.to(device)
-        # self.optimizer = Ranger(self.model.parameters(), lr=lrate, weight_decay=wdecay)
-        self.optimizer = optim.Adam(self.model.parameters(), lr=lrate, weight_decay=wdecay)
+        self.optimizer = Ranger(self.model.parameters(), lr=lrate, weight_decay=wdecay)
+        # self.optimizer = optim.Adam(self.model.parameters(), lr=lrate, weight_decay=wdecay)
         self.loss = util.MAE_torch
         self.scaler = scaler
         self.clip = 5
         print("The number of parameters: {}".format(self.model.param_num()))
-        # print(self.model)
+        print(self.model)
 
     def train(self, input, real_val):
         self.model.train()
@@ -194,6 +194,66 @@ def main():
         num_nodes = 266
         granularity = 48
         channels = 96
+    
+    elif args.data == "DC/taxi_pick":
+        args.data = "data//" + args.data
+        num_nodes = 271
+        granularity = 48
+        channels = 96
+    
+    elif args.data == "DC/taxi_drop":
+        args.data = "data//" + args.data
+        num_nodes = 271
+        granularity = 48
+        channels = 96
+    
+    elif args.data == "CHI/taxi_drop":
+        args.data = "data//" + args.data
+        num_nodes = 77
+        granularity = 48
+        channels = 96
+    
+    elif args.data == "CHI/taxi_pick":
+        args.data = "data//" + args.data
+        num_nodes = 77
+        granularity = 48
+        channels = 96
+    
+    elif args.data == "DC/bike_drop":
+        args.data = "data//" + args.data
+        num_nodes = 196
+        granularity = 48
+        channels = 32
+    
+    elif args.data == "DC/bike_pick":
+        args.data = "data//" + args.data
+        num_nodes = 196
+        granularity = 48
+        channels = 32
+    
+    elif args.data == "BOSTON/bike_pick":
+        args.data = "data//" + args.data
+        num_nodes = 145
+        granularity = 48
+        channels = 32
+
+    elif args.data == "BOSTON/bike_drop":
+        args.data = "data//" + args.data
+        num_nodes = 145
+        granularity = 48
+        channels = 32
+    
+    elif args.data == "BAY/bike_pick":
+        args.data = "data//" + args.data
+        num_nodes = 208
+        granularity = 48
+        channels = 32
+    
+    elif args.data == "BAY/bike_drop":
+        args.data = "data//" + args.data
+        num_nodes = 208
+        granularity = 48
+        channels = 32
 
     elif args.data == "taxi_drop":
         args.data = "data//" + args.data
