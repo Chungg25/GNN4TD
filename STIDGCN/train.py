@@ -356,7 +356,8 @@ def main():
             print(f"Debug - trainx shape: {trainx.shape}") 
             print(f"Debug - trainy shape: {trainy.shape}")
   
-            trainx = trainx.permute(0, 3, 1, 2)  
+            trainx = trainx.permute(0, 3, 2, 1)  
+            trainy = trainy.permute(0, 2, 1, 3)
             
             metrics = engine.train(trainx, trainy)
             train_loss.append(metrics[0])
@@ -396,7 +397,8 @@ def main():
             testy = torch.Tensor(y).to(device)
             # testy = testy.transpose(1, 3)
             # metrics = engine.eval(testx, testy[:, 0, :, :])
-            testx = testx.permute(0, 3, 1, 2)
+            testx = testx.permute(0, 3, 2, 1)
+            testy = testy.permute(0, 2, 1, 3)
             metrics = engine.eval(testx, testy)
             valid_loss.append(metrics[0])
             valid_mape.append(metrics[1])
@@ -467,7 +469,7 @@ def main():
                 for iter, (x, y) in enumerate(dataloader["test_loader"].get_iterator()):
                     testx = torch.Tensor(x).to(device)
                     # testx = testx.transpose(1, 3)
-                    testx = testx.permute(0, 3, 1, 2)
+                    testx = testx.permute(0, 3, 2, 1)
                     with torch.no_grad():
                         preds = engine.model(testx)
                         preds = preds[:, :, -1, :, :]
@@ -561,7 +563,7 @@ def main():
     for iter, (x, y) in enumerate(dataloader["test_loader"].get_iterator()):
         testx = torch.Tensor(x).to(device)
         # testx = testx.transpose(1, 3)
-        testx = testx.permute(0, 3, 1, 2)
+        testx = testx.permute(0, 3, 2, 1)
         with torch.no_grad():
             preds = engine.model(testx)
             preds = preds[:, :, -1, :, :]
