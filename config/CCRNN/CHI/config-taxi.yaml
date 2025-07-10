@@ -5,7 +5,7 @@ device: 0
 data:
   dataset: nogrid
   city: CHI
-  batch_size: 32
+  batch_size: 16
   X_list: [12,11,10,9,8,7,6,5,4,3,2,1]
   Y_list: [0,1,2,3,4,5,6,7,8,9,10,11]
   _len: [672,672]
@@ -17,15 +17,15 @@ preprocess:
 
 
 train:
-  epochs: 200
+  epochs: 300
   max_grad_norm: 5
-  early_stop_steps: 10
+  early_stop_steps: 30
 
 optimizer:
   name: Adam
   Adam:
-    lr: 0.0005
-    weight_decay: 0.0005
+    lr: 0.001
+    weight_decay: 0.0001
     eps: 0.001
     amsgrad: true
   RMSprop:

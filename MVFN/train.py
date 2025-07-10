@@ -49,7 +49,7 @@ def main():
     adj_data = utils.graph(args).to(device)
 
     mean, std = np.mean(train_data), np.std(train_data)
-    scaler = MinMaxScaler()
+    scaler = StandardScaler()
     train_data = scaler.transform(mean, std, train_data)
     val_data = scaler.transform(mean, std, val_data)
     test_data = scaler.transform(mean, std, test_data)
