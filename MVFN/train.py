@@ -84,6 +84,11 @@ def main():
         if valid_loss < best_loss:
             best_epoch = epoch
             best_loss = valid_loss
+
+            save_dir = os.path.dirname(args.parameter)
+            if save_dir and not os.path.exists(save_dir):
+                os.makedirs(save_dir, exist_ok=True)
+                
             torch.save(model, args.parameter)
 
         train_durations.append(train_time)
