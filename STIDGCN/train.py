@@ -352,6 +352,9 @@ def main():
             # metrics = engine.train(trainx, trainy[:, 0, :, :])
             trainx = torch.Tensor(x).to(device)
             trainy = torch.Tensor(y).to(device)
+
+            print(f"Debug - trainx shape: {trainx.shape}") 
+            print(f"Debug - trainy shape: {trainy.shape}")
   
             trainx = trainx.permute(0, 3, 1, 2)  
             
@@ -459,7 +462,7 @@ def main():
             elif i > 100:
                 outputs = []
                 realy = torch.Tensor(dataloader["y_test"]).to(device)
-                realy = realy.transpose(1, 3)[:, 0, :, :]
+                # realy = realy.transpose(1, 3)[:, 0, :, :]
 
                 for iter, (x, y) in enumerate(dataloader["test_loader"].get_iterator()):
                     testx = torch.Tensor(x).to(device)
