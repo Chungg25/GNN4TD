@@ -77,8 +77,8 @@ def generate_train_val_test(args):
     # num_test = 6831, using the last 6831 examples as testing.
     # for the rest: 7/8 is used for training, and 1/8 is used for validation.
     num_samples = x.shape[0]
-    num_test = round(num_samples * 0.2)
-    num_train = round(num_samples * 0.7)
+    num_test = round(672)
+    num_train = round(num_samples - 672 - 672)
     num_val = num_samples - num_test - num_train
 
     # train
@@ -110,7 +110,7 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset', type=str, choices=['METRLA', 'PEMSBAY'], default='METRLA', help='which dataset to run')
+    parser.add_argument('--dataset', type=str, default='METRLA', help='which dataset to run')
     parser.add_argument("--output_dir", type=str, default="METRLA/", help="Output directory.")
     parser.add_argument("--traffic_df_filename", type=str, default="METRLA/metr-la.h5", help="Raw traffic readings.")
     args = parser.parse_args()
@@ -119,4 +119,6 @@ if __name__ == "__main__":
         args.traffic_df_filename = f'{args.dataset}/metr-la.h5'
     elif args.dataset == 'PEMSBAY':
         args.traffic_df_filename = f'{args.dataset}/pems-bay.h5'
+    elif args.dataset == 'NYC':
+        args.traffic_df_filename = f'taxi_pick_df.h5'
     main(args)

@@ -138,7 +138,7 @@ class MegaCRN(nn.Module):
         
         # deocoder
         self.decoder_dim = self.rnn_units + self.mem_dim
-        self.decoder = ADCRNN_Decoder(self.num_nodes, self.output_dim, self.decoder_dim, self.cheb_k, self.num_layers)
+        self.decoder = ADCRNN_Decoder(self.num_nodes, self.output_dim + self.ycov_dim, self.decoder_dim, self.cheb_k, self.num_layers)
 
         # output
         self.proj = nn.Sequential(nn.Linear(self.decoder_dim, self.output_dim, bias=True))
