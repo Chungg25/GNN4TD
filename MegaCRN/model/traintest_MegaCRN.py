@@ -75,15 +75,15 @@ def evaluate(model, mode):
             mses.append(masked_mse_loss(y_pred, y_true).item())
             # Important for MegaCRN model to let T come first.
             y_true, y_pred = y_true.permute(1, 0, 2, 3), y_pred.permute(1, 0, 2, 3)
-            l_3.append(masked_mae_loss(y_pred[2:3], y_true[2:3]).item())
-            m_3.append(masked_mape_loss(y_pred[2:3], y_true[2:3]).item())
-            r_3.append(masked_mse_loss(y_pred[2:3], y_true[2:3]).item())
-            l_6.append(masked_mae_loss(y_pred[5:6], y_true[5:6]).item())
-            m_6.append(masked_mape_loss(y_pred[5:6], y_true[5:6]).item())
-            r_6.append(masked_mse_loss(y_pred[5:6], y_true[5:6]).item())
-            l_12.append(masked_mae_loss(y_pred[11:12], y_true[11:12]).item())
-            m_12.append(masked_mape_loss(y_pred[11:12], y_true[11:12]).item())
-            r_12.append(masked_mse_loss(y_pred[11:12], y_true[11:12]).item())
+            # l_3.append(masked_mae_loss(y_pred[2:3], y_true[2:3]).item())
+            # m_3.append(masked_mape_loss(y_pred[2:3], y_true[2:3]).item())
+            # r_3.append(masked_mse_loss(y_pred[2:3], y_true[2:3]).item())
+            # l_6.append(masked_mae_loss(y_pred[5:6], y_true[5:6]).item())
+            # m_6.append(masked_mape_loss(y_pred[5:6], y_true[5:6]).item())
+            # r_6.append(masked_mse_loss(y_pred[5:6], y_true[5:6]).item())
+            # l_12.append(masked_mae_loss(y_pred[11:12], y_true[11:12]).item())
+            # m_12.append(masked_mape_loss(y_pred[11:12], y_true[11:12]).item())
+            # r_12.append(masked_mse_loss(y_pred[11:12], y_true[11:12]).item())
             ys_true.append(y_true)
             ys_pred.append(y_pred)
         mean_loss = np.mean(losses)
@@ -93,9 +93,9 @@ def evaluate(model, mode):
         l_12, m_12, r_12 = np.mean(l_12), np.mean(m_12), np.sqrt(np.mean(r_12))
         if mode == 'test':
             logger.info('Horizon overall: mae: {:.4f}, mape: {:.4f}, rmse: {:.4f}'.format(mean_mae, mean_mape, mean_rmse))
-            logger.info('Horizon 15mins: mae: {:.4f}, mape: {:.4f}, rmse: {:.4f}'.format(l_3, m_3, r_3))
-            logger.info('Horizon 30mins: mae: {:.4f}, mape: {:.4f}, rmse: {:.4f}'.format(l_6, m_6, r_6))
-            logger.info('Horizon 60mins: mae: {:.4f}, mape: {:.4f}, rmse: {:.4f}'.format(l_12, m_12, r_12))
+            # logger.info('Horizon 15mins: mae: {:.4f}, mape: {:.4f}, rmse: {:.4f}'.format(l_3, m_3, r_3))
+            # logger.info('Horizon 30mins: mae: {:.4f}, mape: {:.4f}, rmse: {:.4f}'.format(l_6, m_6, r_6))
+            # logger.info('Horizon 60mins: mae: {:.4f}, mape: {:.4f}, rmse: {:.4f}'.format(l_12, m_12, r_12))
         return mean_loss, ys_true, ys_pred
         
 def traintest_model():  
@@ -156,13 +156,13 @@ def traintest_model():
 
 #########################################################################################    
 parser = argparse.ArgumentParser()
-parser.add_argument('--dataset', type=str, choices=['METRLA', 'PEMSBAY'], default='METRLA', help='which dataset to run')
-parser.add_argument('--trainval_ratio', type=float, default=0.8, help='the ratio of training and validation data among the total')
-parser.add_argument('--val_ratio', type=float, default=0.125, help='the ratio of validation data among the trainval ratio')
+parser.add_argument('--dataset', type=str, default='METRLA', help='which dataset to run')
+parser.add_argument('--trainval_ratio', type=float, default=0.7, help='the ratio of training and validation data among the total')
+parser.add_argument('--val_ratio', type=float, default=0.15, help='the ratio of validation data among the trainval ratio')
 parser.add_argument('--num_nodes', type=int, default=207, help='num_nodes')
 parser.add_argument('--seq_len', type=int, default=12, help='input sequence length')
 parser.add_argument('--horizon', type=int, default=12, help='output sequence length')
-parser.add_argument('--input_dim', type=int, default=1, help='number of input channel')
+parser.add_argument('--input_dim', type=int, default=3, help='number of input channel')
 parser.add_argument('--output_dim', type=int, default=1, help='number of output channel')
 parser.add_argument('--max_diffusion_step', type=int, default=3, help='max diffusion step or Cheb K')
 parser.add_argument('--num_rnn_layers', type=int, default=1, help='number of rnn layers')
@@ -191,6 +191,9 @@ if args.dataset == 'METRLA':
     data_path = f'../{args.dataset}/metr-la.h5'
     args.num_nodes = 207
 elif args.dataset == 'PEMSBAY':
+    data_path = f'../{args.dataset}/pems-bay.h5'
+    args.num_nodes = 325
+elif args.dataset == 'NYC':
     data_path = f'../{args.dataset}/pems-bay.h5'
     args.num_nodes = 325
 else:
