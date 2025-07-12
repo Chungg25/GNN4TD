@@ -172,10 +172,10 @@ parser.add_argument('--mem_dim', type=int, default=64, help='dimension of meta-n
 parser.add_argument("--loss", type=str, default='mask_mae_loss', help="mask_mae_loss")
 parser.add_argument('--lamb', type=float, default=0.01, help='lamb value for separate loss')
 parser.add_argument('--lamb1', type=float, default=0.01, help='lamb1 value for compact loss')
-parser.add_argument("--epochs", type=int, default=200, help="number of epochs of training")
-parser.add_argument("--patience", type=int, default=20, help="patience used for early stop")
-parser.add_argument("--batch_size", type=int, default=64, help="size of the batches")
-parser.add_argument("--lr", type=float, default=0.01, help="base learning rate")
+parser.add_argument("--epochs", type=int, default=300, help="number of epochs of training")
+parser.add_argument("--patience", type=int, default=30, help="patience used for early stop")
+parser.add_argument("--batch_size", type=int, default=16, help="size of the batches")
+parser.add_argument("--lr", type=float, default=0.001, help="base learning rate")
 parser.add_argument("--steps", type=eval, default=[50, 100], help="steps")
 parser.add_argument("--lr_decay_ratio", type=float, default=0.1, help="lr_decay_ratio")
 parser.add_argument("--epsilon", type=float, default=1e-3, help="optimizer epsilon")
@@ -184,7 +184,7 @@ parser.add_argument("--use_curriculum_learning", type=eval, choices=[True, False
 parser.add_argument("--cl_decay_steps", type=int, default=2000, help="cl_decay_steps")
 parser.add_argument('--test_every_n_epochs', type=int, default=5, help='test_every_n_epochs')
 parser.add_argument('--gpu', type=int, default=0, help='which gpu to use')
-# parser.add_argument('--seed', type=int, default=100, help='random seed.')
+parser.add_argument('--seed', type=int, default=6666, help='random seed.')
 args = parser.parse_args()
         
 if args.dataset == 'METRLA':
@@ -194,8 +194,8 @@ elif args.dataset == 'PEMSBAY':
     data_path = f'../{args.dataset}/pems-bay.h5'
     args.num_nodes = 325
 elif args.dataset == 'NYC':
-    data_path = f'../{args.dataset}/pems-bay.h5'
-    args.num_nodes = 325
+    data_path = f'../{args.dataset}/taxi.h5'
+    args.num_nodes = 266
 else:
     pass # including more datasets in the future    
 
@@ -264,9 +264,9 @@ os.environ ['NUMEXPR_NUM_THREADS'] = str(cpu_num)
 torch.set_num_threads(cpu_num)
 device = torch.device("cuda:{}".format(args.gpu)) if torch.cuda.is_available() else torch.device("cpu")
 # Please comment the following three lines for running experiments multiple times.
-# np.random.seed(args.seed)
-# torch.manual_seed(args.seed)
-# if torch.cuda.is_available(): torch.cuda.manual_seed(args.seed)
+np.random.seed(args.seed)
+torch.manual_seed(args.seed)
+if torch.cuda.is_available(): torch.cuda.manual_seed(args.seed)
 #####################################################################################################
 
 data = {}
