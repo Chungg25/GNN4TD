@@ -173,7 +173,7 @@ parser.add_argument("--loss", type=str, default='mask_mae_loss', help="mask_mae_
 parser.add_argument('--lamb', type=float, default=0.01, help='lamb value for separate loss')
 parser.add_argument('--lamb1', type=float, default=0.01, help='lamb1 value for compact loss')
 parser.add_argument("--epochs", type=int, default=300, help="number of epochs of training")
-parser.add_argument("--patience", type=int, default=30, help="patience used for early stop")
+parser.add_argument("--patience", type=int, default=300, help="patience used for early stop")
 parser.add_argument("--batch_size", type=int, default=16, help="size of the batches")
 parser.add_argument("--lr", type=float, default=0.001, help="base learning rate")
 parser.add_argument("--steps", type=eval, default=[50, 100], help="steps")
