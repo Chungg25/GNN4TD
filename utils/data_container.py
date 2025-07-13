@@ -53,6 +53,7 @@ def get_data_loader(data_category: list,
             data_drop = hf[f'{category}_drop'][:]
         
         data.append(normal[i].fit_transform(np.stack([data_pick, data_drop], axis=2)))
+        # data.append(np.stack([data_pick, data_drop], axis=2))
     data = np.concatenate(data, axis=1)
 
     X_, Y_ = list(), list()
@@ -61,6 +62,7 @@ def get_data_loader(data_category: list,
         Y_.append([data[i + j] for j in Y_list])
     X_ = torch.from_numpy(np.asarray(X_)).float()
     Y_ = torch.from_numpy(np.asarray(Y_)).float()
+
     dls = dict()
     for key in ['train', 'validate', 'test']:
         dataset = traffic_demand_prediction_dataset(X_, Y_, key, val_len, test_len)

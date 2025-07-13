@@ -39,11 +39,20 @@ def read_data(args):
     data = np.dstack((pick,drop))
     Nodes = len(data[0])
 
-    train_rate, val_rate = args.train_rate, args.val_rate
-    train, val, test = data[0:-train_rate, :, :], data[-train_rate:-val_rate, :, :], data[-val_rate:, :, :]
+    # val_num, test_num = args.val_rate, args.test_rate
+    # total = data.shape[0]
+    # train_num = total - val_num - test_num
+    # train = data[:train_num, :, :]
+    # val = data[train_num:train_num + val_num, :, :]
+    # test = data[train_num + val_num:, :, :]
+
+    # train_rate, val_rate = args.train_rate, args.val_rate
+    # train, val, test = data[0:-train_rate, :, :], data[-train_rate:-val_rate, :, :], data[-val_rate:, :, :]
+    # Nodes = len(data[0])
+    
     Nodes = len(data[0])
 
-    return train, val, test, Nodes
+    return data, Nodes
 
 def graph(args):
     adj_data = pd.read_csv(args.adj_data, header=None, index_col=None).values
@@ -62,26 +71,31 @@ def graph(args):
     return torch.mm(degree_matrix, graph_data)  # 返回 \hat A=D^(-1) * A ,这个等价于\hat A = D_{-1/2}*A*D_{-1/2}
 
 
-def get_data(data,input_dim,output_dim):
-    train=[]
-    test=[]
-    L=len(data)
-    for i in range(L-input_dim-output_dim+1):#这里需要+1，不然数据不齐
-        train_seq=data[i:i+input_dim,:, :]
-        train_label=data[i+input_dim:i+input_dim+output_dim,:, :]
-        train.append(train_seq)
-        test.append(train_label)
-    train=np.array(train)
-    test=np.array(test)
-    train=torch.FloatTensor(train)
-    test=torch.FloatTensor(test)
+def get_data(data, input_dim, output_dim):
+    X, Y = [], []
+    L = len(data)
+    for i in range(L - input_dim - output_dim + 1):
+        X.append(data[i:i+input_dim, :, :])
+        Y.append(data[i+input_dim:i+input_dim+output_dim, :, :])
+    X = np.array(X)
+    Y = np.array(Y)
+    X = torch.FloatTensor(X)
+    Y = torch.FloatTensor(Y)
+    return X, Y
 
-    return train,test
+def data_process(args, data):
+    X, Y = get_data(data, args.input_dim, args.output_dim)
+    total = X.shape[0]
+    val_num, test_num = int(args.val_rate), int(args.train_rate)
+    train_num = total - val_num - test_num
 
-def data_process(args, train, val, test):
-    train_X, train_Y = get_data(train, args.input_dim, args.output_dim)
-    val_X, val_Y = get_data(val, args.input_dim, args.output_dim)
-    test_X, test_Y = get_data(test, args.input_dim, args.output_dim)
+    train_X, train_Y = X[:train_num], Y[:train_num]
+    val_X, val_Y = X[train_num:train_num+val_num], Y[train_num:train_num+val_num]
+    test_X, test_Y = X[train_num+val_num:], Y[train_num+val_num:]
+
+    print(f"train_X: {train_X.shape}, train_Y: {train_Y.shape}")
+    print(f"val_X: {val_X.shape}, val_Y: {val_Y.shape}")
+    print(f"test_X: {test_X.shape}, test_Y: {test_Y.shape}")
 
     train = TensorDataset(train_X, train_Y)
     val = TensorDataset(val_X, val_Y)

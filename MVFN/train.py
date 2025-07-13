@@ -27,8 +27,8 @@ parser.add_argument('--batch_size', type=int, default=16, help='batch size')
 parser.add_argument('--learning_rate', type=float, default=0.001, help='init learning rate')
 parser.add_argument('--epochs', type=int, default=300, help='num of training epochs')
 parser.add_argument('--seed', type=int, default=6666, help='random seed')
-parser.add_argument('--train_rate', type=float, default=24*7*4, help='train_rate')
-parser.add_argument('--val_rate', type=float, default=24*7*2, help='val_rate')
+parser.add_argument('--train_rate', type=float, default=672, help='train_rate')
+parser.add_argument('--val_rate', type=float, default=672, help='val_rate')
 parser.add_argument('--input_dim', type=int, default=12, help='input_dim')
 parser.add_argument('--hidden_dim', type=int, default=128, help='hidden_dim')
 parser.add_argument('--output_dim', type=int, default=12, help='output_dim')
@@ -45,16 +45,15 @@ random.seed(args.seed)  # Python random module.
 
 def main():
 
-    train_data, val_data, test_data, Nodes = utils.read_data(args)
+    data, Nodes = utils.read_data(args)
     adj_data = utils.graph(args).to(device)
 
-    mean, std = np.mean(train_data), np.std(train_data)
+    mean, std = np.mean(data), np.std(data)
+    print(f"Data mean: {mean}, std: {std}")
     scaler = StandardScaler()
-    train_data = scaler.transform(mean, std, train_data)
-    val_data = scaler.transform(mean, std, val_data)
-    test_data = scaler.transform(mean, std, test_data)
+    data = scaler.transform(mean, std, data)
 
-    train_loader, valid_loader, test_loader = utils.data_process(args, train_data, val_data, test_data)
+    train_loader, valid_loader, test_loader = utils.data_process(args, data)
 
     from model import Network
     model = Network(adj_data, args.input_dim, args.hidden_dim, args.output_dim).to(device)
@@ -198,4 +197,3 @@ def test(test_loader):
 
 if __name__ == '__main__':
     main()
-
